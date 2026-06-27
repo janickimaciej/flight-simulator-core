@@ -36,4 +36,4 @@ namespace App
 		t.value4b(frame.thrust);
 		t.value1b(frame.trigger);
 	}
-};
+}

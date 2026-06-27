@@ -21,4 +21,4 @@ namespace Physics
 
 		SimulationBufferElement(Common::MapName mapName);
 	};
-};
+}

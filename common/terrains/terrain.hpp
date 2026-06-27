@@ -10,4 +10,4 @@ namespace Common::Terrains
 		virtual float heightDerivZ(float x, float z) const = 0;
 		virtual ~Terrain() = default;
 	};
-};
+}

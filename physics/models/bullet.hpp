@@ -24,4 +24,4 @@ namespace Physics
 
 		Timestep m_spawnTimestep{};
 	};
-};
+}

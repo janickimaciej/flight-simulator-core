@@ -14,4 +14,4 @@ namespace Physics
 		int m_day{};
 		float m_timeOfDay{};
 	};
-};
+}

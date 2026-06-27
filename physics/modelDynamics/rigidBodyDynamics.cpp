@@ -56,4 +56,4 @@ namespace Physics
 
 		return newState;
 	}
-};
+}

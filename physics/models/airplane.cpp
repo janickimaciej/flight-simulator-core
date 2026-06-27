@@ -148,4 +148,4 @@ namespace Physics
 			m_hp = 100;
 		}
 	}
-};
+}

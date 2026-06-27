@@ -258,4 +258,4 @@ namespace Physics
 			player.second.lockInput[!isSecondOdd] = false;
 		}
 	}
-};
+}

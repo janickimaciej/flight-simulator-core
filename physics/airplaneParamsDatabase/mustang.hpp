@@ -74,7 +74,7 @@ namespace Physics
 
 		inline constexpr float maxThrust = 5500;
 		inline constexpr glm::vec3 thrustPoint{0, 0, 0.44};
-	};
+	}
 
 	inline const AirplaneParams mustangParams
 	{
@@ -111,4 +111,4 @@ namespace Physics
 
 		database::mustang::maxThrust, database::mustang::thrustPoint
 	};
-};
+}

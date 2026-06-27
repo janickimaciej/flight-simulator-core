@@ -24,4 +24,4 @@ namespace App
 		t.container1b(frame.serverTimestamp);
 		t.value1b(frame.playerId);
 	}
-};
+}

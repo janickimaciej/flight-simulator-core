@@ -112,4 +112,4 @@ namespace Physics
 			second -= secondsPerMinute;
 		}
 	}
-};
+}

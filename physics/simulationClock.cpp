@@ -70,4 +70,4 @@ namespace Physics
 		Timestamp latency = (receiveTimestamp - sendTimestamp) / 2;
 		return receiveTimestamp - (serverTimestamp + latency);
 	}
-};
+}

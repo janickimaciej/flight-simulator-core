@@ -12,4 +12,4 @@ namespace Physics
 		std::array<bool, 2> lockInput{};
 		PlayerInfo info{};
 	};
-};
+}

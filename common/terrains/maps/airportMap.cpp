@@ -16,4 +16,4 @@ namespace Common::Terrains
 	{
 		return 0;
 	}
-};
+}

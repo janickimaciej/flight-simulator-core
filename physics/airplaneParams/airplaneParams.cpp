@@ -143,4 +143,4 @@ namespace Physics
 			glm::sin(2 * criticalAngleNegativeRad)) / (criticalAnglePositiveRad -
 			criticalAngleNegativeRad);
 	}
-};
+}

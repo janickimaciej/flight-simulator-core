@@ -159,4 +159,4 @@ namespace Physics
 	{
 		return -state.velocity - glm::cross(state.angVelocityRad, point);
 	}
-};
+}

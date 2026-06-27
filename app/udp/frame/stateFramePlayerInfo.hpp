@@ -37,4 +37,4 @@ namespace App
 		t.value1b(playerInfo.hp);
 		t.container4b(playerInfo.state);
 	}
-};
+}

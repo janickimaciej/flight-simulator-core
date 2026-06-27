@@ -13,4 +13,4 @@ namespace Common
 	{
 		return static_cast<AirplaneTypeName>(airplaneTypeName);
 	}
-};
+}

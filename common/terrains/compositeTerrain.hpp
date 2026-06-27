@@ -18,4 +18,4 @@ namespace Common::Terrains
 	protected:
 		std::vector<std::unique_ptr<Terrain>> m_elements{};
 	};
-};
+}

@@ -20,4 +20,4 @@ namespace Common::Terrains
 		float m_offset{};
 		Common::ValueNoise<8> valueNoise{347};
 	};
-};
+}

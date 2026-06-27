@@ -37,4 +37,4 @@ namespace Physics
 
 		static glm::vec3 computeAirVelocity(const Common::State& state, const glm::vec3& point);
 	};
-};
+}

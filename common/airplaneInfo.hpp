@@ -13,4 +13,4 @@ namespace Common
 		AirplaneTypeName airplaneTypeName{};
 		int hp{};
 	};
-};
+}

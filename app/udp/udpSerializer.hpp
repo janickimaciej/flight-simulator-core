@@ -52,4 +52,4 @@ namespace App
 		static Physics::Timestamp unpackTimestamp(const std::array<unsigned char, 2>& timestamp);
 		static Physics::Timestep unpackTimestep(const std::array<unsigned char, 2>& timestep);
 	};
-};
+}

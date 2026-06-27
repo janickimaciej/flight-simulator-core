@@ -31,4 +31,4 @@ namespace Common::Terrains
 		}
 		return heightDerivZ;
 	}
-};
+}

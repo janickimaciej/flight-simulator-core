@@ -33,4 +33,4 @@ namespace Physics
 		// converts linearly from [-1, 1] to [min, max]
 		static float relativeToAbs(float relative, float min, float max);
 	};
-};
+}

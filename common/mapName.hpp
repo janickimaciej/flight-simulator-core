@@ -13,4 +13,4 @@ namespace Common
 	};
 
 	std::size_t toSizeT(MapName mapName);
-};
+}

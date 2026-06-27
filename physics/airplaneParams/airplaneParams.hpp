@@ -56,4 +56,4 @@ namespace Physics
 		static float adjustLiftCoefDeriv(float liftCoefDeriv, float criticalAngleNegativeRad,
 			float criticalAnglePositiveRad);
 	};
-};
+}

@@ -13,4 +13,4 @@ namespace Physics::Collisions
 		Ellipsoid ellipsoid{};
 		std::array<glm::vec3, 6> points{};
 	};
-};
+}

@@ -10,4 +10,4 @@ namespace Common
 		float thrustRelative{};
 		bool gunfire{};
 	};
-};
+}

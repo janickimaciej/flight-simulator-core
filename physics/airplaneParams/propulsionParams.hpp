@@ -7,4 +7,4 @@ namespace Physics
 		float maxThrust{};
 		glm::vec3 thrustPoint{};
 	};
-};
+}

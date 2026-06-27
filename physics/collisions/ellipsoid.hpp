@@ -11,4 +11,4 @@ namespace Physics::Collisions
 		float semiaxisY{};
 		float semiaxisZ{};
 	};
-};
+}

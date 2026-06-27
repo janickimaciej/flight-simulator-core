@@ -85,4 +85,4 @@ namespace Physics
 			100
 		}
 	};
-};
+}

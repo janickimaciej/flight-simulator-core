@@ -27,4 +27,4 @@ namespace Common::Terrains
 		return 2 * glm::pi<float>() * m_amplitude / m_length *
 			std::cos(2 * glm::pi<float>() * z / m_length + m_phaseRad);
 	}
-};
+}

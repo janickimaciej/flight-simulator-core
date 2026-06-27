@@ -29,4 +29,4 @@ namespace Common
 		void setOrientation(const glm::vec3& direction); // direction must be a unit vector
 		void normalize();
 	};
-};
+}

@@ -22,4 +22,4 @@ namespace App
 		t.container1b(frame.clientTimestamp);
 		t.value1b(frame.airplaneType);
 	}
-};
+}

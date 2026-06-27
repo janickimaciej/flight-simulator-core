@@ -43,4 +43,4 @@ namespace Common
 
 		void updateMatrix();
 	};
-};
+}

@@ -23,4 +23,4 @@ namespace Physics
 
 		static void normalize(int& second, int& millisecond);
 	};
-};
+}

@@ -26,4 +26,4 @@ namespace Physics
 	private:
 		static void normalize(int& second, int& step);
 	};
-};
+}

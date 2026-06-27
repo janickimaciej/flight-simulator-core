@@ -19,4 +19,4 @@ namespace Physics
 
 		return newState;
 	}
-};
+}

@@ -83,7 +83,6 @@ namespace Common
 			glm::vec3{right}
 		));
 
-		// constructor takes arguments column-wise
 		glm::mat3 orientationMatrix =
 		{
 			right.x, right.y, right.z,
@@ -98,4 +97,4 @@ namespace Common
 	{
 		orientation = glm::normalize(orientation);
 	}
-};
+}

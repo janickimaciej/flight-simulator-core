@@ -10,4 +10,4 @@ namespace Physics
 		glm::mat3 momentOfInertia{};
 		glm::vec3 nosePosition{};
 	};
-};
+}

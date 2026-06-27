@@ -206,4 +206,4 @@ namespace App
 		deserializedTimestep.step |= static_cast<unsigned int>(timestep[1]);
 		return deserializedTimestep;
 	}
-};
+}

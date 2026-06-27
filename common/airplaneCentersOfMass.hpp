@@ -13,4 +13,4 @@ namespace Common
 		glm::vec3{0, 0, 4.15},
 		glm::vec3{0, 0, 12.5}
 	};
-};
+}

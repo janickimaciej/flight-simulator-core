@@ -8,4 +8,4 @@ namespace Common
 	{
 		return static_cast<std::size_t>(mapName);
 	}
-};
+}

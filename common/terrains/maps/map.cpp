@@ -35,4 +35,4 @@ namespace Common::Terrains
 		m_spacingX{spacingX},
 		m_spacingZ{spacingZ}
 	{ }
-};
+}

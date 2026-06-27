@@ -48,4 +48,4 @@ namespace Physics
 
 		void clearLocks(const Timestep& timestep);
 	};
-};
+}

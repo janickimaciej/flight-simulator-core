@@ -26,4 +26,4 @@ namespace Common::Terrains
 		float m_spacingX{};
 		float m_spacingZ{};
 	};
-};
+}

@@ -10,4 +10,4 @@ namespace Physics
 		PlayerInput input{};
 		PlayerState state{};
 	};
-};
+}

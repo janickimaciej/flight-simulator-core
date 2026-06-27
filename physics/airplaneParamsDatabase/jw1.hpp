@@ -74,7 +74,7 @@ namespace Physics
 
 		inline constexpr float maxThrust = 130000;
 		inline constexpr glm::vec3 thrustPoint{0, 0, 0.44};
-	};
+	}
 
 	inline const AirplaneParams jw1Params
 	{
@@ -111,4 +111,4 @@ namespace Physics
 
 		database::jw1::maxThrust, database::jw1::thrustPoint
 	};
-};
+}

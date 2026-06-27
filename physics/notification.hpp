@@ -22,4 +22,4 @@ namespace Physics
 		bool m_ignoring = false;
 		std::mutex m_mutex{};
 	};
-};
+}

@@ -8,4 +8,4 @@ namespace Common
 	{
 		State state{};
 	};
-};
+}

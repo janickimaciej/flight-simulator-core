@@ -104,4 +104,4 @@ namespace Physics::Collisions
 		transformedPoint.z /= ellipsoid.semiaxisZ;
 		return transformedPoint;
 	}
-};
+}

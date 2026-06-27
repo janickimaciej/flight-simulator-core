@@ -117,4 +117,4 @@ namespace Physics
 	{
 		return (min + max + relative * (max - min)) / 2;
 	}
-};
+}

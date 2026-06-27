@@ -14,4 +14,4 @@ namespace Common::Terrains
 		std::make_unique<AirportMap>(),
 		std::make_unique<HillsMap>()
 	};
-};
+}

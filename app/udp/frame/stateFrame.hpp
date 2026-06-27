@@ -29,4 +29,4 @@ namespace App
 		t.container1b(frame.timestep);
 		t.container(frame.playerInfos, Common::maxPlayerCount);
 	}
-};
+}

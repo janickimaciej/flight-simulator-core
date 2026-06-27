@@ -11,4 +11,4 @@ namespace Physics
 		int hp{};
 		Common::State state{};
 	};
-};
+}

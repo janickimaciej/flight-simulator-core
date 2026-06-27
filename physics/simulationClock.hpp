@@ -26,4 +26,4 @@ namespace Physics
 		Timestamp calculateOffset(const Timestamp& sendTimestamp, const Timestamp& receiveTimestamp,
 			const Timestamp& serverTimestamp) const;
 	};
-};
+}

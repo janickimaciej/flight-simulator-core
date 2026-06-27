@@ -24,4 +24,4 @@ namespace Physics
 		float ctrlMaxAngleRad{};
 		glm::vec3 ctrlLiftPoint{};
 	};
-};
+}

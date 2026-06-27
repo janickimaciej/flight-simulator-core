@@ -9,4 +9,4 @@ namespace Physics
 
 		static float airDensity(float height);
 	};
-};
+}

@@ -16,4 +16,4 @@ namespace Physics
 		Collisions::Airplane collisionModel{};
 		int initialHP{};
 	};
-};
+}

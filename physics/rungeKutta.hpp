@@ -59,4 +59,4 @@ namespace Physics
 				k[3][i]);
 		}
 	}
-};
+}

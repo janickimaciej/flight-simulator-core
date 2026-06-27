@@ -9,4 +9,4 @@ namespace Physics
 	public:
 		Common::State computeNewState(const Common::State& oldState) const;
 	};
-};
+}

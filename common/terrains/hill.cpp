@@ -30,4 +30,4 @@ namespace Common::Terrains
 			(z - m_centerZ) * (z - m_centerZ)) / (m_radius * m_radius)) *
 			(z - m_centerZ) / (m_radius * m_radius);
 	}
-};
+}

@@ -25,4 +25,4 @@ namespace Physics
 	{
 		return m_timeOfDay;
 	}
-};
+}

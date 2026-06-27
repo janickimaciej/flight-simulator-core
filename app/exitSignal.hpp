@@ -23,4 +23,4 @@ namespace App
 		std::vector<std::function<void()>> m_onExitCallbacks{};
 		std::mutex m_mutex{};
 	};
-};
+}

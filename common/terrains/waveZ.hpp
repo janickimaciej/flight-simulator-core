@@ -18,4 +18,4 @@ namespace Common::Terrains
 		float m_length{};
 		float m_phaseRad{};
 	};
-};
+}

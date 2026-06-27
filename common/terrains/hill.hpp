@@ -19,4 +19,4 @@ namespace Common::Terrains
 		float m_centerX{};
 		float m_centerZ{};
 	};
-};
+}

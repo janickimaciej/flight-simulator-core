@@ -43,4 +43,4 @@ namespace App
 
 		m_mutex.unlock();
 	}
-};
+}

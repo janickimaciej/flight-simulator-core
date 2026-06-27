@@ -112,4 +112,4 @@ namespace Common
 			});
 		m_matrix = m_state.matrix() * scaleMatrix;
 	}
-};
+}

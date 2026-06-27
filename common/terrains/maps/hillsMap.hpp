@@ -11,4 +11,4 @@ namespace Common::Terrains
 		virtual float getMaxHeight() const override;
 		virtual ~HillsMap() = default;
 	};
-};
+}

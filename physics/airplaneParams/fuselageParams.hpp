@@ -14,4 +14,4 @@ namespace Physics
 		float sideDragCoef{};
 		glm::vec3 sideDragPoint{};
 	};
-};
+}

@@ -13,4 +13,4 @@ namespace Physics
 			std::array<float, stateLength>& stateDerivative) const = 0;
 		virtual ~RungeKuttaRightHandSide() = default;
 	};
-};
+}

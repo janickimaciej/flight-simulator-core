@@ -20,4 +20,4 @@ namespace Physics
 		const Common::Terrains::Map& m_map;
 		std::mt19937 m_generator{};
 	};
-};
+}

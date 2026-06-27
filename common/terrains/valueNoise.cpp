@@ -30,4 +30,4 @@ namespace Common::Terrains
 			valueNoise.heightDerivZ(m_frequency * (x + m_offset), m_frequency * (z + m_offset));
 		return normalizedHeightDerivZ * 2 * m_amplitude;
 	}
-};
+}

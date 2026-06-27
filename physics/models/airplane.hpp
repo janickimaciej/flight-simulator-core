@@ -45,4 +45,4 @@ namespace Physics
 		std::optional<Timestep> m_lastShotTimestep = std::nullopt;
 		int m_hp{};
 	};
-};
+}

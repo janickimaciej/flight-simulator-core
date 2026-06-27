@@ -29,4 +29,4 @@ namespace Physics
 		virtual void computeNetForceAndNetTorque(const Common::State& state, glm::vec3& netForce,
 			glm::vec3& netTorque) const = 0;
 	};
-};
+}

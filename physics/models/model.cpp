@@ -20,4 +20,4 @@ namespace Physics
 	{
 		Common::Transformable::scale(scaleRatio);
 	}
-};
+}

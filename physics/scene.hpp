@@ -43,4 +43,4 @@ namespace Physics
 		void updateAirplanePhase2(int index, const Timestep& timestep);
 		bool updateBullet(Bullet& bullet);
 	};
-};
+}

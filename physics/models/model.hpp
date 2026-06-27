@@ -14,4 +14,4 @@ namespace Physics
 		virtual void scale(float scaleRatio) override; // locally
 		virtual ~Model() = default;
 	};
-};
+}

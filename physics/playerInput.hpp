@@ -10,4 +10,4 @@ namespace Physics
 		float thrust{};
 		bool trigger{};
 	};
-};
+}
