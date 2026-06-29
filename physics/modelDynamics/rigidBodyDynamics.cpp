@@ -46,7 +46,7 @@ namespace Physics
 	{
 		std::array<float, Common::State::stateLength> oldStateArr{};
 		oldState.toArray(oldStateArr);
-	
+
 		std::array<float, Common::State::stateLength> newStateArr{};
 		RungeKutta<Common::State::stateLength>::RK4(0, physicsTimeStep, oldStateArr, *this,
 			newStateArr);

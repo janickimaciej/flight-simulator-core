@@ -34,7 +34,7 @@ namespace App
 	{
 		return m_exitCode;
 	}
-	
+
 	void ExitSignal::registerOnExit(std::function<void()> callback)
 	{
 		m_mutex.lock();

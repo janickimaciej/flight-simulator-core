@@ -7,7 +7,7 @@ namespace Physics
 	{
 		setState(state);
 	}
-	
+
 	void Bullet::update(const Bullet& previousBullet)
 	{
 		setState(m_dynamics.computeNewState(previousBullet.getState()));

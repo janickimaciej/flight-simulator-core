@@ -18,13 +18,13 @@ namespace Physics
 		PlayerInput getPlayerInput() const;
 		void setPlayerInput(const PlayerInput& playerInput);
 		const Common::AirplaneCtrl& getCtrl() const;
-	
+
 	private:
 		const AirplaneParams& m_airplaneParams;
 		PlayerInput m_playerInput{};
 		Common::AirplaneCtrl m_airplaneCtrl{};
 		const int& m_hp;
-		
+
 		void updateElevator(float previousElevatorAngleRad);
 		void updateRudder(float previousRudderAngleRad);
 		void updateAilerons(float previousAileronsAngleRad);

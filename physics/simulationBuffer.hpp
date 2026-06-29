@@ -22,7 +22,7 @@ namespace Physics
 		static constexpr int simulationBufferSize = Common::stepsPerSecond;
 
 		SimulationBuffer(int ownId, Common::MapName mapName);
-		
+
 		void writeInitFrame(const Timestep& timestep, int playerId, const PlayerInfo& playerInfo);
 		void writeControlFrame(const Timestep& timestep, int playerId,
 			const PlayerInput& playerInput);
@@ -37,12 +37,12 @@ namespace Physics
 	private:
 		std::array<std::unique_ptr<SimulationBufferElement>, simulationBufferSize> m_buffer{};
 		int m_ownId{};
-		
+
 		void addAndUpdatePlayers(const Timestep& timestep,
 			const std::unordered_map<int, PlayerInfo>& playerInfos);
 		void removePlayers(const Timestep& timestep,
 			const std::unordered_map<int, PlayerInfo>& playerInfos);
-		
+
 		void addAndUpdatePlayers(const Timestep& previousTimestep, const Timestep& timestep);
 		void removePlayers(const Timestep& previousTimestep, const Timestep& timestep);
 

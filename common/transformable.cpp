@@ -95,7 +95,7 @@ namespace Common
 		m_isWindingOrderClockwise = !m_isWindingOrderClockwise;
 		updateMatrix();
 	}
-	
+
 	bool Transformable::isWindingOrderClockwise() const
 	{
 		return m_isWindingOrderClockwise;

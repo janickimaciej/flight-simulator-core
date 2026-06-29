@@ -74,7 +74,7 @@ namespace Physics
 		const std::unordered_map<int, PlayerInfo>& playerInfos)
 	{
 		m_buffer[timestep.step]->mutex.lock();
-		
+
 		addAndUpdatePlayers(timestep, playerInfos);
 		removePlayers(timestep, playerInfos);
 		m_buffer[timestep.step]->lock = true;
@@ -91,7 +91,7 @@ namespace Physics
 		const Physics::Timestep& timestep)
 	{
 		m_buffer[timestep.step]->mutex.lock();
-		
+
 		bool isSecondOdd = timestep.second % 2;
 		m_buffer[timestep.step]->removedPlayers[isSecondOdd] = kickedPlayers;
 
@@ -104,7 +104,7 @@ namespace Physics
 
 		m_buffer[previousTimestep.step]->mutex.lock();
 		m_buffer[timestep.step]->mutex.lock();
-		
+
 		if (!m_buffer[timestep.step]->lock)
 		{
 			addAndUpdatePlayers(previousTimestep, timestep);
@@ -124,7 +124,7 @@ namespace Physics
 		}
 
 		clearLocks(timestep);
-		
+
 		m_buffer[previousTimestep.step]->mutex.unlock();
 		m_buffer[timestep.step]->mutex.unlock();
 
@@ -228,7 +228,7 @@ namespace Physics
 		{
 			m_buffer[timestep.step]->players.erase(player);
 		}
-		
+
 		std::vector<int> keysToBeDeleted;
 		for (std::pair<const int, SimulationBufferPlayer>& player :
 			m_buffer[timestep.step]->players)

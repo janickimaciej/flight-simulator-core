@@ -55,7 +55,7 @@ namespace Physics
 	{
 		return m_airplaneCtrl;
 	}
-	
+
 	PlayerInput FlightCtrl::getPlayerInput() const
 	{
 		return m_playerInput;

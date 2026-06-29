@@ -43,7 +43,7 @@ namespace Physics
 		inertia.mass = mass;
 		inertia.momentOfInertia = momentOfInertia;
 		inertia.nosePosition = -centerOfMass;
-	
+
 		hStab.orientation = glm::angleAxis(glm::radians(hStabIncidenceAngleDeg),
 			glm::vec3{1, 0, 0});
 		hStab.area = hStabArea;
@@ -62,7 +62,7 @@ namespace Physics
 		hStab.ctrlMinAngleRad = glm::radians(elevatorMinAngleDeg);
 		hStab.ctrlMaxAngleRad = glm::radians(elevatorMaxAngleDeg);
 		hStab.ctrlLiftPoint = elevatorForcePoint - centerOfMass;
-	
+
 		vStab.orientation = glm::angleAxis(glm::radians(vStabIncidenceAngleDeg),
 			glm::vec3{1, 0, 0});
 		vStab.orientation = glm::angleAxis(glm::radians(-90.0f), glm::vec3{0, 0, 1}) *
@@ -83,7 +83,7 @@ namespace Physics
 		vStab.ctrlMinAngleRad = -glm::radians(rudderMaxAngleDeg);
 		vStab.ctrlMaxAngleRad = glm::radians(rudderMaxAngleDeg);
 		vStab.ctrlLiftPoint = rudderForcePoint - centerOfMass;
-	
+
 		leftWing.orientation = glm::angleAxis(glm::radians(wingsIncidenceAngleDeg),
 			glm::vec3{1, 0, 0});
 		leftWing.area = wingsArea / 2;
@@ -105,7 +105,7 @@ namespace Physics
 		leftWing.ctrlMaxAngleRad = glm::radians(aileronsMaxAngleDeg);
 		leftWing.ctrlLiftPoint = rightAileronForcePoint - centerOfMass;
 		leftWing.ctrlLiftPoint.x *= -1;
-	
+
 		rightWing.orientation = glm::angleAxis(glm::radians(wingsIncidenceAngleDeg),
 			glm::vec3{1, 0, 0});
 		rightWing.area = wingsArea / 2;

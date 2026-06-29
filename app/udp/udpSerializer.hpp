@@ -33,7 +33,7 @@ namespace App
 		static void serializeStateFrame(const Physics::Timestep& timestep,
 			const std::unordered_map<int, Physics::PlayerInfo>& playerInfos,
 			std::vector<std::uint8_t>& buffer);
-		
+
 		static void deserializeInitReqFrame(const std::vector<std::uint8_t>& buffer,
 			Physics::Timestamp& clientTimestamp, Common::AirplaneTypeName& airplaneTypeName);
 		static void deserializeInitResFrame(const std::vector<std::uint8_t>& buffer,

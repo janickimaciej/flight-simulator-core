@@ -31,7 +31,7 @@ namespace Physics
 		DayNightCycle m_dayNightCycle{};
 
 		const Common::Terrains::Map& m_map;
-		
+
 		void addAndUpdateAirplanes(const Scene& previousScene,
 			const std::unordered_map<int, PlayerInfo>& playerInfos,
 			const std::unordered_map<int, bool>& stateLocks, const Timestep& timestep);

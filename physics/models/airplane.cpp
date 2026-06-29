@@ -75,7 +75,7 @@ namespace Physics
 	{
 		setState(m_dynamics.computeNewState(getState()));
 	}
-	
+
 	PlayerInfo Airplane::getPlayerInfo() const
 	{
 		return PlayerInfo
@@ -89,7 +89,7 @@ namespace Physics
 			}
 		};
 	}
-	
+
 	Common::AirplaneInfo Airplane::getAirplaneInfo() const
 	{
 		return Common::AirplaneInfo
@@ -110,7 +110,7 @@ namespace Physics
 	{
 		return m_flightCtrl.getCtrl();
 	}
-	
+
 	const Collisions::Airplane& Airplane::getCollisionModel() const
 	{
 		return m_collisionModel;

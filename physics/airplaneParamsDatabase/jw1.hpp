@@ -21,7 +21,7 @@ namespace Physics
 		};
 		inline constexpr glm::vec3 centerOfMass = Common::airplaneCentersOfMass[
 			toSizeT(Common::AirplaneTypeName::jw1)];
-	
+
 		inline constexpr float hStabIncidenceAngleDeg = 0;
 		inline constexpr float hStabArea = 9.22f;
 		inline constexpr float hStabLiftCoefConst = 0;
@@ -36,7 +36,7 @@ namespace Physics
 		inline constexpr float elevatorMinAngleDeg = -15;
 		inline constexpr float elevatorMaxAngleDeg = 15;
 		inline constexpr glm::vec3 elevatorForcePoint{0, 0, 18.2};
-	
+
 		inline constexpr float vStabIncidenceAngleDeg = 0;
 		inline constexpr float vStabArea = 7.74f;
 		inline constexpr float vStabLiftCoefConst = 0;
@@ -50,7 +50,7 @@ namespace Physics
 		inline constexpr float rudderLiftCoefDeriv = 0.2f;
 		inline constexpr float rudderMaxAngleDeg = 15;
 		inline constexpr glm::vec3 rudderForcePoint{0, 1.31, 19.6};
-	
+
 		inline constexpr float wingsIncidenceAngleDeg = 0;
 		inline constexpr float wingsArea = 55;
 		inline constexpr float wingsLiftCoefConst = 0;

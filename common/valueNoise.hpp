@@ -105,7 +105,7 @@ namespace Common
 
 		return smoothDerivTZ * (lerp1 - lerp0);
 	}
-	
+
 	template <unsigned int periodExponent>
 	void ValueNoise<periodExponent>::common(float x, float z, float& tX, float& tZ, float& y00,
 		float& y01, float& y10, float& y11) const

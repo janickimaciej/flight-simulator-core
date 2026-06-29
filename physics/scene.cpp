@@ -86,7 +86,7 @@ namespace Physics
 					}});
 				m_bullets.insert({index, std::list<Bullet>{}});
 			}
-			
+
 			updateAirplanePhase1(index, previousScene, playerInfos.at(index), stateLocks.at(index));
 		}
 

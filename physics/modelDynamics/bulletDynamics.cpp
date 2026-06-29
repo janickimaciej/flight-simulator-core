@@ -8,7 +8,7 @@ namespace Physics
 	Common::State BulletDynamics::computeNewState(const Common::State& oldState) const
 	{
 		Common::State newState{};
-		
+
 		static constexpr float g = 9.81f;
 		glm::vec3 oldVelocityGlobal = oldState.orientation * oldState.velocity;
 		newState.position = oldState.position + oldVelocityGlobal * physicsTimeStep +

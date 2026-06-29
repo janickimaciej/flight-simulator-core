@@ -22,7 +22,7 @@ namespace Physics
 
 		std::uniform_real_distribution<float> xFloatDistribution(0, m_map.getLengthX());
 		std::uniform_real_distribution<float> zFloatDistribution(0, m_map.getLengthZ());
-		
+
 		state.position.x = xFloatDistribution(m_generator);
 		static constexpr float heightMargin = 50;
 		state.position.y = m_map.getMaxHeight() + heightMargin;

@@ -22,7 +22,7 @@ namespace Common
 		virtual void moveZ(float distance); // locally
 
 		virtual ~Transformable() = default;
-	
+
 	protected:
 		Transformable();
 		glm::mat4 getMatrix() const;

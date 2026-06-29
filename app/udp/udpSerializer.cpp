@@ -164,7 +164,7 @@ namespace App
 				}});
 		}
 	}
-	
+
 	std::array<unsigned char, 2> UDPSerializer::packTimestamp(const Physics::Timestamp& timestamp)
 	{
 		std::array<unsigned char, 2> serializedTimestamp{};

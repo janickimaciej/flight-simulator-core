@@ -29,7 +29,7 @@ namespace Physics
 
 		float time{};
 		std::array<float, stateLength> state{};
-	
+
 		rightHandSide.rightHandSide(oldTime, oldState, k[0]);
 
 		time = oldTime + timeStep / 2;
