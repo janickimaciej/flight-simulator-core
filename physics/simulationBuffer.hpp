@@ -21,7 +21,7 @@ namespace Physics
 	public:
 		static constexpr int simulationBufferSize = Common::stepsPerSecond;
 
-		SimulationBuffer(int ownId, Common::MapName mapName);
+		SimulationBuffer(int ownId, Common::MapName map);
 
 		void writeInitFrame(const Timestep& timestep, int playerId, const PlayerInfo& playerInfo);
 		void writeControlFrame(const Timestep& timestep, int playerId,

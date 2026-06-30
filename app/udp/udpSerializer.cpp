@@ -5,7 +5,7 @@
 #include "app/udp/frame/initResFrame.hpp"
 #include "app/udp/frame/stateFrame.hpp"
 #include "app/udp/udpFrameType.hpp"
-#include "common/airplaneTypeName.hpp"
+#include "common/airplaneType.hpp"
 #include "physics/playerInfo.hpp"
 #include "physics/playerInput.hpp"
 #include "physics/playerState.hpp"
@@ -27,11 +27,11 @@ namespace App
 	using InputAdapter = bitsery::InputBufferAdapter<std::vector<std::uint8_t>>;
 
 	void UDPSerializer::serializeInitReqFrame(const Physics::Timestamp& clientTimestamp,
-		Common::AirplaneTypeName airplaneTypeName, std::vector<std::uint8_t>& buffer)
+		Common::AirplaneType airplaneType, std::vector<std::uint8_t>& buffer)
 	{
 		InitReqFrame frame{};
 		frame.clientTimestamp = packTimestamp(clientTimestamp);
-		frame.airplaneType = toUChar(airplaneTypeName);
+		frame.airplaneType = toUChar(airplaneType);
 
 		std::size_t size = bitsery::quickSerialization<OutputAdapter>(buffer, frame);
 		buffer.resize(size);
@@ -86,7 +86,7 @@ namespace App
 					playerInfo.second.input.roll,
 					playerInfo.second.input.thrust,
 					playerInfo.second.input.trigger,
-					toUChar(playerInfo.second.state.airplaneTypeName),
+					toUChar(playerInfo.second.state.airplaneType),
 					static_cast<unsigned char>(playerInfo.second.state.hp),
 					playerInfo.second.state.state.toArray()
 				});
@@ -97,13 +97,13 @@ namespace App
 	}
 
 	void UDPSerializer::deserializeInitReqFrame(const std::vector<std::uint8_t>& buffer,
-		Physics::Timestamp& clientTimestamp, Common::AirplaneTypeName& airplaneTypeName)
+		Physics::Timestamp& clientTimestamp, Common::AirplaneType& airplaneType)
 	{
 		InitReqFrame frame{};
 		bitsery::quickDeserialization<InputAdapter>({buffer.begin(), buffer.size()}, frame);
 
 		clientTimestamp = unpackTimestamp(frame.clientTimestamp);
-		airplaneTypeName = Common::fromUChar(frame.airplaneType);
+		airplaneType = Common::fromUChar(frame.airplaneType);
 	}
 
 	void UDPSerializer::deserializeInitResFrame(const std::vector<std::uint8_t>& buffer,
@@ -157,7 +157,7 @@ namespace App
 					},
 					Physics::PlayerState
 					{
-						static_cast<Common::AirplaneTypeName>(playerInfo.airplaneType),
+						static_cast<Common::AirplaneType>(playerInfo.airplaneType),
 						playerInfo.hp,
 						Common::State(playerInfo.state)
 					}

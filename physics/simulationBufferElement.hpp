@@ -19,6 +19,6 @@ namespace Physics
 		bool lock{};
 		std::array<std::vector<int>, 2> removedPlayers{};
 
-		SimulationBufferElement(Common::MapName mapName);
+		SimulationBufferElement(Common::MapName map);
 	};
 }

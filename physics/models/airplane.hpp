@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common/airplaneInfo.hpp"
-#include "common/airplaneTypeName.hpp"
+#include "common/airplaneType.hpp"
 #include "physics/airplaneParams/airplaneParams.hpp"
 #include "physics/collisions/airplane.hpp"
 #include "physics/flightCtrl.hpp"
@@ -18,7 +18,7 @@ namespace Physics
 	class Airplane : public Model
 	{
 	public:
-		Airplane(const Common::AirplaneTypeName& airplaneTypeName, int hp);
+		Airplane(const Common::AirplaneType& airplaneType, int hp);
 		Airplane(const Airplane& airplane);
 		Airplane(Airplane&& airplane) noexcept;
 		void updatePhase1(const Airplane* previousAirplane, const PlayerInfo& playerInfo,
@@ -26,7 +26,7 @@ namespace Physics
 		void updatePhase2();
 		PlayerInfo getPlayerInfo() const;
 		Common::AirplaneInfo getAirplaneInfo() const;
-		Common::AirplaneTypeName getAirplaneTypeName() const;
+		Common::AirplaneType getAirplaneType() const;
 		const Common::AirplaneCtrl& getCtrl() const;
 		const Collisions::Airplane& getCollisionModel() const;
 		const std::optional<Timestep>& getLastShotTimestep() const;
@@ -37,7 +37,7 @@ namespace Physics
 		virtual ~Airplane() = default;
 
 	private:
-		Common::AirplaneTypeName m_airplaneTypeName;
+		Common::AirplaneType m_airplaneType;
 		const AirplaneParams& m_airplaneParams;
 		FlightCtrl m_flightCtrl;
 		AirplaneDynamics m_dynamics;

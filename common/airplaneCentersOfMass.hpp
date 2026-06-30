@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/airplaneTypeName.hpp"
+#include "common/airplaneType.hpp"
 
 #include <glm/glm.hpp>
 

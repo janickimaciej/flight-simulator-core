@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/airplaneTypeName.hpp"
+#include "common/airplaneType.hpp"
 #include "common/state.hpp"
 #include "common/terrains/maps/map.hpp"
 
@@ -14,7 +14,7 @@ namespace Physics
 	{
 	public:
 		Spawner(const Common::Terrains::Map& map);
-		Common::State spawn(Common::AirplaneTypeName airplaneTypeName);
+		Common::State spawn(Common::AirplaneType airplaneType);
 
 	private:
 		const Common::Terrains::Map& m_map;

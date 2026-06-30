@@ -2,7 +2,7 @@
 
 #include "common/airplaneCentersOfMass.hpp"
 #include "common/airplaneInfo.hpp"
-#include "common/airplaneTypeName.hpp"
+#include "common/airplaneType.hpp"
 #include "common/bulletInfo.hpp"
 #include "common/config.hpp"
 #include "common/mapName.hpp"
@@ -23,8 +23,8 @@
 
 namespace Physics
 {
-	Scene::Scene(Common::MapName mapName) :
-		m_map{*Common::Terrains::maps[Common::toSizeT(mapName)]}
+	Scene::Scene(Common::MapName map) :
+		m_map{*Common::Terrains::maps[Common::toSizeT(map)]}
 	{ }
 
 	void Scene::update(const Timestep& timestep, const Scene& previousScene,
@@ -76,13 +76,13 @@ namespace Physics
 
 			if (!m_airplanes.contains(index))
 			{
-				Common::AirplaneTypeName airplaneTypeName =
-					playerInfos.at(stateLock.first).state.airplaneTypeName;
+				Common::AirplaneType airplaneType =
+					playerInfos.at(stateLock.first).state.airplaneType;
 				m_airplanes.insert({index,
 					Airplane
 					{
-						airplaneTypeName,
-						airplaneDefinitions[toSizeT(airplaneTypeName)].initialHP
+						airplaneType,
+						airplaneDefinitions[toSizeT(airplaneType)].initialHP
 					}});
 				m_bullets.insert({index, std::list<Bullet>{}});
 			}
@@ -161,13 +161,13 @@ namespace Physics
 				timestep - *m_airplanes.at(id).getLastShotTimestep() > bulletCooldown))
 			{
 				Common::State airplaneState = m_airplanes.at(id).getState();
-				Common::AirplaneTypeName airplaneTypeName =
-					m_airplanes.at(id).getAirplaneTypeName();
+				Common::AirplaneType airplaneType =
+					m_airplanes.at(id).getAirplaneType();
 				glm::vec3 initialPositionLocal =
-					airplaneDefinitions[toSizeT(airplaneTypeName)].muzzlePosition +
+					airplaneDefinitions[toSizeT(airplaneType)].muzzlePosition +
 					glm::vec3{0, 0, -Common::tracerLength};
 				glm::vec3 initialVelocityLocal =
-					airplaneDefinitions[toSizeT(airplaneTypeName)].muzzleVelocity;
+					airplaneDefinitions[toSizeT(airplaneType)].muzzleVelocity;
 
 				Common::State state{};
 				state.position =

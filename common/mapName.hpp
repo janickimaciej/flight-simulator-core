@@ -12,5 +12,5 @@ namespace Common
 		hills
 	};
 
-	std::size_t toSizeT(MapName mapName);
+	std::size_t toSizeT(MapName map);
 }

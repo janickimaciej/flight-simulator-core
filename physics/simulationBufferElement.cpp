@@ -4,7 +4,7 @@
 
 namespace Physics
 {
-	SimulationBufferElement::SimulationBufferElement(Common::MapName mapName) :
-		scene{mapName}
+	SimulationBufferElement::SimulationBufferElement(Common::MapName map) :
+		scene{map}
 	{ }
 }

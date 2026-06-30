@@ -1,7 +1,7 @@
 #pragma once
 
 #include "app/udp/frame/stateFrame.hpp"
-#include "common/airplaneTypeName.hpp"
+#include "common/airplaneType.hpp"
 #include "common/config.hpp"
 #include "physics/playerInfo.hpp"
 #include "physics/playerInput.hpp"
@@ -22,7 +22,7 @@ namespace App
 	{
 	public:
 		static void serializeInitReqFrame(const Physics::Timestamp& clientTimestamp,
-			Common::AirplaneTypeName airplaneTypeName, std::vector<std::uint8_t>& buffer);
+			Common::AirplaneType airplaneType, std::vector<std::uint8_t>& buffer);
 		static void serializeInitResFrame(const Physics::Timestamp& clientTimestamp,
 			const Physics::Timestamp& serverTimestamp, int playerId,
 			std::vector<std::uint8_t>& buffer);
@@ -35,7 +35,7 @@ namespace App
 			std::vector<std::uint8_t>& buffer);
 
 		static void deserializeInitReqFrame(const std::vector<std::uint8_t>& buffer,
-			Physics::Timestamp& clientTimestamp, Common::AirplaneTypeName& airplaneTypeName);
+			Physics::Timestamp& clientTimestamp, Common::AirplaneType& airplaneType);
 		static void deserializeInitResFrame(const std::vector<std::uint8_t>& buffer,
 			Physics::Timestamp& clientTimestamp, Physics::Timestamp& serverTimestamp,
 			int& playerId);

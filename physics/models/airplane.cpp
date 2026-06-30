@@ -15,17 +15,17 @@
 
 namespace Physics
 {
-	Airplane::Airplane(const Common::AirplaneTypeName& airplaneTypeName, int hp) :
-		m_airplaneTypeName{airplaneTypeName},
-		m_airplaneParams{airplaneDefinitions[Common::toSizeT(airplaneTypeName)].params},
+	Airplane::Airplane(const Common::AirplaneType& airplaneType, int hp) :
+		m_airplaneType{airplaneType},
+		m_airplaneParams{airplaneDefinitions[Common::toSizeT(airplaneType)].params},
 		m_flightCtrl{m_airplaneParams, m_hp},
 		m_dynamics{m_airplaneParams, m_flightCtrl},
-		m_collisionModel{airplaneDefinitions[Common::toSizeT(airplaneTypeName)].collisionModel},
+		m_collisionModel{airplaneDefinitions[Common::toSizeT(airplaneType)].collisionModel},
 		m_hp{hp}
 	{ }
 
 	Airplane::Airplane(const Airplane& airplane) :
-		m_airplaneTypeName{airplane.m_airplaneTypeName},
+		m_airplaneType{airplane.m_airplaneType},
 		m_airplaneParams{airplane.m_airplaneParams},
 		m_flightCtrl{m_airplaneParams, m_hp},
 		m_dynamics{m_airplaneParams, m_flightCtrl},
@@ -35,7 +35,7 @@ namespace Physics
 	{ }
 
 	Airplane::Airplane(Airplane&& airplane) noexcept :
-		m_airplaneTypeName{airplane.m_airplaneTypeName},
+		m_airplaneType{airplane.m_airplaneType},
 		m_airplaneParams{airplane.m_airplaneParams},
 		m_flightCtrl{m_airplaneParams, m_hp},
 		m_dynamics{m_airplaneParams, m_flightCtrl},
@@ -83,7 +83,7 @@ namespace Physics
 			m_flightCtrl.getPlayerInput(),
 			PlayerState
 			{
-				getAirplaneTypeName(),
+				getAirplaneType(),
 				m_hp,
 				getState()
 			}
@@ -96,14 +96,14 @@ namespace Physics
 		{
 			getState(),
 			m_flightCtrl.getCtrl(),
-			getAirplaneTypeName(),
+			getAirplaneType(),
 			m_hp
 		};
 	}
 
-	Common::AirplaneTypeName Airplane::getAirplaneTypeName() const
+	Common::AirplaneType Airplane::getAirplaneType() const
 	{
-		return m_airplaneTypeName;
+		return m_airplaneType;
 	}
 
 	const Common::AirplaneCtrl& Airplane::getCtrl() const

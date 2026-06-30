@@ -4,8 +4,8 @@
 
 namespace Common
 {
-	std::size_t toSizeT(MapName mapName)
+	std::size_t toSizeT(MapName map)
 	{
-		return static_cast<std::size_t>(mapName);
+		return static_cast<std::size_t>(map);
 	}
 }

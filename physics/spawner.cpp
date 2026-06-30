@@ -1,6 +1,6 @@
 #include "physics/spawner.hpp"
 
-#include "common/airplaneTypeName.hpp"
+#include "common/airplaneType.hpp"
 #include "common/state.hpp"
 #include "common/terrains/maps/map.hpp"
 #include "physics/airplaneDefinitions.hpp"
@@ -16,7 +16,7 @@ namespace Physics
 		m_generator{static_cast<unsigned int>(std::time(nullptr))}
 	{ }
 
-	Common::State Spawner::spawn(Common::AirplaneTypeName airplaneTypeName)
+	Common::State Spawner::spawn(Common::AirplaneType airplaneType)
 	{
 		Common::State state{};
 
@@ -41,7 +41,7 @@ namespace Physics
 				state.position.z - m_map.getLengthZ() / 2
 			}));
 
-		state.velocity = airplaneDefinitions[Common::toSizeT(airplaneTypeName)].initialVelocity;
+		state.velocity = airplaneDefinitions[Common::toSizeT(airplaneType)].initialVelocity;
 
 		return state;
 	}

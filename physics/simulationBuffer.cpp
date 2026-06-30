@@ -16,12 +16,12 @@
 
 namespace Physics
 {
-	SimulationBuffer::SimulationBuffer(int ownId, Common::MapName mapName) :
+	SimulationBuffer::SimulationBuffer(int ownId, Common::MapName map) :
 		m_ownId{ownId}
 	{
 		for (std::unique_ptr<SimulationBufferElement>& bufferElement : m_buffer)
 		{
-			bufferElement = std::make_unique<SimulationBufferElement>(mapName);
+			bufferElement = std::make_unique<SimulationBufferElement>(map);
 		}
 	}
 

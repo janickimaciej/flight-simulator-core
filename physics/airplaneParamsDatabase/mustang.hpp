@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common/airplaneCentersOfMass.hpp"
-#include "common/airplaneTypeName.hpp"
+#include "common/airplaneType.hpp"
 #include "physics/airplaneParams/airplaneParams.hpp"
 
 #include <glm/glm.hpp>
@@ -20,7 +20,7 @@ namespace Physics
 			0, 350, 14800
 		};
 		inline constexpr glm::vec3 centerOfMass = Common::airplaneCentersOfMass[
-			toSizeT(Common::AirplaneTypeName::mustang)];
+			toSizeT(Common::AirplaneType::mustang)];
 
 		inline constexpr float hStabIncidenceAngleDeg = 0;
 		inline constexpr float hStabArea = 3.54f;
