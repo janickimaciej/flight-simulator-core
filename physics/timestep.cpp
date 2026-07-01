@@ -4,27 +4,27 @@
 
 namespace Physics
 {
-	Timestep Timestep::previous() const
+	Timestep Timestep::prev() const
 	{
-		Timestep previousTimestep{};
+		Timestep prevTimestep{};
 		if (step == 0)
 		{
-			previousTimestep.step = Common::stepsPerSecond - 1;
+			prevTimestep.step = Common::stepsPerSecond - 1;
 			if (second == 0)
 			{
-				previousTimestep.second = secondsPerMinute - 1;
+				prevTimestep.second = secondsPerMinute - 1;
 			}
 			else
 			{
-				previousTimestep.second = second - 1;
+				prevTimestep.second = second - 1;
 			}
 		}
 		else
 		{
-			previousTimestep.second = second;
-			previousTimestep.step = step - 1;
+			prevTimestep.second = second;
+			prevTimestep.step = step - 1;
 		}
-		return previousTimestep;
+		return prevTimestep;
 	}
 
 	Timestep Timestep::next() const

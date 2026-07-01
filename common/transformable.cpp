@@ -35,7 +35,7 @@ namespace Common
 
 	void Transformable::translate(const glm::vec3& translation)
 	{
-		m_state.position += translation;
+		m_state.pos += translation;
 		updateMatrix();
 	}
 

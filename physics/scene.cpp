@@ -27,14 +27,14 @@ namespace Physics
 		m_map{*Common::Terrains::maps[Common::toSizeT(map)]}
 	{ }
 
-	void Scene::update(const Timestep& timestep, const Scene& previousScene,
+	void Scene::update(const Timestep& timestep, const Scene& prevScene,
 		const std::unordered_map<int, PlayerInfo>& playerInfos,
 		const std::unordered_map<int, bool>& stateLocks)
 	{
-		addAndUpdateAirplanes(previousScene, playerInfos, stateLocks, timestep);
-		removeAirplanes(previousScene, stateLocks);
-		updateBullets(timestep, previousScene);
-		m_dayNightCycle.updateTime(previousScene.m_dayNightCycle);
+		addAndUpdateAirplanes(prevScene, playerInfos, stateLocks, timestep);
+		removeAirplanes(prevScene, stateLocks);
+		updateBullets(timestep, prevScene);
+		m_dayNightCycle.updateTime(prevScene.m_dayNightCycle);
 	}
 
 	Common::SceneInfo Scene::getSceneInfo() const
@@ -66,7 +66,7 @@ namespace Physics
 		return playerInfos;
 	}
 
-	void Scene::addAndUpdateAirplanes(const Scene& previousScene,
+	void Scene::addAndUpdateAirplanes(const Scene& prevScene,
 		const std::unordered_map<int, PlayerInfo>& playerInfos,
 		const std::unordered_map<int, bool>& stateLocks, const Timestep& timestep)
 	{
@@ -87,7 +87,7 @@ namespace Physics
 				m_bullets.insert({index, std::list<Bullet>{}});
 			}
 
-			updateAirplanePhase1(index, previousScene, playerInfos.at(index), stateLocks.at(index));
+			updateAirplanePhase1(index, prevScene, playerInfos.at(index), stateLocks.at(index));
 		}
 
 		for (const std::pair<const int, bool>& stateLock : stateLocks)
@@ -99,7 +99,7 @@ namespace Physics
 		}
 	}
 
-	void Scene::removeAirplanes(const Scene& previousScene,
+	void Scene::removeAirplanes(const Scene& prevScene,
 		const std::unordered_map<int, bool>& stateLocks)
 	{
 		std::vector<int> keysToBeDeleted;
@@ -107,7 +107,7 @@ namespace Physics
 		{
 			if (!stateLocks.contains(airplane.first) ||
 				(!stateLocks.at(airplane.first) &&
-				!previousScene.m_airplanes.contains(airplane.first)))
+				!prevScene.m_airplanes.contains(airplane.first)))
 			{
 				keysToBeDeleted.push_back(airplane.first);
 			}
@@ -119,14 +119,14 @@ namespace Physics
 		}
 	}
 
-	void Scene::updateBullets(const Timestep& timestep, const Scene& previousScene)
+	void Scene::updateBullets(const Timestep& timestep, const Scene& prevScene)
 	{
 		for (std::pair<const int, std::list<Bullet>>& bullets : m_bullets)
 		{
 			int id = bullets.first;
-			if (previousScene.m_bullets.contains(id))
+			if (prevScene.m_bullets.contains(id))
 			{
-				bullets.second = previousScene.m_bullets.at(id);
+				bullets.second = prevScene.m_bullets.at(id);
 			}
 
 			std::optional<Timestep> lastShotTimestep = m_airplanes.at(id).getLastShotTimestep();
@@ -163,15 +163,13 @@ namespace Physics
 				Common::State airplaneState = m_airplanes.at(id).getState();
 				Common::AirplaneType airplaneType =
 					m_airplanes.at(id).getAirplaneType();
-				glm::vec3 initialPositionLocal =
-					airplaneDefinitions[toSizeT(airplaneType)].muzzlePosition +
+				glm::vec3 initialPosLocal = airplaneDefinitions[toSizeT(airplaneType)].muzzlePos +
 					glm::vec3{0, 0, -Common::tracerLength};
 				glm::vec3 initialVelocityLocal =
 					airplaneDefinitions[toSizeT(airplaneType)].muzzleVelocity;
 
 				Common::State state{};
-				state.position =
-					glm::vec3{airplaneState.matrix() * glm::vec4{initialPositionLocal, 1}};
+				state.pos = glm::vec3{airplaneState.matrix() * glm::vec4{initialPosLocal, 1}};
 				state.orientation = airplaneState.orientation;
 				state.velocity = airplaneState.velocity + initialVelocityLocal;
 
@@ -181,22 +179,22 @@ namespace Physics
 		}
 	}
 
-	void Scene::updateAirplanePhase1(int index, const Scene& previousScene,
+	void Scene::updateAirplanePhase1(int index, const Scene& prevScene,
 		const PlayerInfo& playerInfo, bool isStateLocked)
 	{
-		const Airplane* previousAirplane = previousScene.m_airplanes.contains(index) ?
-			&previousScene.m_airplanes.at(index) : nullptr;
-		m_airplanes.at(index).updatePhase1(previousAirplane, playerInfo, isStateLocked);
+		const Airplane* prevAirplane = prevScene.m_airplanes.contains(index) ?
+			&prevScene.m_airplanes.at(index) : nullptr;
+		m_airplanes.at(index).updatePhase1(prevAirplane, playerInfo, isStateLocked);
 	}
 
 	void Scene::updateAirplanePhase2(int index, const Timestep& timestep)
 	{
 		Airplane& airplane = m_airplanes.at(index);
-		Common::State previousState = airplane.getState();
+		Common::State prevState = airplane.getState();
 		airplane.updatePhase2();
 		Common::State nextState = airplane.getState();
 
-		if (m_map.isOutside(airplane.getPosition()))
+		if (m_map.isOutside(airplane.getPos()))
 		{
 			if (timestep.step == 0)
 			{
@@ -204,7 +202,7 @@ namespace Physics
 				airplane.damage(outsideMapDamage);
 			}
 		}
-		else if (Collisions::CollisionTest::collides(airplane.getCollisionModel(), previousState,
+		else if (Collisions::CollisionTest::collides(airplane.getCollisionModel(), prevState,
 			nextState, m_map))
 		{
 			airplane.destroy();
@@ -218,7 +216,7 @@ namespace Physics
 				continue;
 			}
 
-			if (Collisions::CollisionTest::collides(airplane.getCollisionModel(), previousState,
+			if (Collisions::CollisionTest::collides(airplane.getCollisionModel(), prevState,
 				nextState, otherAirplane.second.getCollisionModel(),
 				otherAirplane.second.getState()))
 			{
@@ -230,17 +228,17 @@ namespace Physics
 
 	bool Scene::updateBullet(Bullet& bullet)
 	{
-		Common::State previousState = bullet.getState();
+		Common::State prevState = bullet.getState();
 		bullet.update(bullet);
 		Common::State nextState = bullet.getState();
-		if (Collisions::CollisionTest::collides(glm::vec3{0, 0, 0}, previousState, nextState,
+		if (Collisions::CollisionTest::collides(glm::vec3{0, 0, 0}, prevState, nextState,
 			m_map))
 		{
 			return true;
 		}
 		for (std::pair<const int, Airplane>& airplane : m_airplanes)
 		{
-			if (Collisions::CollisionTest::collides(glm::vec3{0, 0, 0}, previousState, nextState,
+			if (Collisions::CollisionTest::collides(glm::vec3{0, 0, 0}, prevState, nextState,
 				airplane.second.getCollisionModel(), airplane.second.getState()))
 			{
 				const int bulletDamage = 20;

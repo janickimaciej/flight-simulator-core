@@ -5,7 +5,7 @@ namespace Physics
 	class DayNightCycle
 	{
 	public:
-		void updateTime(const DayNightCycle& previousDayNightCycle);
+		void updateTime(const DayNightCycle& prevDayNightCycle);
 
 		int getDay() const;
 		float getTimeOfDay() const;

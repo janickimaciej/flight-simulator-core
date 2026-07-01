@@ -12,17 +12,17 @@ namespace Physics::Collisions
 	class CollisionTest
 	{
 	public:
-		static bool collides(const glm::vec3& moving, const Common::State& movingPreviousState,
+		static bool collides(const glm::vec3& moving, const Common::State& movingPrevState,
 			const Common::State& movingNextState, const Common::Terrains::Terrain& stationary);
-		static bool collides(const glm::vec3& moving, const Common::State& movingPreviousState,
+		static bool collides(const glm::vec3& moving, const Common::State& movingPrevState,
 			const Common::State& movingNextState, const Airplane& stationary,
 			const Common::State& stationaryState);
-		static bool collides(const glm::vec3& moving, const Common::State& movingPreviousState,
+		static bool collides(const glm::vec3& moving, const Common::State& movingPrevState,
 			const Common::State& movingNextState, const Ellipsoid& stationary,
 			const Common::State& stationaryState);
-		static bool collides(const Airplane& moving, const Common::State& movingPreviousState,
+		static bool collides(const Airplane& moving, const Common::State& movingPrevState,
 			const Common::State& movingNextState, const Common::Terrains::Terrain& stationary);
-		static bool collides(const Airplane& moving, const Common::State& movingPreviousState,
+		static bool collides(const Airplane& moving, const Common::State& movingPrevState,
 			const Common::State& movingNextState, const Airplane& stationary,
 			const Common::State& stationaryState);
 

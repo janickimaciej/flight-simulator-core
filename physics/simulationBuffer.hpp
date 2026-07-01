@@ -43,8 +43,8 @@ namespace Physics
 		void removePlayers(const Timestep& timestep,
 			const std::unordered_map<int, PlayerInfo>& playerInfos);
 
-		void addAndUpdatePlayers(const Timestep& previousTimestep, const Timestep& timestep);
-		void removePlayers(const Timestep& previousTimestep, const Timestep& timestep);
+		void addAndUpdatePlayers(const Timestep& prevTimestep, const Timestep& timestep);
+		void removePlayers(const Timestep& prevTimestep, const Timestep& timestep);
 
 		void clearLocks(const Timestep& timestep);
 	};

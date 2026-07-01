@@ -44,7 +44,7 @@ namespace Physics
 		m_hp{airplane.m_hp}
 	{ }
 
-	void Airplane::updatePhase1(const Airplane* previousAirplane, const PlayerInfo& playerInfo,
+	void Airplane::updatePhase1(const Airplane* prevAirplane, const PlayerInfo& playerInfo,
 		bool isStateLocked)
 	{
 		m_flightCtrl.setPlayerInput(playerInfo.input);
@@ -52,22 +52,22 @@ namespace Physics
 		{
 			m_hp = playerInfo.state.hp;
 		}
-		else if (previousAirplane)
+		else if (prevAirplane)
 		{
-			m_hp = previousAirplane->m_hp;
+			m_hp = prevAirplane->m_hp;
 		}
-		if (previousAirplane)
+		if (prevAirplane)
 		{
-			m_flightCtrl.update(previousAirplane->m_flightCtrl);
-			setLastShotTimestep(previousAirplane->getLastShotTimestep());
+			m_flightCtrl.update(prevAirplane->m_flightCtrl);
+			setLastShotTimestep(prevAirplane->getLastShotTimestep());
 		}
 		if (isStateLocked)
 		{
 			setState(playerInfo.state.state);
 		}
-		else if (previousAirplane)
+		else if (prevAirplane)
 		{
-			setState(previousAirplane->getState());
+			setState(prevAirplane->getState());
 		}
 	}
 

@@ -8,9 +8,9 @@ namespace Common
 {
 	State::State(const std::array<float, stateLength>& arr)
 	{
-		position.x = arr[0];
-		position.y = arr[1];
-		position.z = arr[2];
+		pos.x = arr[0];
+		pos.y = arr[1];
+		pos.z = arr[2];
 		orientation.w = arr[3];
 		orientation.x = arr[4];
 		orientation.y = arr[5];
@@ -25,9 +25,9 @@ namespace Common
 
 	void State::toArray(std::array<float, stateLength>& array) const
 	{
-		array[0] = position.x;
-		array[1] = position.y;
-		array[2] = position.z;
+		array[0] = pos.x;
+		array[1] = pos.y;
+		array[2] = pos.z;
 		array[3] = orientation.w;
 		array[4] = orientation.x;
 		array[5] = orientation.y;
@@ -50,8 +50,8 @@ namespace Common
 	glm::mat4 State::matrix() const
 	{
 		glm::mat4 orientationMatrix = glm::mat4_cast(orientation);
-		glm::mat4 positionMatrix = glm::translate(glm::mat4{1}, position);
-		return positionMatrix * orientationMatrix;
+		glm::mat4 posMatrix = glm::translate(glm::mat4{1}, pos);
+		return posMatrix * orientationMatrix;
 	}
 
 	glm::vec3 State::right() const

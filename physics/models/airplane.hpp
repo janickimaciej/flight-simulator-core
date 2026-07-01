@@ -21,7 +21,7 @@ namespace Physics
 		Airplane(const Common::AirplaneType& airplaneType, int hp);
 		Airplane(const Airplane& airplane);
 		Airplane(Airplane&& airplane) noexcept;
-		void updatePhase1(const Airplane* previousAirplane, const PlayerInfo& playerInfo,
+		void updatePhase1(const Airplane* prevAirplane, const PlayerInfo& playerInfo,
 			bool isStateLocked);
 		void updatePhase2();
 		PlayerInfo getPlayerInfo() const;

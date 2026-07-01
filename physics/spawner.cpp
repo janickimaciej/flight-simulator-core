@@ -23,22 +23,22 @@ namespace Physics
 		std::uniform_real_distribution<float> xFloatDistribution(0, m_map.getLengthX());
 		std::uniform_real_distribution<float> zFloatDistribution(0, m_map.getLengthZ());
 
-		state.position.x = xFloatDistribution(m_generator);
+		state.pos.x = xFloatDistribution(m_generator);
 		static constexpr float heightMargin = 50;
-		state.position.y = m_map.getMaxHeight() + heightMargin;
-		state.position.z = zFloatDistribution(m_generator);
+		state.pos.y = m_map.getMaxHeight() + heightMargin;
+		state.pos.z = zFloatDistribution(m_generator);
 
 		static constexpr float eps = 0.01f;
-		if (std::abs(state.position.x) < eps && std::abs(state.position.z) < eps)
+		if (std::abs(state.pos.x) < eps && std::abs(state.pos.z) < eps)
 		{
-			state.position.x = 1;
+			state.pos.x = 1;
 		}
 
 		state.setOrientation(glm::normalize(glm::vec3
 			{
-				state.position.x - m_map.getLengthX() / 2,
+				state.pos.x - m_map.getLengthX() / 2,
 				0,
-				state.position.z - m_map.getLengthZ() / 2
+				state.pos.z - m_map.getLengthZ() / 2
 			}));
 
 		state.velocity = airplaneDefinitions[Common::toSizeT(airplaneType)].initialVelocity;

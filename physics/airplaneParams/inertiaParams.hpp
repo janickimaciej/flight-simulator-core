@@ -8,6 +8,6 @@ namespace Physics
 	{
 		float mass{};
 		glm::mat3 momentOfInertia{};
-		glm::vec3 nosePosition{};
+		glm::vec3 nosePos{};
 	};
 }

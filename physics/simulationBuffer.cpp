@@ -100,15 +100,15 @@ namespace Physics
 
 	void SimulationBuffer::update(const Timestep& timestep)
 	{
-		Timestep previousTimestep = timestep.previous();
+		Timestep prevTimestep = timestep.prev();
 
-		m_buffer[previousTimestep.step]->mutex.lock();
+		m_buffer[prevTimestep.step]->mutex.lock();
 		m_buffer[timestep.step]->mutex.lock();
 
 		if (!m_buffer[timestep.step]->lock)
 		{
-			addAndUpdatePlayers(previousTimestep, timestep);
-			removePlayers(previousTimestep, timestep);
+			addAndUpdatePlayers(prevTimestep, timestep);
+			removePlayers(prevTimestep, timestep);
 		}
 
 		bool isSecondOdd = timestep.second % 2;
@@ -125,10 +125,10 @@ namespace Physics
 
 		clearLocks(timestep);
 
-		m_buffer[previousTimestep.step]->mutex.unlock();
+		m_buffer[prevTimestep.step]->mutex.unlock();
 		m_buffer[timestep.step]->mutex.unlock();
 
-		m_buffer[timestep.step]->scene.update(timestep, m_buffer[previousTimestep.step]->scene,
+		m_buffer[timestep.step]->scene.update(timestep, m_buffer[prevTimestep.step]->scene,
 			playerInfos, stateLocks);
 	}
 
@@ -183,16 +183,16 @@ namespace Physics
 		}
 	}
 
-	void SimulationBuffer::addAndUpdatePlayers(const Timestep& previousTimestep,
+	void SimulationBuffer::addAndUpdatePlayers(const Timestep& prevTimestep,
 		const Timestep& timestep)
 	{
 		bool isSecondOdd = timestep.second % 2;
-		for (const std::pair<const int, SimulationBufferPlayer>& previousTimestepPlayer :
-			m_buffer[previousTimestep.step]->players)
+		for (const std::pair<const int, SimulationBufferPlayer>& prevTimestepPlayer :
+			m_buffer[prevTimestep.step]->players)
 		{
-			if (!m_buffer[timestep.step]->players.contains(previousTimestepPlayer.first))
+			if (!m_buffer[timestep.step]->players.contains(prevTimestepPlayer.first))
 			{
-				m_buffer[timestep.step]->players.insert({previousTimestepPlayer.first,
+				m_buffer[timestep.step]->players.insert({prevTimestepPlayer.first,
 					SimulationBufferPlayer
 					{
 						std::array<bool, 2>
@@ -205,21 +205,21 @@ namespace Physics
 							false,
 							false
 						},
-						previousTimestepPlayer.second.info
+						prevTimestepPlayer.second.info
 					}});
 			}
-			else if (!m_buffer[timestep.step]->players[previousTimestepPlayer.first].
+			else if (!m_buffer[timestep.step]->players[prevTimestepPlayer.first].
 				lockState[isSecondOdd] &&
-				!m_buffer[timestep.step]->players[previousTimestepPlayer.first].
+				!m_buffer[timestep.step]->players[prevTimestepPlayer.first].
 				lockInput[isSecondOdd])
 			{
-				m_buffer[timestep.step]->players[previousTimestepPlayer.first].info.input =
-					previousTimestepPlayer.second.info.input;
+				m_buffer[timestep.step]->players[prevTimestepPlayer.first].info.input =
+					prevTimestepPlayer.second.info.input;
 			}
 		}
 	}
 
-	void SimulationBuffer::removePlayers(const Timestep& previousTimestep,
+	void SimulationBuffer::removePlayers(const Timestep& prevTimestep,
 		const Timestep& timestep)
 	{
 		bool isSecondOdd = timestep.second % 2;
@@ -234,7 +234,7 @@ namespace Physics
 			m_buffer[timestep.step]->players)
 		{
 			if (!player.second.lockState[isSecondOdd] &&
-				!m_buffer[previousTimestep.step]->players.contains(player.first))
+				!m_buffer[prevTimestep.step]->players.contains(player.first))
 			{
 				keysToBeDeleted.push_back(player.first);
 			}

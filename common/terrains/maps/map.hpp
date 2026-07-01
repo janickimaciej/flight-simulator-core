@@ -14,7 +14,7 @@ namespace Common::Terrains
 		float getSpacingX() const;
 		float getSpacingZ() const;
 		virtual float getMaxHeight() const = 0;
-		bool isOutside(const glm::vec3& position) const;
+		bool isOutside(const glm::vec3& pos) const;
 		virtual ~Map() = default;
 
 	protected:

@@ -15,14 +15,14 @@ namespace Physics
 		m_hp{hp}
 	{ }
 
-	void FlightCtrl::update(const FlightCtrl& previousAirplaneFlightCtrl)
+	void FlightCtrl::update(const FlightCtrl& prevAirplaneFlightCtrl)
 	{
 		if (m_hp != 0)
 		{
-			updateElevator(previousAirplaneFlightCtrl.m_airplaneCtrl.elevatorAngleRad);
-			updateRudder(previousAirplaneFlightCtrl.m_airplaneCtrl.rudderAngleRad);
-			updateAilerons(previousAirplaneFlightCtrl.m_airplaneCtrl.aileronsAngleRad);
-			updateThrust(previousAirplaneFlightCtrl.m_airplaneCtrl.thrustRelative);
+			updateElevator(prevAirplaneFlightCtrl.m_airplaneCtrl.elevatorAngleRad);
+			updateRudder(prevAirplaneFlightCtrl.m_airplaneCtrl.rudderAngleRad);
+			updateAilerons(prevAirplaneFlightCtrl.m_airplaneCtrl.aileronsAngleRad);
+			updateThrust(prevAirplaneFlightCtrl.m_airplaneCtrl.thrustRelative);
 			updateGunfire();
 		}
 		else
@@ -66,46 +66,46 @@ namespace Physics
 		m_playerInput = playerInput;
 	}
 
-	void FlightCtrl::updateElevator(float previousElevatorAngleRad)
+	void FlightCtrl::updateElevator(float prevElevatorAngleRad)
 	{
 		static constexpr float angVelocityRad = glm::radians(120.0f);
 		static constexpr float maxChange = angVelocityRad / Common::stepsPerSecond;
 		float diff = relativeToAbs(m_playerInput.pitch,
 			m_airplaneParams.hStab.criticalAngleNegativeRad,
-			m_airplaneParams.hStab.criticalAnglePositiveRad) - previousElevatorAngleRad;
+			m_airplaneParams.hStab.criticalAnglePositiveRad) - prevElevatorAngleRad;
 		float change = std::clamp(diff, -maxChange, maxChange);
-		m_airplaneCtrl.elevatorAngleRad = previousElevatorAngleRad + change;
+		m_airplaneCtrl.elevatorAngleRad = prevElevatorAngleRad + change;
 	}
 
-	void FlightCtrl::updateRudder(float previousRudderAngleRad)
+	void FlightCtrl::updateRudder(float prevRudderAngleRad)
 	{
 		static constexpr float angVelocityRad = glm::radians(120.0f);
 		static constexpr float maxChange = angVelocityRad / Common::stepsPerSecond;
 		float diff = relativeToAbs(m_playerInput.yaw,
 			m_airplaneParams.hStab.criticalAngleNegativeRad,
-			m_airplaneParams.hStab.criticalAnglePositiveRad) - previousRudderAngleRad;
+			m_airplaneParams.hStab.criticalAnglePositiveRad) - prevRudderAngleRad;
 		float change = std::clamp(diff, -maxChange, maxChange);
-		m_airplaneCtrl.rudderAngleRad = previousRudderAngleRad + change;
+		m_airplaneCtrl.rudderAngleRad = prevRudderAngleRad + change;
 	}
 
-	void FlightCtrl::updateAilerons(float previousAileronsAngleRad)
+	void FlightCtrl::updateAilerons(float prevAileronsAngleRad)
 	{
 		static constexpr float angVelocityRad = glm::radians(120.0f);
 		static constexpr float maxChange = angVelocityRad / Common::stepsPerSecond;
 		float diff = relativeToAbs(m_playerInput.roll,
 			m_airplaneParams.hStab.criticalAngleNegativeRad,
-			m_airplaneParams.hStab.criticalAnglePositiveRad) - previousAileronsAngleRad;
+			m_airplaneParams.hStab.criticalAnglePositiveRad) - prevAileronsAngleRad;
 		float change = std::clamp(diff, -maxChange, maxChange);
-		m_airplaneCtrl.aileronsAngleRad = previousAileronsAngleRad + change;
+		m_airplaneCtrl.aileronsAngleRad = prevAileronsAngleRad + change;
 	}
 
-	void FlightCtrl::updateThrust(float previousThrustRelative)
+	void FlightCtrl::updateThrust(float prevThrustRelative)
 	{
 		static constexpr float velocity = 1;
 		static constexpr float maxChange = velocity / Common::stepsPerSecond;
-		float diff = m_playerInput.thrust - previousThrustRelative;
+		float diff = m_playerInput.thrust - prevThrustRelative;
 		float change = std::clamp(diff, -maxChange, maxChange);
-		m_airplaneCtrl.thrustRelative = previousThrustRelative + change;
+		m_airplaneCtrl.thrustRelative = prevThrustRelative + change;
 	}
 
 	void FlightCtrl::updateGunfire()

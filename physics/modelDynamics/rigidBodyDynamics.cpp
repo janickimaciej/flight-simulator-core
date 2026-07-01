@@ -28,7 +28,7 @@ namespace Physics
 		glm::vec3 netTorque{};
 		computeNetForceAndNetTorque(stateObj, netForce, netTorque);
 
-		stateDerivativeObj.position = stateObj.orientation * stateObj.velocity;
+		stateDerivativeObj.pos = stateObj.orientation * stateObj.velocity;
 
 		stateDerivativeObj.orientation = stateObj.orientation *
 			glm::quat{0, stateObj.angVelocityRad} / 2.0f;

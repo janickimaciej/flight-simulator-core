@@ -24,9 +24,9 @@ namespace Common::Terrains
 		return m_spacingZ;
 	}
 
-	bool Map::isOutside(const glm::vec3& position) const
+	bool Map::isOutside(const glm::vec3& pos) const
 	{
-		return position.x < 0 || position.x > m_lengthX || position.z < 0 || position.z > m_lengthZ;
+		return pos.x < 0 || pos.x > m_lengthX || pos.z < 0 || pos.z > m_lengthZ;
 	}
 
 	Map::Map(float lengthX, float lengthZ, float spacingX, float spacingZ) :

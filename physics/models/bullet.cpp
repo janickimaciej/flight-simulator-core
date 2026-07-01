@@ -8,9 +8,9 @@ namespace Physics
 		setState(state);
 	}
 
-	void Bullet::update(const Bullet& previousBullet)
+	void Bullet::update(const Bullet& prevBullet)
 	{
-		setState(m_dynamics.computeNewState(previousBullet.getState()));
+		setState(m_dynamics.computeNewState(prevBullet.getState()));
 	}
 
 	const Timestep& Bullet::getSpawnTimestep() const

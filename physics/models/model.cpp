@@ -11,9 +11,9 @@ namespace Physics
 		return getMatrix();
 	}
 
-	glm::vec3 Model::getPosition() const
+	glm::vec3 Model::getPos() const
 	{
-		return getState().position;
+		return getState().pos;
 	}
 
 	void Model::scale(float scaleRatio)

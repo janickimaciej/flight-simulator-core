@@ -10,7 +10,7 @@ namespace Physics
 	{
 	public:
 		glm::mat4 getModelMatrix() const;
-		glm::vec3 getPosition() const;
+		glm::vec3 getPos() const;
 		virtual void scale(float scaleRatio) override; // locally
 		virtual ~Model() = default;
 	};

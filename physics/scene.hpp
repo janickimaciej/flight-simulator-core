@@ -18,7 +18,7 @@ namespace Physics
 	{
 	public:
 		Scene(Common::MapName map);
-		void update(const Timestep& timestep, const Scene& previousScene,
+		void update(const Timestep& timestep, const Scene& prevScene,
 			const std::unordered_map<int, PlayerInfo>& playerInfos,
 			const std::unordered_map<int, bool>& stateLocks);
 		Common::SceneInfo getSceneInfo() const;
@@ -32,13 +32,13 @@ namespace Physics
 
 		const Common::Terrains::Map& m_map;
 
-		void addAndUpdateAirplanes(const Scene& previousScene,
+		void addAndUpdateAirplanes(const Scene& prevScene,
 			const std::unordered_map<int, PlayerInfo>& playerInfos,
 			const std::unordered_map<int, bool>& stateLocks, const Timestep& timestep);
-		void removeAirplanes(const Scene& previousScene,
+		void removeAirplanes(const Scene& prevScene,
 			const std::unordered_map<int, bool>& stateLocks);
-		void updateBullets(const Timestep& timestep, const Scene& previousScene);
-		void updateAirplanePhase1(int index, const Scene& previousScene,
+		void updateBullets(const Timestep& timestep, const Scene& prevScene);
+		void updateAirplanePhase1(int index, const Scene& prevScene,
 			const PlayerInfo& playerInfo, bool isStateLocked);
 		void updateAirplanePhase2(int index, const Timestep& timestep);
 		bool updateBullet(Bullet& bullet);

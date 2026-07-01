@@ -42,7 +42,7 @@ namespace Physics
 	{
 		inertia.mass = mass;
 		inertia.momentOfInertia = momentOfInertia;
-		inertia.nosePosition = -centerOfMass;
+		inertia.nosePos = -centerOfMass;
 
 		hStab.orientation = glm::angleAxis(glm::radians(hStabIncidenceAngleDeg),
 			glm::vec3{1, 0, 0});

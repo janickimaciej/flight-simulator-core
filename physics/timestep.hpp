@@ -12,7 +12,7 @@ namespace Physics
 		unsigned int second{};
 		unsigned int step{};
 
-		Timestep previous() const;
+		Timestep prev() const;
 		Timestep next() const;
 
 		friend Timestep operator-(const Timestep& timestep1, const Timestep& timestep2);

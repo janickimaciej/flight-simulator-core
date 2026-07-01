@@ -15,7 +15,7 @@ namespace Physics
 		Bullet(Bullet&& bullet) noexcept = default;
 		Bullet& operator=(const Bullet& bullet) = default;
 		Bullet& operator=(Bullet&& bullet) = default;
-		void update(const Bullet& previousBullet);
+		void update(const Bullet& prevBullet);
 		const Timestep& getSpawnTimestep() const;
 		virtual ~Bullet() = default;
 

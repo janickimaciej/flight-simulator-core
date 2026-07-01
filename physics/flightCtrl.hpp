@@ -10,7 +10,7 @@ namespace Physics
 	{
 	public:
 		FlightCtrl(const AirplaneParams& airplaneParams, const int& hp);
-		void update(const FlightCtrl& previousAirplaneFlightCtrl);
+		void update(const FlightCtrl& prevAirplaneFlightCtrl);
 		float getElevatorAngleRad() const;
 		float getRudderAngleRad() const;
 		float getAileronsAngleRad() const;
@@ -25,10 +25,10 @@ namespace Physics
 		Common::AirplaneCtrl m_airplaneCtrl{};
 		const int& m_hp;
 
-		void updateElevator(float previousElevatorAngleRad);
-		void updateRudder(float previousRudderAngleRad);
-		void updateAilerons(float previousAileronsAngleRad);
-		void updateThrust(float previousThrustRelative);
+		void updateElevator(float prevElevatorAngleRad);
+		void updateRudder(float prevRudderAngleRad);
+		void updateAilerons(float prevAileronsAngleRad);
+		void updateThrust(float prevThrustRelative);
 		void updateGunfire();
 		// converts linearly from [-1, 1] to [min, max]
 		static float relativeToAbs(float relative, float min, float max);

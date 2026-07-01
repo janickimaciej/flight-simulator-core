@@ -9,28 +9,28 @@
 
 namespace Physics::Collisions
 {
-	bool CollisionTest::collides(const glm::vec3& moving, const Common::State& movingPreviousState,
+	bool CollisionTest::collides(const glm::vec3& moving, const Common::State& movingPrevState,
 			const Common::State& movingNextState, const Common::Terrains::Terrain& stationary)
 	{
-		glm::vec3 segmentStart{movingPreviousState.matrix() * glm::vec4(moving, 1)};
+		glm::vec3 segmentStart{movingPrevState.matrix() * glm::vec4(moving, 1)};
 		glm::vec3 segmentEnd{movingNextState.matrix() * glm::vec4(moving, 1)};
 		return (segmentStart).y <= stationary.height(segmentStart.x, segmentEnd.z) ||
 			(segmentEnd).y <= stationary.height(segmentEnd.x, segmentEnd.z);
 	}
 
-	bool CollisionTest::collides(const glm::vec3& moving, const Common::State& movingPreviousState,
+	bool CollisionTest::collides(const glm::vec3& moving, const Common::State& movingPrevState,
 		const Common::State& movingNextState, const Airplane& stationary,
 		const Common::State& stationaryState)
 	{
-		return collides(moving, movingPreviousState, movingNextState, stationary.ellipsoid,
+		return collides(moving, movingPrevState, movingNextState, stationary.ellipsoid,
 			stationaryState);
 	}
 
-	bool CollisionTest::collides(const glm::vec3& moving, const Common::State& movingPreviousState,
+	bool CollisionTest::collides(const glm::vec3& moving, const Common::State& movingPrevState,
 		const Common::State& movingNextState, const Ellipsoid& stationary,
 		const Common::State& stationaryState)
 	{
-		glm::vec3 segmentStart = toEllipsoidSystem(moving, movingPreviousState, stationary,
+		glm::vec3 segmentStart = toEllipsoidSystem(moving, movingPrevState, stationary,
 			stationaryState);
 		glm::vec3 segmentEnd = toEllipsoidSystem(moving, movingNextState, stationary,
 			stationaryState);
@@ -66,12 +66,12 @@ namespace Physics::Collisions
 		}
 	}
 
-	bool CollisionTest::collides(const Airplane& moving, const Common::State& movingPreviousState,
+	bool CollisionTest::collides(const Airplane& moving, const Common::State& movingPrevState,
 		const Common::State& movingNextState, const Common::Terrains::Terrain& stationary)
 	{
 		for (const glm::vec3& point : moving.points)
 		{
-			if (collides(point, movingPreviousState, movingNextState, stationary))
+			if (collides(point, movingPrevState, movingNextState, stationary))
 			{
 				return true;
 			}
@@ -79,13 +79,13 @@ namespace Physics::Collisions
 		return false;
 	}
 
-	bool CollisionTest::collides(const Airplane& moving, const Common::State& movingPreviousState,
+	bool CollisionTest::collides(const Airplane& moving, const Common::State& movingPrevState,
 		const Common::State& movingNextState, const Airplane& stationary,
 		const Common::State& stationaryState)
 	{
 		for (const glm::vec3& point : moving.points)
 		{
-			if (collides(point, movingPreviousState, movingNextState, stationary, stationaryState))
+			if (collides(point, movingPrevState, movingNextState, stationary, stationaryState))
 			{
 				return true;
 			}

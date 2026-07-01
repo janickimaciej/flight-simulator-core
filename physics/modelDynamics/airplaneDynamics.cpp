@@ -57,7 +57,7 @@ namespace Physics
 	void AirplaneDynamics::addForceAndTorque(const Common::State& state,
 		const SurfaceParams& params, float ctrlAngleRad, glm::vec3& netForce, glm::vec3& netTorque)
 	{
-		float airDensity = Atmosphere::airDensity(state.position.y);
+		float airDensity = Atmosphere::airDensity(state.pos.y);
 
 		glm::vec3 airVelocity = computeAirVelocity(state, params.liftPoint);
 		glm::vec3 airVelocitySurface = glm::conjugate(params.orientation) * airVelocity;
@@ -114,7 +114,7 @@ namespace Physics
 	void AirplaneDynamics::addForceAndTorque(const Common::State& state,
 		const FuselageParams& params, glm::vec3& netForce, glm::vec3& netTorque)
 	{
-		float airDensity = Atmosphere::airDensity(state.position.y);
+		float airDensity = Atmosphere::airDensity(state.pos.y);
 
 		glm::vec3 airVelocity = computeAirVelocity(state, params.frontDragPoint);
 		if (glm::abs(airVelocity.z) > eps)
@@ -145,7 +145,7 @@ namespace Physics
 		const PropulsionParams& params, float thrustRelative, glm::vec3& netForce,
 		glm::vec3& netTorque)
 	{
-		float airDensityRelative = Atmosphere::airDensity(state.position.y) /
+		float airDensityRelative = Atmosphere::airDensity(state.pos.y) /
 			Atmosphere::seaLevelAirDensity;
 
 		glm::vec3 thrustDirection = glm::vec3{0, 0, -1};

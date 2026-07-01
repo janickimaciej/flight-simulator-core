@@ -11,7 +11,7 @@ namespace Physics
 	{
 		AirplaneParams params;
 		glm::vec3 initialVelocity{};
-		glm::vec3 muzzlePosition{};
+		glm::vec3 muzzlePos{};
 		glm::vec3 muzzleVelocity{};
 		Collisions::Airplane collisionModel{};
 		int initialHP{};
