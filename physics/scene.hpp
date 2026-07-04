@@ -1,8 +1,8 @@
 #pragma once
 
 #include "common/mapName.hpp"
+#include "common/maps/map.hpp"
 #include "common/sceneInfo.hpp"
-#include "common/terrains/maps/map.hpp"
 #include "physics/dayNightCycle.hpp"
 #include "physics/models/airplane.hpp"
 #include "physics/models/bullet.hpp"
@@ -30,7 +30,7 @@ namespace Physics
 
 		DayNightCycle m_dayNightCycle{};
 
-		const Common::Terrains::Map& m_map;
+		const Common::Maps::Map& m_map;
 
 		void addAndUpdateAirplanes(const Scene& prevScene,
 			const std::unordered_map<int, PlayerInfo>& playerInfos,

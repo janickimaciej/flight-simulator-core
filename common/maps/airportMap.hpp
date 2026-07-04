@@ -1,8 +1,8 @@
 #pragma once
 
-#include "common/terrains/maps/map.hpp"
+#include "common/maps/map.hpp"
 
-namespace Common::Terrains
+namespace Common::Maps
 {
 	class AirportMap : public Map
 	{

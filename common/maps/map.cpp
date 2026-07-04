@@ -1,9 +1,16 @@
-#include "common/terrains/maps/map.hpp"
+#include "common/maps/map.hpp"
 
 #include <glm/glm.hpp>
 
-namespace Common::Terrains
+#include <utility>
+
+namespace Common::Maps
 {
+	const Terrains::Terrain& Map::terrain() const
+	{
+		return *m_terrain;
+	}
+
 	float Map::getLengthX() const
 	{
 		return m_lengthX;
@@ -35,4 +42,9 @@ namespace Common::Terrains
 		m_spacingX{spacingX},
 		m_spacingZ{spacingZ}
 	{ }
+
+	void Map::setTerrain(std::unique_ptr<Terrains::Terrain> terrain)
+	{
+		m_terrain = std::move(terrain);
+	}
 }

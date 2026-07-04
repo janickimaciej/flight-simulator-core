@@ -14,8 +14,8 @@ namespace Physics::Collisions
 	{
 		glm::vec3 segmentStart{movingPrevState.matrix() * glm::vec4(moving, 1)};
 		glm::vec3 segmentEnd{movingNextState.matrix() * glm::vec4(moving, 1)};
-		return (segmentStart).y <= stationary.height(segmentStart.x, segmentEnd.z) ||
-			(segmentEnd).y <= stationary.height(segmentEnd.x, segmentEnd.z);
+		return segmentStart.y <= stationary.height(segmentStart.x, segmentEnd.z) ||
+			segmentEnd.y <= stationary.height(segmentEnd.x, segmentEnd.z);
 	}
 
 	bool CollisionTest::collides(const glm::vec3& moving, const Common::State& movingPrevState,

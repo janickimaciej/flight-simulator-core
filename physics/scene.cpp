@@ -6,8 +6,8 @@
 #include "common/bulletInfo.hpp"
 #include "common/config.hpp"
 #include "common/mapName.hpp"
+#include "common/maps/maps.hpp"
 #include "common/sceneInfo.hpp"
-#include "common/terrains/maps/maps.hpp"
 #include "physics/airplaneDefinitions.hpp"
 #include "physics/collisions/collisionTest.hpp"
 #include "physics/models/airplane.hpp"
@@ -24,7 +24,7 @@
 namespace Physics
 {
 	Scene::Scene(Common::MapName map) :
-		m_map{*Common::Terrains::maps[Common::toSizeT(map)]}
+		m_map{*Common::Maps::maps[Common::toSizeT(map)]}
 	{ }
 
 	void Scene::update(const Timestep& timestep, const Scene& prevScene,
@@ -203,7 +203,7 @@ namespace Physics
 			}
 		}
 		else if (Collisions::CollisionTest::collides(airplane.getCollisionModel(), prevState,
-			nextState, m_map))
+			nextState, m_map.terrain()))
 		{
 			airplane.destroy();
 			return;
@@ -232,7 +232,7 @@ namespace Physics
 		bullet.update(bullet);
 		Common::State nextState = bullet.getState();
 		if (Collisions::CollisionTest::collides(glm::vec3{0, 0, 0}, prevState, nextState,
-			m_map))
+			m_map.terrain()))
 		{
 			return true;
 		}

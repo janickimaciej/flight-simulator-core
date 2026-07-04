@@ -1,8 +1,8 @@
 #include "physics/spawner.hpp"
 
 #include "common/airplaneType.hpp"
+#include "common/maps/map.hpp"
 #include "common/state.hpp"
-#include "common/terrains/maps/map.hpp"
 #include "physics/airplaneDefinitions.hpp"
 
 #include <glm/glm.hpp>
@@ -11,7 +11,7 @@
 
 namespace Physics
 {
-	Spawner::Spawner(const Common::Terrains::Map& map) :
+	Spawner::Spawner(const Common::Maps::Map& map) :
 		m_map{map},
 		m_generator{static_cast<unsigned int>(std::time(nullptr))}
 	{ }

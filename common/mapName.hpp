@@ -9,7 +9,7 @@ namespace Common
 	enum class MapName
 	{
 		airport,
-		hills
+		island
 	};
 
 	std::size_t toSizeT(MapName map);
