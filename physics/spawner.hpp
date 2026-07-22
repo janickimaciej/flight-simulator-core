@@ -14,6 +14,7 @@ namespace Physics
 	{
 	public:
 		Spawner(const Common::Maps::Map& map);
+
 		Common::State spawn(Common::AirplaneType airplaneType);
 
 	private:

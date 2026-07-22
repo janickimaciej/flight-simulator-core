@@ -13,21 +13,21 @@ namespace Common::Terrains
 	float ValueNoise::height(float x, float z) const
 	{
 		float normalizedHeight =
-			valueNoise.height(m_frequency * (x + m_offset), m_frequency * (z + m_offset));
+			m_valueNoise.height(m_frequency * (x + m_offset), m_frequency * (z + m_offset));
 		return normalizedHeight * m_amplitude;
 	}
 
 	float ValueNoise::heightDerivX(float x, float z) const
 	{
 		float normalizedHeightDerivX = m_frequency *
-			valueNoise.heightDerivX(m_frequency * (x + m_offset), m_frequency * (z + m_offset));
+			m_valueNoise.heightDerivX(m_frequency * (x + m_offset), m_frequency * (z + m_offset));
 		return normalizedHeightDerivX * m_amplitude;
 	}
 
 	float ValueNoise::heightDerivZ(float x, float z) const
 	{
 		float normalizedHeightDerivZ = m_frequency *
-			valueNoise.heightDerivZ(m_frequency * (x + m_offset), m_frequency * (z + m_offset));
+			m_valueNoise.heightDerivZ(m_frequency * (x + m_offset), m_frequency * (z + m_offset));
 		return normalizedHeightDerivZ * m_amplitude;
 	}
 }

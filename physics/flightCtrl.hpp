@@ -10,6 +10,7 @@ namespace Physics
 	{
 	public:
 		FlightCtrl(const AirplaneParams& airplaneParams, const int& hp);
+
 		void update(const FlightCtrl& prevAirplaneFlightCtrl);
 		float getElevatorAngleRad() const;
 		float getRudderAngleRad() const;

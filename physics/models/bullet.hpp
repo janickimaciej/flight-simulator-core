@@ -13,11 +13,13 @@ namespace Physics
 		Bullet(const Common::State& state, const Timestep& spawnTimestep);
 		Bullet(const Bullet& bullet) = default;
 		Bullet(Bullet&& bullet) noexcept = default;
+		virtual ~Bullet() = default;
+
 		Bullet& operator=(const Bullet& bullet) = default;
 		Bullet& operator=(Bullet&& bullet) = default;
+
 		void update(const Bullet& prevBullet);
 		const Timestep& getSpawnTimestep() const;
-		virtual ~Bullet() = default;
 
 	private:
 		BulletDynamics m_dynamics{};

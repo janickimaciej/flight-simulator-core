@@ -9,8 +9,9 @@ namespace Physics
 	class RungeKuttaRightHandSide
 	{
 	public:
+		virtual ~RungeKuttaRightHandSide() = default;
+
 		virtual void rightHandSide(float time, const std::array<float, stateLength>& state,
 			std::array<float, stateLength>& stateDerivative) const = 0;
-		virtual ~RungeKuttaRightHandSide() = default;
 	};
 }

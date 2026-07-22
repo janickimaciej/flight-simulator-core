@@ -18,6 +18,7 @@ namespace Physics
 	{
 	public:
 		Scene(Common::MapName map);
+
 		void update(const Timestep& timestep, const Scene& prevScene,
 			const std::unordered_map<int, PlayerInfo>& playerInfos,
 			const std::unordered_map<int, bool>& stateLocks);

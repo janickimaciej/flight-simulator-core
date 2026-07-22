@@ -4,6 +4,44 @@
 
 namespace Physics
 {
+	Timestep operator-(const Timestep& timestep1, const Timestep& timestep2)
+	{
+		int second = static_cast<int>(timestep1.second) - static_cast<int>(timestep2.second);
+		int step = static_cast<int>(timestep1.step) -
+			static_cast<int>(timestep2.step);
+		Timestep::normalize(second, step);
+		return Timestep{static_cast<unsigned int>(second), static_cast<unsigned int>(step)};
+	}
+
+	Timestep operator+(const Timestep& timestep1, const Timestep& timestep2)
+	{
+		int second = static_cast<int>(timestep1.second) + static_cast<int>(timestep2.second);
+		int step = static_cast<int>(timestep1.step) +
+			static_cast<int>(timestep2.step);
+		Timestep::normalize(second, step);
+		return Timestep{static_cast<unsigned int>(second), static_cast<unsigned int>(step)};
+	}
+
+	bool operator==(const Timestep& timestep1, const Timestep& timestep2)
+	{
+		return timestep1.second == timestep2.second && timestep1.step == timestep2.step;
+	}
+
+	bool operator<(const Timestep& timestep1, const Timestep& timestep2)
+	{
+		return (timestep1 - timestep2).second >= 30;
+	}
+
+	bool operator<=(const Timestep& timestep1, const Timestep& timestep2)
+	{
+		return timestep1 < timestep2 || timestep1 == timestep2;
+	}
+
+	bool operator>(const Timestep& timestep1, const Timestep& timestep2)
+	{
+		return !(timestep1 <= timestep2);
+	}
+
 	Timestep Timestep::prev() const
 	{
 		Timestep prevTimestep{};
@@ -48,44 +86,6 @@ namespace Physics
 			nextTimestep.step = step + 1;
 		}
 		return nextTimestep;
-	}
-
-	Timestep operator-(const Timestep& timestep1, const Timestep& timestep2)
-	{
-		int second = static_cast<int>(timestep1.second) - static_cast<int>(timestep2.second);
-		int step = static_cast<int>(timestep1.step) -
-			static_cast<int>(timestep2.step);
-		Timestep::normalize(second, step);
-		return Timestep{static_cast<unsigned int>(second), static_cast<unsigned int>(step)};
-	}
-
-	Timestep operator+(const Timestep& timestep1, const Timestep& timestep2)
-	{
-		int second = static_cast<int>(timestep1.second) + static_cast<int>(timestep2.second);
-		int step = static_cast<int>(timestep1.step) +
-			static_cast<int>(timestep2.step);
-		Timestep::normalize(second, step);
-		return Timestep{static_cast<unsigned int>(second), static_cast<unsigned int>(step)};
-	}
-
-	bool operator==(const Timestep& timestep1, const Timestep& timestep2)
-	{
-		return timestep1.second == timestep2.second && timestep1.step == timestep2.step;
-	}
-
-	bool operator<(const Timestep& timestep1, const Timestep& timestep2)
-	{
-		return (timestep1 - timestep2).second >= 30;
-	}
-
-	bool operator<=(const Timestep& timestep1, const Timestep& timestep2)
-	{
-		return timestep1 < timestep2 || timestep1 == timestep2;
-	}
-
-	bool operator>(const Timestep& timestep1, const Timestep& timestep2)
-	{
-		return !(timestep1 <= timestep2);
 	}
 
 	void Timestep::normalize(int& second, int& step)

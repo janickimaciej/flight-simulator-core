@@ -11,6 +11,7 @@ namespace Physics
 	{
 	public:
 		Notification(const SimulationClock& simulationClock);
+
 		void forceGetNotification(Timestep& timestep);
 		void getNotification(Timestep& timestep);
 		void setNotification(const Timestep& timestep, bool isStateFrame);

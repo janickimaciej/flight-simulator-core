@@ -12,11 +12,12 @@ namespace Physics
 	{
 	public:
 		RungeKutta() = delete;
+		~RungeKutta() = delete;
+
 		static void RK4(float oldTime, float deltaTime,
 			const std::array<float, stateLength>& oldState,
 			const RungeKuttaRightHandSide<stateLength>& rightHandSide,
 			std::array<float, stateLength>& newState);
-		~RungeKutta() = delete;
 	};
 
 	template <std::size_t stateLength>

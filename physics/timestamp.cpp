@@ -25,11 +25,6 @@ namespace Physics
 		millisecond = static_cast<unsigned int>(milliseconds.count());
 	}
 
-	Timestamp Timestamp::systemNow()
-	{
-		return Timestamp{std::chrono::steady_clock::now().time_since_epoch()};
-	}
-
 	Timestamp operator+(const Timestamp& timestamp1, const Timestamp& timestamp2)
 	{
 		int second = static_cast<int>(timestamp1.second) + static_cast<int>(timestamp2.second);
@@ -62,6 +57,11 @@ namespace Physics
 		int millisecond = static_cast<int>(static_cast<int>(timestamp.millisecond) / number + 0.5f);
 		Timestamp::normalize(second, millisecond);
 		return Timestamp{static_cast<unsigned int>(second), static_cast<unsigned int>(millisecond)};
+	}
+
+	Timestamp Timestamp::systemNow()
+	{
+		return Timestamp{std::chrono::steady_clock::now().time_since_epoch()};
 	}
 
 	void Timestamp::normalize(int& second, int& millisecond)

@@ -12,11 +12,12 @@ namespace Physics
 	class RigidBodyDynamics : public RungeKuttaRightHandSide<Common::State::stateLength>
 	{
 	public:
+		virtual ~RigidBodyDynamics() = default;
+
 		virtual void rightHandSide(float,
 			const std::array<float, Common::State::stateLength>& state,
 			std::array<float, Common::State::stateLength>& stateDerivative) const override;
 		Common::State computeNewState(const Common::State& oldState) const;
-		virtual ~RigidBodyDynamics() = default;
 
 	protected:
 		RigidBodyDynamics(float mass, const glm::mat3& momentOfInertia);

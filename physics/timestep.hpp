@@ -12,9 +12,6 @@ namespace Physics
 		unsigned int second{};
 		unsigned int step{};
 
-		Timestep prev() const;
-		Timestep next() const;
-
 		friend Timestep operator-(const Timestep& timestep1, const Timestep& timestep2);
 		friend Timestep operator+(const Timestep& timestep1, const Timestep& timestep2);
 
@@ -22,6 +19,9 @@ namespace Physics
 		friend bool operator<(const Timestep& timestep1, const Timestep& timestep2);
 		friend bool operator<=(const Timestep& timestep1, const Timestep& timestep2);
 		friend bool operator>(const Timestep& timestep1, const Timestep& timestep2);
+
+		Timestep prev() const;
+		Timestep next() const;
 
 	private:
 		static void normalize(int& second, int& step);

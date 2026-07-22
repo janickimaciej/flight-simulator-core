@@ -21,6 +21,8 @@ namespace Physics
 		Airplane(const Common::AirplaneType& airplaneType, int hp);
 		Airplane(const Airplane& airplane);
 		Airplane(Airplane&& airplane) noexcept;
+		virtual ~Airplane() = default;
+
 		void updatePhase1(const Airplane* prevAirplane, const PlayerInfo& playerInfo,
 			bool isStateLocked);
 		void updatePhase2();
@@ -34,7 +36,6 @@ namespace Physics
 		void damage(int hp);
 		void destroy();
 		void heal(int hp);
-		virtual ~Airplane() = default;
 
 	private:
 		Common::AirplaneType m_airplaneType;

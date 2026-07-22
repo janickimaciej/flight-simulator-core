@@ -13,14 +13,15 @@ namespace Common
 	{
 	public:
 		ValueNoise(unsigned int seed);
+
 		float height(float x, float z) const;
 		float heightDerivX(float x, float z) const;
 		float heightDerivZ(float x, float z) const;
 
 	private:
-		static constexpr std::size_t period = 1 << periodExponent;
-		std::array<float, period> m_values{};
-		std::array<unsigned int, period> m_permutation{};
+		static constexpr std::size_t m_period = 1 << periodExponent;
+		std::array<float, m_period> m_values{};
+		std::array<unsigned int, m_period> m_permutation{};
 
 		void common(float x, float z, float& tX, float& tZ, float& y00, float& y01, float& y10,
 			float& y11) const;
@@ -35,14 +36,14 @@ namespace Common
 		std::mt19937 generator(seed);
 
 		std::uniform_real_distribution<float> floatDistribution(0, 1);
-		for (std::size_t i = 0; i < period; ++i)
+		for (std::size_t i = 0; i < m_period; ++i)
 		{
 			m_values[i] = floatDistribution(generator);
 			m_permutation[i] = static_cast<unsigned int>(i);
 		}
 
-		std::uniform_int_distribution<unsigned int> intDistribution(0, period - 1);
-		for (std::size_t i = 0; i < period; ++i)
+		std::uniform_int_distribution<unsigned int> intDistribution(0, m_period - 1);
+		for (std::size_t i = 0; i < m_period; ++i)
 		{
 			unsigned int index = intDistribution(generator);
 			std::swap(m_permutation[i], m_permutation[index]);
@@ -116,7 +117,7 @@ namespace Common
 		tX = x - xInt;
 		tZ = z - zInt;
 
-		unsigned int periodMask = period - 1;
+		unsigned int periodMask = m_period - 1;
 		unsigned int x0 = xInt & periodMask;
 		unsigned int x1 = (x0 + 1) & periodMask;
 		unsigned int z0 = zInt & periodMask;

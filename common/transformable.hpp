@@ -9,6 +9,8 @@ namespace Common
 	class Transformable
 	{
 	public:
+		virtual ~Transformable() = default;
+
 		virtual State getState() const;
 		virtual void setState(const State& newState);
 
@@ -21,10 +23,9 @@ namespace Common
 		virtual void rotateRoll(float angleRad); // locally
 		virtual void moveZ(float distance); // locally
 
-		virtual ~Transformable() = default;
-
 	protected:
 		Transformable();
+
 		glm::mat4 getMatrix() const;
 		virtual void scale(float scaleRatio); // locally
 		virtual void mirrorX(); // locally

@@ -18,6 +18,6 @@ namespace Common::Terrains
 		float m_frequency{};
 		float m_amplitude{};
 		float m_offset{};
-		Common::ValueNoise<8> valueNoise{347};
+		Common::ValueNoise<8> m_valueNoise{347};
 	};
 }
