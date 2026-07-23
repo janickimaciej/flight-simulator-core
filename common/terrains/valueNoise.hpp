@@ -9,6 +9,7 @@ namespace Common::Terrains
 	{
 	public:
 		ValueNoise(float frequency, float amplitude, float offset);
+		virtual ~ValueNoise() = default;
 
 		virtual float height(float x, float z) const override;
 		virtual float heightDerivX(float x, float z) const override;

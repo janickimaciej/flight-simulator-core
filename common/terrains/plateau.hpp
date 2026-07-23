@@ -10,6 +10,7 @@ namespace Common::Terrains
 	{
 	public:
 		Plateau(float steepness, float radius, const glm::vec2& center);
+		virtual ~Plateau() = default;
 
 		virtual float height(float x, float z) const override;
 		virtual float heightDerivX(float x, float z) const override;

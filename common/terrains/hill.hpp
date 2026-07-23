@@ -8,6 +8,7 @@ namespace Common::Terrains
 	{
 	public:
 		Hill(float height, float radius, float centerX, float centerZ);
+		virtual ~Hill() = default;
 
 		virtual float height(float x, float z) const override;
 		virtual float heightDerivX(float x, float z) const override;

@@ -8,6 +8,7 @@ namespace Common::Terrains
 	{
 	public:
 		WaveX(float amplitude, float length, float phaseRad);
+		virtual ~WaveX() = default;
 
 		virtual float height(float x, float z) const override;
 		virtual float heightDerivX(float x, float z) const override;
