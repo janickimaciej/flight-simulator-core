@@ -11,13 +11,13 @@ namespace Physics
 {
 	struct AirplaneParams
 	{
-		InertiaParams inertia;
-		SurfaceParams hStab;
-		SurfaceParams vStab;
-		SurfaceParams leftWing;
-		SurfaceParams rightWing;
-		FuselageParams fuselage;
-		PropulsionParams propulsion;
+		InertiaParams inertia{};
+		SurfaceParams hStab{};
+		SurfaceParams vStab{};
+		SurfaceParams leftWing{};
+		SurfaceParams rightWing{};
+		FuselageParams fuselage{};
+		PropulsionParams propulsion{};
 
 		AirplaneParams
 		(

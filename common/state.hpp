@@ -21,7 +21,7 @@ namespace Common
 		State(const std::array<float, stateLength>& arr);
 
 		void toArray(std::array<float, stateLength>& array) const;
-		std::array<float, State::stateLength> toArray() const;
+		std::array<float, stateLength> toArray() const;
 		glm::mat4 matrix() const;
 		glm::vec3 right() const;
 		glm::vec3 up() const;

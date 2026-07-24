@@ -2,8 +2,6 @@
 
 #include "physics/timestep.hpp"
 
-#include <chrono>
-
 namespace Physics
 {
 	Timestamp::Timestamp(unsigned int second, unsigned int millisecond) :

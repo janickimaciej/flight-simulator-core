@@ -1,10 +1,8 @@
 #include "physics/flightCtrl.hpp"
 
-#include "common/airplaneCtrl.hpp"
 #include "common/config.hpp"
-#include "physics/airplaneParams/airplaneParams.hpp"
-#include "physics/airplaneParams/surfaceParams.hpp"
-#include "physics/playerInput.hpp"
+
+#include <glm/glm.hpp>
 
 #include <algorithm>
 

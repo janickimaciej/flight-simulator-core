@@ -1,5 +1,7 @@
 #include "common/terrains/product.hpp"
 
+#include <utility>
+
 namespace Common::Terrains
 {
 	Product::Product(std::unique_ptr<Terrain> left, std::unique_ptr<Terrain> right) :

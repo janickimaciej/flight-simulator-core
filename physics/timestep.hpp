@@ -1,7 +1,5 @@
 #pragma once
 
-#include "common/config.hpp"
-
 namespace Physics
 {
 	inline constexpr unsigned int millisecondsPerSecond = 1000;

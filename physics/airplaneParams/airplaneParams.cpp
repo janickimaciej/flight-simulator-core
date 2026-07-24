@@ -1,13 +1,8 @@
 #include "physics/airplaneParams/airplaneParams.hpp"
 
-#include "physics/airplaneParams/fuselageParams.hpp"
-#include "physics/airplaneParams/inertiaParams.hpp"
-#include "physics/airplaneParams/propulsionParams.hpp"
-#include "physics/airplaneParams/surfaceParams.hpp"
-
-#include <glm/glm.hpp>
 #include <glm/ext/quaternion_trigonometric.hpp>
-#include <glm/gtc/quaternion.hpp>
+
+#include <cmath>
 
 namespace Physics
 {
@@ -139,8 +134,8 @@ namespace Physics
 	float AirplaneParams::adjustLiftCoefDeriv(float liftCoefDeriv, float criticalAngleNegativeRad,
 		float criticalAnglePositiveRad)
 	{
-		return liftCoefDeriv - (glm::sin(2 * criticalAnglePositiveRad) -
-			glm::sin(2 * criticalAngleNegativeRad)) / (criticalAnglePositiveRad -
+		return liftCoefDeriv - (std::sin(2 * criticalAnglePositiveRad) -
+			std::sin(2 * criticalAngleNegativeRad)) / (criticalAnglePositiveRad -
 			criticalAngleNegativeRad);
 	}
 }

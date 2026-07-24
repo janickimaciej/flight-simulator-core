@@ -1,6 +1,7 @@
 #pragma once
 
 #include "app/udp/frame/stateFrame.hpp"
+#include "app/udp/frame/stateFramePlayerInfo.hpp"
 #include "common/airplaneType.hpp"
 #include "common/config.hpp"
 #include "physics/playerInfo.hpp"
@@ -9,6 +10,7 @@
 #include "physics/timestep.hpp"
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include <unordered_map>
 #include <vector>

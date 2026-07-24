@@ -1,7 +1,8 @@
 #include "physics/modelDynamics/bulletDynamics.hpp"
 
-#include "common/state.hpp"
 #include "physics/simulationClock.hpp"
+
+#include <glm/glm.hpp>
 
 namespace Physics
 {

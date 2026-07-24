@@ -7,6 +7,7 @@
 #include <bitsery/traits/array.h>
 #include <bitsery/traits/vector.h>
 
+#include <array>
 #include <cstddef>
 #include <vector>
 

@@ -5,7 +5,6 @@
 #include "physics/timestep.hpp"
 
 #include <atomic>
-#include <chrono>
 
 namespace Physics
 {

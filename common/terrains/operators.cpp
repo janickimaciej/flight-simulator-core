@@ -4,6 +4,8 @@
 #include "common/terrains/product.hpp"
 #include "common/terrains/sum.hpp"
 
+#include <utility>
+
 namespace Common::Terrains
 {
 	std::unique_ptr<Terrain> operator+(std::unique_ptr<Terrain> left,

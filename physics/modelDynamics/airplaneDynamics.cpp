@@ -1,16 +1,8 @@
 #include "physics/modelDynamics/airplaneDynamics.hpp"
 
-#include "common/state.hpp"
-#include "physics/airplaneParams/airplaneParams.hpp"
-#include "physics/airplaneParams/fuselageParams.hpp"
-#include "physics/airplaneParams/inertiaParams.hpp"
-#include "physics/airplaneParams/propulsionParams.hpp"
-#include "physics/airplaneParams/surfaceParams.hpp"
 #include "physics/atmosphere.hpp"
-#include "physics/flightCtrl.hpp"
-#include "physics/modelDynamics/rigidBodyDynamics.hpp"
 
-#include <glm/glm.hpp>
+#include <cmath>
 
 namespace Physics
 {
@@ -63,7 +55,7 @@ namespace Physics
 		glm::vec3 airVelocitySurface = glm::conjugate(params.orientation) * airVelocity;
 		glm::vec3 yzAirVelocitySurface = glm::vec3{0, airVelocitySurface.y, airVelocitySurface.z};
 		float yzAirSpeed = glm::length(yzAirVelocitySurface);
-		float angleOfAttackSurfaceRad = glm::atan(yzAirVelocitySurface.y, yzAirVelocitySurface.z);
+		float angleOfAttackSurfaceRad = std::atan2(yzAirVelocitySurface.y, yzAirVelocitySurface.z);
 		if (yzAirSpeed > eps && angleOfAttackSurfaceRad > params.criticalAngleNegativeRad &&
 			angleOfAttackSurfaceRad < params.criticalAnglePositiveRad)
 		{
@@ -81,7 +73,7 @@ namespace Physics
 		airVelocitySurface = glm::conjugate(params.orientation) * airVelocity;
 		yzAirVelocitySurface = glm::vec3{0, airVelocitySurface.y, airVelocitySurface.z};
 		yzAirSpeed = glm::length(yzAirVelocitySurface);
-		angleOfAttackSurfaceRad = glm::atan(yzAirVelocitySurface.y, yzAirVelocitySurface.z);
+		angleOfAttackSurfaceRad = std::atan2(yzAirVelocitySurface.y, yzAirVelocitySurface.z);
 		if (yzAirSpeed > eps && angleOfAttackSurfaceRad > params.criticalAngleNegativeRad &&
 			angleOfAttackSurfaceRad < params.criticalAnglePositiveRad)
 		{
@@ -98,7 +90,7 @@ namespace Physics
 
 		airVelocity = computeAirVelocity(state, params.normalForcePoint);
 		airVelocitySurface = glm::conjugate(params.orientation) * airVelocity;
-		if (glm::abs(airVelocitySurface.y) > eps)
+		if (std::abs(airVelocitySurface.y) > eps)
 		{
 			float dynamicPressure = airDensity * airVelocitySurface.y * airVelocitySurface.y / 2;
 			glm::vec3 normalForceDirectionSurface =
@@ -117,7 +109,7 @@ namespace Physics
 		float airDensity = Atmosphere::airDensity(state.pos.y);
 
 		glm::vec3 airVelocity = computeAirVelocity(state, params.frontDragPoint);
-		if (glm::abs(airVelocity.z) > eps)
+		if (std::abs(airVelocity.z) > eps)
 		{
 			float dynamicPressure = airDensity * airVelocity.z * airVelocity.z / 2;
 			glm::vec3 frontDragDirection = glm::vec3{0, 0, airVelocity.z > 0 ? 1 : -1};

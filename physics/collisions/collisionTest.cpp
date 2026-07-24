@@ -1,12 +1,5 @@
 #include "physics/collisions/collisionTest.hpp"
 
-#include "common/state.hpp"
-#include "common/terrains/terrain.hpp"
-#include "physics/collisions/airplane.hpp"
-#include "physics/collisions/ellipsoid.hpp"
-
-#include <glm/glm.hpp>
-
 namespace Physics::Collisions
 {
 	bool CollisionTest::collides(const glm::vec3& moving, const Common::State& movingPrevState,

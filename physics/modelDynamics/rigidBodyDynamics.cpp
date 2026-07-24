@@ -1,13 +1,9 @@
 #include "physics/modelDynamics/rigidBodyDynamics.hpp"
 
-#include "common/state.hpp"
 #include "physics/rungeKutta.hpp"
 #include "physics/simulationClock.hpp"
 
-#include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
-
-#include <array>
 
 namespace Physics
 {

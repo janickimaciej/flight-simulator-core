@@ -1,9 +1,5 @@
 #include "common/state.hpp"
 
-#include <glm/glm.hpp>
-
-#include <array>
-
 namespace Common
 {
 	State::State(const std::array<float, stateLength>& arr)

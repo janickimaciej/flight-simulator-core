@@ -1,8 +1,6 @@
 #include "physics/notification.hpp"
 
 #include "common/config.hpp"
-#include "physics/simulationClock.hpp"
-#include "physics/timestep.hpp"
 
 namespace Physics
 {

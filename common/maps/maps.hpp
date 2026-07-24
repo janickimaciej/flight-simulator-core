@@ -3,6 +3,7 @@
 #include "common/mapName.hpp"
 #include "common/maps/airportMap.hpp"
 #include "common/maps/islandMap.hpp"
+#include "common/maps/map.hpp"
 
 #include <array>
 #include <memory>

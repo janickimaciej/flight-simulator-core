@@ -1,23 +1,16 @@
 #include "scene.hpp"
 
-#include "common/airplaneCentersOfMass.hpp"
-#include "common/airplaneInfo.hpp"
 #include "common/airplaneType.hpp"
 #include "common/bulletInfo.hpp"
 #include "common/config.hpp"
-#include "common/mapName.hpp"
 #include "common/maps/maps.hpp"
-#include "common/sceneInfo.hpp"
+#include "common/state.hpp"
 #include "physics/airplaneDefinitions.hpp"
 #include "physics/collisions/collisionTest.hpp"
-#include "physics/models/airplane.hpp"
-#include "physics/playerInfo.hpp"
-#include "physics/timestep.hpp"
 
-#include <cstddef>
-#include <list>
+#include <glm/glm.hpp>
+
 #include <optional>
-#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -142,7 +135,7 @@ namespace Physics
 				bullets.second.pop_back();
 			}
 
-			for (std::list<Bullet>::iterator iter = bullets.second.begin();
+			for (auto iter = bullets.second.begin();
 				iter != bullets.second.end();)
 			{
 				if (updateBullet(*iter))
@@ -163,7 +156,8 @@ namespace Physics
 				Common::State airplaneState = m_airplanes.at(id).getState();
 				Common::AirplaneType airplaneType =
 					m_airplanes.at(id).getAirplaneType();
-				glm::vec3 initialPosLocal = airplaneDefinitions[toSizeT(airplaneType)].muzzlePos +
+				glm::vec3 initialPosLocal = airplaneDefinitions[
+					Common::toSizeT(airplaneType)].muzzlePos +
 					glm::vec3{0, 0, -Common::tracerLength};
 				glm::vec3 initialVelocityLocal =
 					airplaneDefinitions[toSizeT(airplaneType)].muzzleVelocity;

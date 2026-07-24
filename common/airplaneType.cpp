@@ -1,7 +1,5 @@
 #include "common/airplaneType.hpp"
 
-#include <cstddef>
-
 namespace Common
 {
 	unsigned char toUChar(AirplaneType airplaneType)

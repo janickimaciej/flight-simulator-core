@@ -1,9 +1,6 @@
 #include "common/transformable.hpp"
 
-#include "common/state.hpp"
-
 #include <glm/ext/quaternion_trigonometric.hpp>
-#include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 
 namespace Common

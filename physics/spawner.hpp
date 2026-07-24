@@ -4,8 +4,6 @@
 #include "common/maps/map.hpp"
 #include "common/state.hpp"
 
-#include <glm/glm.hpp>
-
 #include <random>
 
 namespace Physics

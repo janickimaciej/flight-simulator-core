@@ -1,6 +1,5 @@
 #include "common/maps/islandMap.hpp"
 
-#include "common/terrains/hill.hpp"
 #include "common/terrains/operators.hpp"
 #include "common/terrains/plateau.hpp"
 #include "common/terrains/valueNoise.hpp"

@@ -6,17 +6,17 @@ namespace Common::Terrains
 		m_value{value}
 	{ }
 
-	float Constant::height(float x, float z) const
+	float Constant::height(float, float) const
 	{
 		return m_value;
 	}
 
-	float Constant::heightDerivX(float x, float z) const
+	float Constant::heightDerivX(float, float) const
 	{
 		return 0;
 	}
 
-	float Constant::heightDerivZ(float x, float z) const
+	float Constant::heightDerivZ(float, float) const
 	{
 		return 0;
 	}

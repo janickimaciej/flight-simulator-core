@@ -1,7 +1,5 @@
 #include "common/maps/map.hpp"
 
-#include <glm/glm.hpp>
-
 #include <utility>
 
 namespace Common::Maps

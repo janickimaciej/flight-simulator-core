@@ -6,8 +6,6 @@
 
 #include <glm/glm.hpp>
 
-#include <cstddef>
-
 namespace Physics
 {
 	namespace database::mustang
@@ -20,7 +18,7 @@ namespace Physics
 			0, 350, 14800
 		};
 		inline constexpr glm::vec3 centerOfMass = Common::airplaneCentersOfMass[
-			toSizeT(Common::AirplaneType::mustang)];
+			Common::toSizeT(Common::AirplaneType::mustang)];
 
 		inline constexpr float hStabIncidenceAngleDeg = 0;
 		inline constexpr float hStabArea = 3.54f;

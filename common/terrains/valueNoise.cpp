@@ -1,7 +1,5 @@
 #include "common/terrains/valueNoise.hpp"
 
-#include <cmath>
-
 namespace Common::Terrains
 {
 	ValueNoise::ValueNoise(float frequency, float amplitude, float offset) :

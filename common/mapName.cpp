@@ -1,7 +1,5 @@
 #include "common/mapName.hpp"
 
-#include <cstddef>
-
 namespace Common
 {
 	std::size_t toSizeT(MapName map)

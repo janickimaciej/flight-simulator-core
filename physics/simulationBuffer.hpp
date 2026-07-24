@@ -6,7 +6,6 @@
 #include "physics/playerInfo.hpp"
 #include "physics/playerInput.hpp"
 #include "physics/simulationBufferElement.hpp"
-#include "physics/simulationBufferPlayer.hpp"
 #include "physics/timestep.hpp"
 
 #include <array>

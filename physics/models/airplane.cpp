@@ -1,17 +1,7 @@
 #include "physics/models/airplane.hpp"
 
 #include "physics/airplaneDefinitions.hpp"
-#include "physics/airplaneParams/airplaneParams.hpp"
-#include "physics/flightCtrl.hpp"
-#include "physics/modelDynamics/airplaneDynamics.hpp"
-#include "physics/models/model.hpp"
-#include "physics/playerInput.hpp"
-#include "physics/timestep.hpp"
-
-#include <glm/glm.hpp>
-
-#include <cstddef>
-#include <memory>
+#include "physics/playerState.hpp"
 
 namespace Physics
 {

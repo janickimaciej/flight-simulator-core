@@ -1,12 +1,10 @@
 #include "physics/spawner.hpp"
 
-#include "common/airplaneType.hpp"
-#include "common/maps/map.hpp"
-#include "common/state.hpp"
 #include "physics/airplaneDefinitions.hpp"
 
 #include <glm/glm.hpp>
 
+#include <cmath>
 #include <ctime>
 
 namespace Physics

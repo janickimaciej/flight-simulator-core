@@ -13,5 +13,5 @@ namespace App
 	};
 
 	unsigned char toUChar(UDPFrameType udpFrameType);
-	uint8_t toUInt8(UDPFrameType udpFrameType);
+	std::uint8_t toUInt8(UDPFrameType udpFrameType);
 }

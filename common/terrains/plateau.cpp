@@ -1,7 +1,5 @@
 #include "common/terrains/plateau.hpp"
 
-#include <glm/gtc/constants.hpp>
-
 #include <cmath>
 
 namespace Common::Terrains

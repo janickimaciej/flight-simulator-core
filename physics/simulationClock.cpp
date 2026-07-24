@@ -1,9 +1,5 @@
 #include "physics/simulationClock.hpp"
 
-#include "common/config.hpp"
-#include "physics/timestamp.hpp"
-#include "physics/timestep.hpp"
-
 #include <chrono>
 
 namespace Physics

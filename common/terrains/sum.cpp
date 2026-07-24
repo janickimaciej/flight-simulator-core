@@ -1,5 +1,7 @@
 #include "common/terrains/sum.hpp"
 
+#include <utility>
+
 namespace Common::Terrains
 {
 	Sum::Sum(std::unique_ptr<Terrain> left, std::unique_ptr<Terrain> right) :

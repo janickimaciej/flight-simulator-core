@@ -1,9 +1,5 @@
 #include "physics/models/model.hpp"
 
-#include "common/transformable.hpp"
-
-#include <glm/glm.hpp>
-
 namespace Physics
 {
 	glm::mat4 Model::getModelMatrix() const

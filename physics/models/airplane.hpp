@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common/airplaneCtrl.hpp"
 #include "common/airplaneInfo.hpp"
 #include "common/airplaneType.hpp"
 #include "physics/airplaneParams/airplaneParams.hpp"
@@ -10,7 +11,6 @@
 #include "physics/playerInfo.hpp"
 #include "physics/timestep.hpp"
 
-#include <memory>
 #include <optional>
 
 namespace Physics

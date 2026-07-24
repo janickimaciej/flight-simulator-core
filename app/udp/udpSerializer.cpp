@@ -3,23 +3,13 @@
 #include "app/udp/frame/controlFrame.hpp"
 #include "app/udp/frame/initReqFrame.hpp"
 #include "app/udp/frame/initResFrame.hpp"
-#include "app/udp/frame/stateFrame.hpp"
-#include "app/udp/udpFrameType.hpp"
-#include "common/airplaneType.hpp"
-#include "physics/playerInfo.hpp"
-#include "physics/playerInput.hpp"
 #include "physics/playerState.hpp"
-#include "physics/timestamp.hpp"
-#include "physics/timestep.hpp"
 
 #include <bitsery/adapter/buffer.h>
-#include <bitsery/bitsery.h>
+#include <bitsery/deserializer.h>
+#include <bitsery/serializer.h>
 
-#include <array>
-#include <cstddef>
-#include <cstdint>
-#include <unordered_map>
-#include <vector>
+#include <utility>
 
 namespace App
 {
@@ -31,7 +21,7 @@ namespace App
 	{
 		InitReqFrame frame{};
 		frame.clientTimestamp = packTimestamp(clientTimestamp);
-		frame.airplaneType = toUChar(airplaneType);
+		frame.airplaneType = Common::toUChar(airplaneType);
 
 		std::size_t size = bitsery::quickSerialization<OutputAdapter>(buffer, frame);
 		buffer.resize(size);
@@ -86,7 +76,7 @@ namespace App
 					playerInfo.second.input.roll,
 					playerInfo.second.input.thrust,
 					playerInfo.second.input.trigger,
-					toUChar(playerInfo.second.state.airplaneType),
+					Common::toUChar(playerInfo.second.state.airplaneType),
 					static_cast<unsigned char>(playerInfo.second.state.hp),
 					playerInfo.second.state.state.toArray()
 				});

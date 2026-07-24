@@ -1,18 +1,8 @@
 #include "physics/simulationBuffer.hpp"
 
-#include "common/airplaneInfo.hpp"
-#include "common/mapName.hpp"
-#include "physics/playerInfo.hpp"
-#include "physics/playerInput.hpp"
-#include "physics/playerState.hpp"
-#include "physics/simulationBufferElement.hpp"
 #include "physics/simulationBufferPlayer.hpp"
-#include "physics/timestep.hpp"
 
-#include <array>
-#include <unordered_map>
 #include <utility>
-#include <vector>
 
 namespace Physics
 {

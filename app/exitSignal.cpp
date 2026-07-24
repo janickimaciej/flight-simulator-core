@@ -1,11 +1,5 @@
 #include "app/exitSignal.hpp"
 
-#include "app/exitCode.hpp"
-
-#include <atomic>
-#include <mutex>
-#include <semaphore>
-
 namespace App
 {
 	bool ExitSignal::shouldStop() const

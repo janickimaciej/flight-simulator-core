@@ -2,8 +2,6 @@
 
 #include "common/terrains/terrain.hpp"
 
-#include <memory>
-
 namespace Common::Terrains
 {
 	class Constant : public Terrain
