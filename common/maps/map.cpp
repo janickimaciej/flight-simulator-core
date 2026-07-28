@@ -31,7 +31,8 @@ namespace Common::Maps
 
 	bool Map::isOutside(const glm::vec3& pos) const
 	{
-		return pos.x < 0 || pos.x > m_lengthX || pos.z < 0 || pos.z > m_lengthZ;
+		return pos.x < -m_lengthX / 2.0f || pos.x > m_lengthX / 2.0f ||
+			pos.z < -m_lengthZ / 2.0f || pos.z > m_lengthZ / 2.0f;
 	}
 
 	Map::Map(float lengthX, float lengthZ, float spacingX, float spacingZ) :

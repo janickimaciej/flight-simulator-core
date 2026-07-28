@@ -18,8 +18,10 @@ namespace Physics
 	{
 		Common::State state{};
 
-		std::uniform_real_distribution<float> xFloatDistribution(0, m_map.getLengthX());
-		std::uniform_real_distribution<float> zFloatDistribution(0, m_map.getLengthZ());
+		std::uniform_real_distribution<float> xFloatDistribution(-m_map.getLengthX() / 2.0f,
+			m_map.getLengthX() / 2.0f);
+		std::uniform_real_distribution<float> zFloatDistribution(-m_map.getLengthZ() / 2.0f,
+			m_map.getLengthZ() / 2.0f);
 
 		state.pos.x = xFloatDistribution(m_generator);
 		static constexpr float heightMargin = 50;
@@ -32,12 +34,7 @@ namespace Physics
 			state.pos.x = 1;
 		}
 
-		state.setOrientation(glm::normalize(glm::vec3
-			{
-				state.pos.x - m_map.getLengthX() / 2,
-				0,
-				state.pos.z - m_map.getLengthZ() / 2
-			}));
+		state.setOrientation(glm::normalize(glm::vec3{state.pos.x, 0, state.pos.z}));
 
 		state.velocity = airplaneDefinitions[Common::toSizeT(airplaneType)].initialVelocity;
 

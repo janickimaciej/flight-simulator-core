@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common/mapName.hpp"
-#include "common/maps/airportMap.hpp"
 #include "common/maps/islandMap.hpp"
 #include "common/maps/map.hpp"
 
@@ -12,7 +11,6 @@ namespace Common::Maps
 {
 	inline const std::array<std::unique_ptr<Map>, Common::mapCount> maps
 	{
-		std::make_unique<AirportMap>(),
 		std::make_unique<IslandMap>()
 	};
 }

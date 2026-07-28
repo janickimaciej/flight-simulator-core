@@ -4,11 +4,10 @@
 
 namespace Common
 {
-	inline constexpr int mapCount = 2;
+	inline constexpr int mapCount = 1;
 
 	enum class MapName
 	{
-		airport,
 		island
 	};
 
