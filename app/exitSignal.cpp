@@ -9,7 +9,7 @@ namespace App
 
 	void ExitSignal::exit(ExitCode exitCode)
 	{
-		m_mutex.lock();
+		std::scoped_lock lock{m_mutex};
 
 		if (!m_exiting)
 		{
@@ -20,8 +20,6 @@ namespace App
 				callback();
 			}
 		}
-
-		m_mutex.unlock();
 	}
 
 	ExitCode ExitSignal::getExitCode() const
@@ -31,10 +29,8 @@ namespace App
 
 	void ExitSignal::registerOnExit(std::function<void()> callback)
 	{
-		m_mutex.lock();
+		std::scoped_lock lock{m_mutex};
 
 		m_onExitCallbacks.push_back(callback);
-
-		m_mutex.unlock();
 	}
 }

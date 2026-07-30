@@ -2,6 +2,7 @@
 
 #include "physics/simulationBufferPlayer.hpp"
 
+#include <mutex>
 #include <utility>
 
 namespace Physics
@@ -18,7 +19,7 @@ namespace Physics
 	void SimulationBuffer::writeInitFrame(const Timestep& timestep, int playerId,
 		const PlayerInfo& playerInfo)
 	{
-		m_buffer[timestep.step]->mutex.lock();
+		std::scoped_lock lock{m_buffer[timestep.step]->mutex};
 
 		bool isSecondOdd = timestep.second % 2;
 		if (!m_buffer[timestep.step]->players.contains(playerId))
@@ -39,14 +40,12 @@ namespace Physics
 					playerInfo
 				}});
 		}
-
-		m_buffer[timestep.step]->mutex.unlock();
 	}
 
 	void SimulationBuffer::writeControlFrame(const Timestep& timestep, int playerId,
 		const PlayerInput& playerInput)
 	{
-		m_buffer[timestep.step]->mutex.lock();
+		std::scoped_lock lock{m_buffer[timestep.step]->mutex};
 
 		bool isSecondOdd = timestep.second % 2;
 		if (m_buffer[timestep.step]->players.contains(playerId) && !m_buffer[timestep.step]->lock &&
@@ -56,20 +55,16 @@ namespace Physics
 			m_buffer[timestep.step]->players.at(playerId).info.input = playerInput;
 			m_buffer[timestep.step]->players.at(playerId).lockInput[isSecondOdd] = true;
 		}
-
-		m_buffer[timestep.step]->mutex.unlock();
 	}
 
 	void SimulationBuffer::writeStateFrame(const Timestep& timestep,
 		const std::unordered_map<int, PlayerInfo>& playerInfos)
 	{
-		m_buffer[timestep.step]->mutex.lock();
+		std::scoped_lock lock{m_buffer[timestep.step]->mutex};
 
 		addAndUpdatePlayers(timestep, playerInfos);
 		removePlayers(timestep, playerInfos);
 		m_buffer[timestep.step]->lock = true;
-
-		m_buffer[timestep.step]->mutex.unlock();
 	}
 
 	void SimulationBuffer::writeOwnInput(const Timestep& timestep, const PlayerInput& ownInput)
@@ -80,43 +75,43 @@ namespace Physics
 	void SimulationBuffer::kickPlayers(const std::vector<int>& kickedPlayers,
 		const Physics::Timestep& timestep)
 	{
-		m_buffer[timestep.step]->mutex.lock();
+		std::scoped_lock lock{m_buffer[timestep.step]->mutex};
 
 		bool isSecondOdd = timestep.second % 2;
 		m_buffer[timestep.step]->removedPlayers[isSecondOdd] = kickedPlayers;
-
-		m_buffer[timestep.step]->mutex.unlock();
 	}
 
 	void SimulationBuffer::update(const Timestep& timestep)
 	{
 		Timestep prevTimestep = timestep.prev();
 
-		m_buffer[prevTimestep.step]->mutex.lock();
-		m_buffer[timestep.step]->mutex.lock();
-
-		if (!m_buffer[timestep.step]->lock)
+		std::unordered_map<int, PlayerInfo> playerInfos{};
+		std::unordered_map<int, bool> stateLocks{};
 		{
-			addAndUpdatePlayers(prevTimestep, timestep);
-			removePlayers(prevTimestep, timestep);
+			std::scoped_lock lock
+			{
+				m_buffer[prevTimestep.step]->mutex,
+				m_buffer[timestep.step]->mutex
+			};
+
+			if (!m_buffer[timestep.step]->lock)
+			{
+				addAndUpdatePlayers(prevTimestep, timestep);
+				removePlayers(prevTimestep, timestep);
+			}
+
+			bool isSecondOdd = timestep.second % 2;
+			for (const std::pair<const int, SimulationBufferPlayer>& player :
+				m_buffer[timestep.step]->players)
+			{
+				playerInfos.insert({player.first, player.second.info});
+				stateLocks.insert({player.first,
+					m_buffer[timestep.step]->lock ||
+					m_buffer[timestep.step]->players[player.first].lockState[isSecondOdd]});
+			}
+
+			clearLocks(timestep);
 		}
-
-		bool isSecondOdd = timestep.second % 2;
-		std::unordered_map<int, PlayerInfo> playerInfos;
-		std::unordered_map<int, bool> stateLocks;
-		for (const std::pair<const int, SimulationBufferPlayer>& player :
-			m_buffer[timestep.step]->players)
-		{
-			playerInfos.insert({player.first, player.second.info});
-			stateLocks.insert({player.first,
-				m_buffer[timestep.step]->lock ||
-				m_buffer[timestep.step]->players[player.first].lockState[isSecondOdd]});
-		}
-
-		clearLocks(timestep);
-
-		m_buffer[prevTimestep.step]->mutex.unlock();
-		m_buffer[timestep.step]->mutex.unlock();
 
 		m_buffer[timestep.step]->scene.update(timestep, m_buffer[prevTimestep.step]->scene,
 			playerInfos, stateLocks);

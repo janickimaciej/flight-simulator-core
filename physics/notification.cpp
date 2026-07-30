@@ -10,12 +10,10 @@ namespace Physics
 
 	void Notification::forceGetNotification(Timestep& timestep)
 	{
-		m_mutex.lock();
+		std::scoped_lock lock{m_mutex};
 
 		timestep = m_timestep;
 		m_unread = false;
-
-		m_mutex.unlock();
 	}
 
 	void Notification::getNotification(Timestep& timestep)
@@ -33,27 +31,25 @@ namespace Physics
 			m_ignoring = false;
 		}
 
-		m_mutex.lock();
-
-		if (!m_ignoring && m_unread && m_timestep < timestep)
 		{
-			timestep = m_timestep;
-		}
-		m_unread = false;
+			std::scoped_lock lock{m_mutex};
 
-		m_mutex.unlock();
+			if (!m_ignoring && m_unread && m_timestep < timestep)
+			{
+				timestep = m_timestep;
+			}
+			m_unread = false;
+		}
 	}
 
 	void Notification::setNotification(const Timestep& timestep, bool isStateFrame)
 	{
-		m_mutex.lock();
+		std::scoped_lock lock{m_mutex};
 
 		if (isStateFrame || !m_unread || timestep < m_timestep)
 		{
 			m_timestep = timestep;
 			m_unread = true;
 		}
-
-		m_mutex.unlock();
 	}
 }
