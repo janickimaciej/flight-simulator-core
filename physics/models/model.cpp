@@ -12,8 +12,8 @@ namespace Physics
 		return getState().pos;
 	}
 
-	void Model::scale(float scaleRatio)
+	void Model::setScale(float scaleRatio)
 	{
-		Common::Transformable::scale(scaleRatio);
+		Common::Transformable::setScale(scaleRatio);
 	}
 }

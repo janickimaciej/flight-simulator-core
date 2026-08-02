@@ -11,26 +11,27 @@ namespace Common
 	public:
 		virtual ~Transformable() = default;
 
-		virtual State getState() const;
-		virtual void setState(const State& newState);
+		State getState() const;
+		void setState(const State& newState);
 
-		virtual void rotate(const glm::vec3& axis, float angleRad); // locally
-		virtual void resetRotation(); // locally
-		virtual void translate(const glm::vec3& translation);
+		void resetRotation(); // local
+		void rotate(const glm::vec3& axis, float angleRad); // local
+		void rotatePitch(float angleRad); // local
+		void rotateYaw(float angleRad); // local
+		void rotateRoll(float angleRad); // local
 
-		virtual void rotatePitch(float angleRad); // locally
-		virtual void rotateYaw(float angleRad); // locally
-		virtual void rotateRoll(float angleRad); // locally
-		virtual void moveZ(float distance); // locally
+		glm::vec3 getPos() const;
+		void setPos(const glm::vec3& pos);
 
 	protected:
 		Transformable();
 
 		glm::mat4 getMatrix() const;
-		virtual void scale(float scaleRatio); // locally
-		virtual void mirrorX(); // locally
-		virtual void mirrorY(); // locally
-		virtual void mirrorZ(); // locally
+		float getScale() const; // local
+		virtual void setScale(float scaleRatio); // local
+		virtual void mirrorX(); // local
+		virtual void mirrorY(); // local
+		virtual void mirrorZ(); // local
 		bool isWindingOrderClockwise() const;
 
 	private:

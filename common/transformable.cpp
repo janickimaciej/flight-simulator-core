@@ -16,23 +16,17 @@ namespace Common
 		updateMatrix();
 	}
 
-	void Transformable::rotate(const glm::vec3& axis, float angleRad)
-	{
-		glm::quat rotation = glm::angleAxis(angleRad, axis);
-		m_state.orientation = rotation * m_state.orientation;
-		m_state.normalize();
-		updateMatrix();
-	}
-
 	void Transformable::resetRotation()
 	{
 		m_state.orientation = glm::quat{1, 0, 0, 0};
 		updateMatrix();
 	}
 
-	void Transformable::translate(const glm::vec3& translation)
+	void Transformable::rotate(const glm::vec3& axis, float angleRad)
 	{
-		m_state.pos += translation;
+		glm::quat rotation = glm::angleAxis(angleRad, axis);
+		m_state.orientation = rotation * m_state.orientation;
+		m_state.normalize();
 		updateMatrix();
 	}
 
@@ -51,9 +45,16 @@ namespace Common
 		rotate(m_state.direction(), -angleRad);
 	}
 
-	void Transformable::moveZ(float distance)
+	glm::vec3 Transformable::getPos() const
 	{
-		translate(distance * m_state.direction());
+		return m_state.pos;
+	}
+
+	void Transformable::setPos(const glm::vec3& pos)
+	{
+		if (pos == m_state.pos) return;
+		m_state.pos = pos;
+		updateMatrix();
 	}
 
 	Transformable::Transformable()
@@ -66,9 +67,15 @@ namespace Common
 		return m_matrix;
 	}
 
-	void Transformable::scale(float scaleRatio)
+	float Transformable::getScale() const
 	{
-		this->m_scaleRatio *= scaleRatio;
+		return m_scaleRatio;
+	}
+
+	void Transformable::setScale(float scaleRatio)
+	{
+		if (scaleRatio == m_scaleRatio) return;
+		m_scaleRatio = scaleRatio;
 		updateMatrix();
 	}
 
