@@ -3,7 +3,6 @@
 #include "common/airplaneType.hpp"
 #include "common/bulletInfo.hpp"
 #include "common/config.hpp"
-#include "common/maps/maps.hpp"
 #include "common/state.hpp"
 #include "physics/airplaneDefinitions.hpp"
 #include "physics/collisions/collisionTest.hpp"
@@ -17,14 +16,14 @@
 namespace Physics
 {
 	Scene::Scene(Common::MapName map) :
-		m_map{*Common::Maps::maps[Common::toSizeT(map)]}
+		m_map{Collisions::Map::get(map)}
 	{ }
 
 	void Scene::update(const Timestep& timestep, const Scene& prevScene,
 		const std::unordered_map<int, PlayerInfo>& playerInfos,
 		const std::unordered_map<int, bool>& stateLocks)
 	{
-		addAndUpdateAirplanes(prevScene, playerInfos, stateLocks, timestep);
+		addAndUpdateAirplanes(prevScene, playerInfos, stateLocks);
 		removeAirplanes(prevScene, stateLocks);
 		updateBullets(timestep, prevScene);
 		m_dayNightCycle.updateTime(prevScene.m_dayNightCycle);
@@ -61,7 +60,7 @@ namespace Physics
 
 	void Scene::addAndUpdateAirplanes(const Scene& prevScene,
 		const std::unordered_map<int, PlayerInfo>& playerInfos,
-		const std::unordered_map<int, bool>& stateLocks, const Timestep& timestep)
+		const std::unordered_map<int, bool>& stateLocks)
 	{
 		for (const std::pair<const int, bool>& stateLock : stateLocks)
 		{
@@ -87,7 +86,7 @@ namespace Physics
 		{
 			if (!stateLock.second)
 			{
-				updateAirplanePhase2(stateLock.first, timestep);
+				updateAirplanePhase2(stateLock.first);
 			}
 		}
 	}
@@ -181,23 +180,15 @@ namespace Physics
 		m_airplanes.at(index).updatePhase1(prevAirplane, playerInfo, isStateLocked);
 	}
 
-	void Scene::updateAirplanePhase2(int index, const Timestep& timestep)
+	void Scene::updateAirplanePhase2(int index)
 	{
 		Airplane& airplane = m_airplanes.at(index);
 		Common::State prevState = airplane.getState();
 		airplane.updatePhase2();
 		Common::State nextState = airplane.getState();
 
-		if (m_map.isOutside(airplane.getPos()))
-		{
-			if (timestep.step == 0)
-			{
-				static constexpr int outsideMapDamage = 5;
-				airplane.damage(outsideMapDamage);
-			}
-		}
-		else if (Collisions::CollisionTest::collides(airplane.getCollisionModel(), prevState,
-			nextState, m_map.terrain()))
+		if (Collisions::CollisionTest::collides(airplane.getCollisionModel(), prevState, nextState,
+			*m_map))
 		{
 			airplane.destroy();
 			return;
@@ -225,8 +216,7 @@ namespace Physics
 		Common::State prevState = bullet.getState();
 		bullet.update(bullet);
 		Common::State nextState = bullet.getState();
-		if (Collisions::CollisionTest::collides(glm::vec3{0, 0, 0}, prevState, nextState,
-			m_map.terrain()))
+		if (Collisions::CollisionTest::collides(glm::vec3{0, 0, 0}, prevState, nextState, *m_map))
 		{
 			return true;
 		}

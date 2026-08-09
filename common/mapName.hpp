@@ -10,6 +10,4 @@ namespace Common
 	{
 		island
 	};
-
-	std::size_t toSizeT(MapName map);
 }
