@@ -6,10 +6,10 @@
 
 namespace Common
 {
-	class Transformable
+	class Frame
 	{
 	public:
-		virtual ~Transformable() = default;
+		virtual ~Frame() = default;
 
 		State getState() const;
 		void setState(const State& newState);
@@ -24,7 +24,7 @@ namespace Common
 		void setPos(const glm::vec3& pos);
 
 	protected:
-		Transformable();
+		Frame();
 
 		glm::mat4 getMatrix() const;
 		float getScale() const; // local

@@ -6,13 +6,13 @@
 
 namespace Physics
 {
-	class Model : public Common::Transformable
+	class Model : public Common::Frame
 	{
 	public:
 		virtual ~Model() = default;
 
 		glm::mat4 getModelMatrix() const;
 		glm::vec3 getPos() const;
-		virtual void setScale(float scaleRatio) override; // locally
+		virtual void setScale(float scaleRatio) override; // local
 	};
 }

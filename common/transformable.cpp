@@ -5,24 +5,24 @@
 
 namespace Common
 {
-	State Transformable::getState() const
+	State Frame::getState() const
 	{
 		return m_state;
 	}
 
-	void Transformable::setState(const State& newState)
+	void Frame::setState(const State& newState)
 	{
 		m_state = newState;
 		updateMatrix();
 	}
 
-	void Transformable::resetRotation()
+	void Frame::resetRotation()
 	{
 		m_state.orientation = glm::quat{1, 0, 0, 0};
 		updateMatrix();
 	}
 
-	void Transformable::rotate(const glm::vec3& axis, float angleRad)
+	void Frame::rotate(const glm::vec3& axis, float angleRad)
 	{
 		glm::quat rotation = glm::angleAxis(angleRad, axis);
 		m_state.orientation = rotation * m_state.orientation;
@@ -30,82 +30,82 @@ namespace Common
 		updateMatrix();
 	}
 
-	void Transformable::rotatePitch(float angleRad)
+	void Frame::rotatePitch(float angleRad)
 	{
 		rotate(m_state.right(), angleRad);
 	}
 
-	void Transformable::rotateYaw(float angleRad)
+	void Frame::rotateYaw(float angleRad)
 	{
 		rotate(m_state.up(), -angleRad);
 	}
 
-	void Transformable::rotateRoll(float angleRad)
+	void Frame::rotateRoll(float angleRad)
 	{
 		rotate(m_state.direction(), -angleRad);
 	}
 
-	glm::vec3 Transformable::getPos() const
+	glm::vec3 Frame::getPos() const
 	{
 		return m_state.pos;
 	}
 
-	void Transformable::setPos(const glm::vec3& pos)
+	void Frame::setPos(const glm::vec3& pos)
 	{
 		if (pos == m_state.pos) return;
 		m_state.pos = pos;
 		updateMatrix();
 	}
 
-	Transformable::Transformable()
+	Frame::Frame()
 	{
 		updateMatrix();
 	}
 
-	glm::mat4 Transformable::getMatrix() const
+	glm::mat4 Frame::getMatrix() const
 	{
 		return m_matrix;
 	}
 
-	float Transformable::getScale() const
+	float Frame::getScale() const
 	{
 		return m_scaleRatio;
 	}
 
-	void Transformable::setScale(float scaleRatio)
+	void Frame::setScale(float scaleRatio)
 	{
 		if (scaleRatio == m_scaleRatio) return;
 		m_scaleRatio = scaleRatio;
 		updateMatrix();
 	}
 
-	void Transformable::mirrorX()
+	void Frame::mirrorX()
 	{
 		m_mirrorX = !m_mirrorX;
 		m_isWindingOrderClockwise = !m_isWindingOrderClockwise;
 		updateMatrix();
 	}
 
-	void Transformable::mirrorY()
+	void Frame::mirrorY()
 	{
 		m_mirrorY = !m_mirrorY;
 		m_isWindingOrderClockwise = !m_isWindingOrderClockwise;
 		updateMatrix();
 	}
 
-	void Transformable::mirrorZ()
+	void Frame::mirrorZ()
 	{
 		m_mirrorZ = !m_mirrorZ;
 		m_isWindingOrderClockwise = !m_isWindingOrderClockwise;
 		updateMatrix();
 	}
 
-	bool Transformable::isWindingOrderClockwise() const
+	bool Frame::isWindingOrderClockwise() const
 	{
 		return m_isWindingOrderClockwise;
 	}
 
-	void Transformable::updateMatrix()
+	void Frame::updateMatrix()
 	{
 		glm::mat4 scaleMatrix = glm::scale(glm::mat4{1},
 			glm::vec3

@@ -14,6 +14,6 @@ namespace Physics
 
 	void Model::setScale(float scaleRatio)
 	{
-		Common::Transformable::setScale(scaleRatio);
+		Common::Frame::setScale(scaleRatio);
 	}
 }
