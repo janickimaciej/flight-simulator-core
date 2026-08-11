@@ -1,4 +1,4 @@
-#include "common/transformable.hpp"
+#include "common/frame.hpp"
 
 #include <glm/ext/quaternion_trigonometric.hpp>
 #include <glm/gtc/quaternion.hpp>

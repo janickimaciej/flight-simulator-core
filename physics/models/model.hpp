@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/transformable.hpp"
+#include "common/frame.hpp"
 
 #include <glm/glm.hpp>
 
