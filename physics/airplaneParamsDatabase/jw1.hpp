@@ -27,13 +27,13 @@ namespace Physics
 		inline constexpr float hStabNormalForceCoef = 2;
 		inline constexpr float hStabCriticalAngleNegativeDeg = -18;
 		inline constexpr float hStabCriticalAnglePositiveDeg = 18;
-		inline constexpr glm::vec3 hStabLiftPoint{0, 0, 18.2};
-		inline constexpr glm::vec3 hStabNormalForcePoint{0, 0, 18.6};
+		inline constexpr glm::vec3 hStabLiftPoint{0, 0, 18.2f};
+		inline constexpr glm::vec3 hStabNormalForcePoint{0, 0, 18.6f};
 		inline constexpr float elevatorArea = 9.22f; // area of the part of the hStab with elevator
 		inline constexpr float elevatorLiftCoefDeriv = 0.4f;
 		inline constexpr float elevatorMinAngleDeg = -15;
 		inline constexpr float elevatorMaxAngleDeg = 15;
-		inline constexpr glm::vec3 elevatorForcePoint{0, 0, 18.2};
+		inline constexpr glm::vec3 elevatorForcePoint{0, 0, 18.2f};
 
 		inline constexpr float vStabIncidenceAngleDeg = 0;
 		inline constexpr float vStabArea = 7.74f;
@@ -42,12 +42,12 @@ namespace Physics
 		inline constexpr float vStabNormalForceCoef = 2;
 		inline constexpr float vStabCriticalAngleNegativeDeg = -18;
 		inline constexpr float vStabCriticalAnglePositiveDeg = 18;
-		inline constexpr glm::vec3 vStabLiftPoint{0, 1.31, 18.2};
-		inline constexpr glm::vec3 vStabNormalForcePoint{0, 1.31, 18.8};
+		inline constexpr glm::vec3 vStabLiftPoint{0, 1.31f, 18.2f};
+		inline constexpr glm::vec3 vStabNormalForcePoint{0, 1.31f, 18.8f};
 		inline constexpr float rudderArea = 7.43f; // area of the part of the vStab with rudder
 		inline constexpr float rudderLiftCoefDeriv = 0.2f;
 		inline constexpr float rudderMaxAngleDeg = 15;
-		inline constexpr glm::vec3 rudderForcePoint{0, 1.31, 19.6};
+		inline constexpr glm::vec3 rudderForcePoint{0, 1.31f, 19.6f};
 
 		inline constexpr float wingsIncidenceAngleDeg = 0;
 		inline constexpr float wingsArea = 55;
@@ -56,22 +56,22 @@ namespace Physics
 		inline constexpr float wingsNormalForceCoef = 2;
 		inline constexpr float wingsCriticalAngleNegativeDeg = -18;
 		inline constexpr float wingsCriticalAnglePositiveDeg = 18;
-		inline constexpr glm::vec3 rightWingLiftPoint{2.51, 0.68, 11.5};
-		inline constexpr glm::vec3 rightWingNormalForcePoint{2.51, 0.68, 12.7};
+		inline constexpr glm::vec3 rightWingLiftPoint{2.51f, 0.68f, 11.5f};
+		inline constexpr glm::vec3 rightWingNormalForcePoint{2.51f, 0.68f, 12.7f};
 		inline constexpr float aileronsArea = 10.9f; // area of the part of the wings with ailerons
 		inline constexpr float aileronsLiftCoefDeriv = 0.2f;
 		inline constexpr float aileronsMaxAngleDeg = 15;
-		inline constexpr glm::vec3 rightAileronForcePoint{4.96, 0.45, 15.2};
+		inline constexpr glm::vec3 rightAileronForcePoint{4.96f, 0.45f, 15.2f};
 
 		inline constexpr float fuselageFrontArea = 1.9f;
 		inline constexpr float fuselageFrontDragCoef = 0.35f;
 		inline constexpr glm::vec3 fuselageFrontDragPoint{0, 0, 0};
 		inline constexpr float fuselageSideArea = 29.2f;
 		inline constexpr float fuselageSideDragCoef = 0.59f;
-		inline constexpr glm::vec3 fuselageSideDragPoint{0, 0, 8.55};
+		inline constexpr glm::vec3 fuselageSideDragPoint{0, 0, 8.55f};
 
 		inline constexpr float maxThrust = 130000;
-		inline constexpr glm::vec3 thrustPoint{0, 0, 0.44};
+		inline constexpr glm::vec3 thrustPoint{0, 0, 0.44f};
 	}
 
 	inline const AirplaneParams jw1Params
