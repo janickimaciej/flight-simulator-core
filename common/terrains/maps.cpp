@@ -1,5 +1,6 @@
 #include "common/terrains/maps.hpp"
 
+#include "common/config.hpp"
 #include "common/terrains/constant.hpp"
 #include "common/terrains/operators.hpp"
 #include "common/terrains/plateau.hpp"
@@ -11,8 +12,7 @@ namespace Common::Terrains::Maps
 {
 	std::unique_ptr<Terrain> sea()
 	{
-		float seaLevel = 0;
-		return std::make_unique<Constant>(seaLevel);
+		return std::make_unique<Constant>(waterLevel);
 	}
 
 	std::unique_ptr<Terrain> island()
