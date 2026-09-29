@@ -33,16 +33,16 @@ namespace Common
 	template <unsigned int periodExponent>
 	ValueNoise<periodExponent>::ValueNoise(unsigned int seed)
 	{
-		std::mt19937 generator(seed);
+		std::mt19937 generator{seed};
 
-		std::uniform_real_distribution<float> floatDistribution(0, 1);
+		std::uniform_real_distribution<float> floatDistribution{0, 1};
 		for (std::size_t i = 0; i < m_period; ++i)
 		{
 			m_values[i] = floatDistribution(generator);
 			m_permutation[i] = static_cast<unsigned int>(i);
 		}
 
-		std::uniform_int_distribution<unsigned int> intDistribution(0, m_period - 1);
+		std::uniform_int_distribution<unsigned int> intDistribution{0, m_period - 1};
 		for (std::size_t i = 0; i < m_period; ++i)
 		{
 			unsigned int index = intDistribution(generator);
@@ -111,16 +111,16 @@ namespace Common
 	void ValueNoise<periodExponent>::common(float x, float z, float& tX, float& tZ, float& y00,
 		float& y01, float& y10, float& y11) const
 	{
-		int xInt = static_cast<int>(std::floor(x));
-		int zInt = static_cast<int>(std::floor(z));
+		int xFloor = static_cast<int>(std::floor(x));
+		int zFloor = static_cast<int>(std::floor(z));
 
-		tX = x - xInt;
-		tZ = z - zInt;
+		tX = x - xFloor;
+		tZ = z - zFloor;
 
-		unsigned int periodMask = m_period - 1;
-		unsigned int x0 = xInt & periodMask;
+		static constexpr unsigned int periodMask = m_period - 1;
+		unsigned int x0 = xFloor & periodMask;
 		unsigned int x1 = (x0 + 1) & periodMask;
-		unsigned int z0 = zInt & periodMask;
+		unsigned int z0 = zFloor & periodMask;
 		unsigned int z1 = (z0 + 1) & periodMask;
 
 		y00 = m_values[m_permutation[(m_permutation[x0] + z0) & periodMask]];
