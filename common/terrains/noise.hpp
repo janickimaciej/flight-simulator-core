@@ -1,15 +1,19 @@
 #pragma once
 
+#include "common/config.hpp"
+#include "common/noises/noise.hpp"
 #include "common/terrains/terrain.hpp"
-#include "common/valueNoise.hpp"
+
+#include <memory>
 
 namespace Common::Terrains
 {
-	class ValueNoise : public Terrain
+	class Noise : public Terrain
 	{
 	public:
-		ValueNoise(float frequency, float amplitude, float offset);
-		virtual ~ValueNoise() = default;
+		Noise(const std::shared_ptr<Common::Noise<noisePeriodExponent>>& noise, float length,
+			float amplitude, float offset);
+		virtual ~Noise() = default;
 
 		virtual float height(float x, float z) const override;
 		virtual float heightDerivX(float x, float z) const override;
@@ -19,6 +23,6 @@ namespace Common::Terrains
 		float m_frequency{};
 		float m_amplitude{};
 		float m_offset{};
-		Common::ValueNoise<8> m_valueNoise{347};
+		std::shared_ptr<Common::Noise<noisePeriodExponent>> m_noise{};
 	};
 }

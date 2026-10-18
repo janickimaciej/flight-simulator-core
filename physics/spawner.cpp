@@ -16,7 +16,7 @@ namespace Physics
 		std::uniform_real_distribution<float> angleRadDistribution(0, glm::radians(360.0f));
 		float angleRad = angleRadDistribution(m_generator);
 		state.pos.x = radius * std::cos(angleRad);
-		state.pos.z = radius * std::sin(angleRad);
+		state.pos.z = -radius * std::sin(angleRad);
 
 		static constexpr float height = 5000;
 		state.pos.y = height;
