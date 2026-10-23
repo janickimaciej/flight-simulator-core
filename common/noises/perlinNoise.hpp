@@ -20,7 +20,7 @@ namespace Common
 	public:
 		PerlinNoise(unsigned int seed);
 		virtual ~PerlinNoise() = default;
-		
+
 		virtual float height(float x, float z) const override;
 		virtual float heightDerivX(float x, float z) const override;
 		virtual float heightDerivZ(float x, float z) const override;
@@ -56,7 +56,7 @@ namespace Common
 
 		float smoothTX = this->smoothstep(tX);
 		float smoothTZ = this->smoothstep(tZ);
-		
+
 		float y00 = glm::dot({tX, tZ}, m_gradients[index00]);
 		float y01 = glm::dot({tX, tZ - 1}, m_gradients[index01]);
 		float y10 = glm::dot({tX - 1, tZ}, m_gradients[index10]);
@@ -83,7 +83,7 @@ namespace Common
 		float smoothTZ = this->smoothstep(tZ);
 
 		float smoothDerivTX = this->smoothstepDeriv(tX);
-		
+
 		float y00 = glm::dot({tX, tZ}, m_gradients[index00]);
 		float y01 = glm::dot({tX, tZ - 1}, m_gradients[index01]);
 		float y10 = glm::dot({tX - 1, tZ}, m_gradients[index10]);
@@ -98,7 +98,7 @@ namespace Common
 			this->lerp(y00DerivX, y10DerivX, smoothTX);
 		float lerp1DerivX = smoothDerivTX * (y11 - y01) +
 			this->lerp(y01DerivX, y11DerivX, smoothTX);
-		
+
 		return std::sqrt(0.5f) * this->lerp(lerp0DerivX, lerp1DerivX, smoothTZ);
 	}
 
@@ -112,12 +112,12 @@ namespace Common
 		std::size_t index10{};
 		std::size_t index11{};
 		this->common(x, z, tX, tZ, index00, index01, index10, index11);
-		
+
 		float smoothTX = this->smoothstep(tX);
 		float smoothTZ = this->smoothstep(tZ);
 
 		float smoothDerivTZ = this->smoothstepDeriv(tZ);
-		
+
 		float y00 = glm::dot({tX, tZ}, m_gradients[index00]);
 		float y01 = glm::dot({tX, tZ - 1}, m_gradients[index01]);
 		float y10 = glm::dot({tX - 1, tZ}, m_gradients[index10]);

@@ -51,7 +51,7 @@ namespace Common
 
 		float smoothTX = this->smoothstep(tX);
 		float smoothTZ = this->smoothstep(tZ);
-		
+
 		float y00 = m_values[index00];
 		float y01 = m_values[index01];
 		float y10 = m_values[index10];
@@ -75,9 +75,9 @@ namespace Common
 		this->common(x, z, tX, tZ, index00, index01, index10, index11);
 
 		float smoothTZ = this->smoothstep(tZ);
-		
+
 		float smoothDerivTX = this->smoothstepDeriv(tX);
-		
+
 		float y00 = m_values[index00];
 		float y01 = m_values[index01];
 		float y10 = m_values[index10];
@@ -103,7 +103,7 @@ namespace Common
 		float smoothTX = this->smoothstep(tX);
 
 		float smoothDerivTZ = this->smoothstepDeriv(tZ);
-		
+
 		float y00 = m_values[index00];
 		float y01 = m_values[index01];
 		float y10 = m_values[index10];

@@ -23,7 +23,7 @@ namespace Common
 		static constexpr std::size_t m_period = 1 << periodExponent;
 		static constexpr unsigned int m_periodMask = m_period - 1;
 		std::array<std::size_t, 2 * m_period> m_permutation{};
-		
+
 		void common(float x, float z, float& tX, float& tZ, std::size_t& index00,
 			std::size_t& index01, std::size_t& index10, std::size_t& index11) const;
 		static float smoothstep(float t);
