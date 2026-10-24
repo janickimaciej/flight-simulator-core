@@ -2,7 +2,7 @@
 
 namespace App
 {
-	bool ExitSignal::shouldStop() const
+	bool ExitSignal::exiting() const
 	{
 		return m_exiting;
 	}
@@ -27,7 +27,7 @@ namespace App
 		return m_exitCode;
 	}
 
-	void ExitSignal::registerOnExit(std::function<void()> callback)
+	void ExitSignal::registerOnExit(const std::function<void()>& callback)
 	{
 		std::scoped_lock lock{m_mutex};
 

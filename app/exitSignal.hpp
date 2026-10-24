@@ -12,14 +12,14 @@ namespace App
 	class ExitSignal
 	{
 	public:
-		bool shouldStop() const;
+		bool exiting() const;
 		void exit(ExitCode exitCode);
 		ExitCode getExitCode() const;
-		void registerOnExit(std::function<void()> callback);
+		void registerOnExit(const std::function<void()>& callback);
 
 	private:
 		std::atomic<bool> m_exiting = false;
-		ExitCode m_exitCode{};
+		std::atomic<ExitCode> m_exitCode{};
 		std::vector<std::function<void()>> m_onExitCallbacks{};
 		std::mutex m_mutex{};
 	};
