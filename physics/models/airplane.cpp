@@ -20,7 +20,7 @@ namespace Physics
 		m_flightCtrl{m_airplaneParams, m_hp},
 		m_dynamics{m_airplaneParams, m_flightCtrl},
 		m_collisionModel{airplane.m_collisionModel},
-		m_lastShotTimestep{airplane.m_lastShotTimestep},
+		m_lastShotSimulationStep{airplane.m_lastShotSimulationStep},
 		m_hp{airplane.m_hp}
 	{ }
 
@@ -30,7 +30,7 @@ namespace Physics
 		m_flightCtrl{m_airplaneParams, m_hp},
 		m_dynamics{m_airplaneParams, m_flightCtrl},
 		m_collisionModel{airplane.m_collisionModel},
-		m_lastShotTimestep{airplane.m_lastShotTimestep},
+		m_lastShotSimulationStep{airplane.m_lastShotSimulationStep},
 		m_hp{airplane.m_hp}
 	{ }
 
@@ -49,7 +49,7 @@ namespace Physics
 		if (prevAirplane)
 		{
 			m_flightCtrl.update(prevAirplane->m_flightCtrl);
-			setLastShotTimestep(prevAirplane->getLastShotTimestep());
+			setLastShotSimulationStep(prevAirplane->getLastShotSimulationStep());
 		}
 		if (isStateLocked)
 		{
@@ -106,14 +106,15 @@ namespace Physics
 		return m_collisionModel;
 	}
 
-	const std::optional<Timestep>& Airplane::getLastShotTimestep() const
+	const std::optional<SimulationStep>& Airplane::getLastShotSimulationStep() const
 	{
-		return m_lastShotTimestep;
+		return m_lastShotSimulationStep;
 	}
 
-	void Airplane::setLastShotTimestep(const std::optional<Timestep>& lastShotTimestep)
+	void Airplane::setLastShotSimulationStep(
+		const std::optional<SimulationStep>& lastShotSimulationStep)
 	{
-		m_lastShotTimestep = lastShotTimestep;
+		m_lastShotSimulationStep = lastShotSimulationStep;
 	}
 
 	void Airplane::damage(int hp)

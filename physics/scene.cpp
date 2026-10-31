@@ -19,13 +19,13 @@ namespace Physics
 		m_map{Collisions::Map::get(map)}
 	{ }
 
-	void Scene::update(const Timestep& timestep, const Scene& prevScene,
+	void Scene::update(const SimulationStep& simulationStep, const Scene& prevScene,
 		const std::unordered_map<int, PlayerInfo>& playerInfos,
 		const std::unordered_map<int, bool>& stateLocks)
 	{
 		addAndUpdateAirplanes(prevScene, playerInfos, stateLocks);
 		removeAirplanes(prevScene, stateLocks);
-		updateBullets(timestep, prevScene);
+		updateBullets(simulationStep, prevScene);
 		m_dayNightCycle.updateTime(prevScene.m_dayNightCycle);
 	}
 
@@ -111,7 +111,7 @@ namespace Physics
 		}
 	}
 
-	void Scene::updateBullets(const Timestep& timestep, const Scene& prevScene)
+	void Scene::updateBullets(const SimulationStep& simulationStep, const Scene& prevScene)
 	{
 		for (std::pair<const int, std::list<Bullet>>& bullets : m_bullets)
 		{
@@ -121,15 +121,17 @@ namespace Physics
 				bullets.second = prevScene.m_bullets.at(id);
 			}
 
-			std::optional<Timestep> lastShotTimestep = m_airplanes.at(id).getLastShotTimestep();
+			std::optional<SimulationStep> lastShotSimulationStep =
+				m_airplanes.at(id).getLastShotSimulationStep();
 
-			static constexpr Timestep bulletLifetime{5, 0};
-			if (lastShotTimestep.has_value() && timestep - *lastShotTimestep > bulletLifetime)
+			static constexpr SimulationStep bulletLifetime{5, 0};
+			if (lastShotSimulationStep.has_value() &&
+				simulationStep - *lastShotSimulationStep > bulletLifetime)
 			{
-				m_airplanes.at(id).setLastShotTimestep(std::nullopt);
+				m_airplanes.at(id).setLastShotSimulationStep(std::nullopt);
 			}
 			while (!bullets.second.empty() &&
-				timestep - bullets.second.back().getSpawnTimestep() > bulletLifetime)
+				simulationStep - bullets.second.back().getSpawnSimulationStep() > bulletLifetime)
 			{
 				bullets.second.pop_back();
 			}
@@ -147,10 +149,10 @@ namespace Physics
 				}
 			}
 
-			static constexpr Timestep bulletCooldown{0, Common::stepsPerSecond / 10};
+			static constexpr SimulationStep bulletCooldown{0, SimulationStep::stepsPerSecond / 10};
 			if (m_airplanes.at(id).getCtrl().gunfire &&
-				(!m_airplanes.at(id).getLastShotTimestep().has_value() ||
-				timestep - *m_airplanes.at(id).getLastShotTimestep() > bulletCooldown))
+				(!m_airplanes.at(id).getLastShotSimulationStep().has_value() ||
+				simulationStep - *m_airplanes.at(id).getLastShotSimulationStep() > bulletCooldown))
 			{
 				Common::State airplaneState = m_airplanes.at(id).getState();
 				Common::AirplaneType airplaneType =
@@ -166,8 +168,8 @@ namespace Physics
 				state.orientation = airplaneState.orientation;
 				state.velocity = airplaneState.velocity + initialVelocityLocal;
 
-				bullets.second.push_front(Bullet{state, timestep});
-				m_airplanes.at(id).setLastShotTimestep(timestep);
+				bullets.second.push_front(Bullet{state, simulationStep});
+				m_airplanes.at(id).setLastShotSimulationStep(simulationStep);
 			}
 		}
 	}

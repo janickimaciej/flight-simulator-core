@@ -1,32 +1,30 @@
 #include "physics/notification.hpp"
 
-#include "common/config.hpp"
-
 namespace Physics
 {
 	Notification::Notification(const SimulationClock& simulationClock) :
 		m_simulationClock{simulationClock}
 	{ }
 
-	void Notification::forceGetNotification(Timestep& timestep)
+	void Notification::forceGetNotification(SimulationStep& simulationStep)
 	{
 		std::scoped_lock lock{m_mutex};
 
-		timestep = m_timestep;
+		simulationStep = m_simulationStep;
 		m_unread = false;
 	}
 
-	void Notification::getNotification(Timestep& timestep)
+	void Notification::getNotification(SimulationStep& simulationStep)
 	{
-		static constexpr Timestep beginIngoringOffset{0,
-			static_cast<unsigned int>(Common::stepsPerSecond * 0.9f)};
-		static constexpr Timestep endIgnoringOffset{0,
-			static_cast<unsigned int>(Common::stepsPerSecond * 0.2f)};
-		if (timestep <= m_simulationClock.getTime() - beginIngoringOffset)
+		static constexpr SimulationStep beginIngoringOffset{0,
+			static_cast<unsigned int>(SimulationStep::stepsPerSecond * 0.9f)};
+		static constexpr SimulationStep endIgnoringOffset{0,
+			static_cast<unsigned int>(SimulationStep::stepsPerSecond * 0.2f)};
+		if (simulationStep <= m_simulationClock.getTime() - beginIngoringOffset)
 		{
 			m_ignoring = true;
 		}
-		if (timestep > m_simulationClock.getTime() - endIgnoringOffset)
+		if (simulationStep > m_simulationClock.getTime() - endIgnoringOffset)
 		{
 			m_ignoring = false;
 		}
@@ -34,21 +32,21 @@ namespace Physics
 		{
 			std::scoped_lock lock{m_mutex};
 
-			if (!m_ignoring && m_unread && m_timestep < timestep)
+			if (!m_ignoring && m_unread && m_simulationStep < simulationStep)
 			{
-				timestep = m_timestep;
+				simulationStep = m_simulationStep;
 			}
 			m_unread = false;
 		}
 	}
 
-	void Notification::setNotification(const Timestep& timestep, bool isStateFrame)
+	void Notification::setNotification(const SimulationStep& simulationStep, bool isStateFrame)
 	{
 		std::scoped_lock lock{m_mutex};
 
-		if (isStateFrame || !m_unread || timestep < m_timestep)
+		if (isStateFrame || !m_unread || simulationStep < m_simulationStep)
 		{
-			m_timestep = timestep;
+			m_simulationStep = simulationStep;
 			m_unread = true;
 		}
 	}

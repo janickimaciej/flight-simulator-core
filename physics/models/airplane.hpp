@@ -9,7 +9,7 @@
 #include "physics/modelDynamics/airplaneDynamics.hpp"
 #include "physics/models/model.hpp"
 #include "physics/playerInfo.hpp"
-#include "physics/timestep.hpp"
+#include "physics/simulationStep.hpp"
 
 #include <optional>
 
@@ -31,8 +31,8 @@ namespace Physics
 		Common::AirplaneType getAirplaneType() const;
 		const Common::AirplaneCtrl& getCtrl() const;
 		const Collisions::Airplane& getCollisionModel() const;
-		const std::optional<Timestep>& getLastShotTimestep() const;
-		void setLastShotTimestep(const std::optional<Timestep>& lastShotTimestep);
+		const std::optional<SimulationStep>& getLastShotSimulationStep() const;
+		void setLastShotSimulationStep(const std::optional<SimulationStep>& lastShotSimulationStep);
 		void damage(int hp);
 		void destroy();
 		void heal(int hp);
@@ -43,7 +43,7 @@ namespace Physics
 		FlightCtrl m_flightCtrl;
 		AirplaneDynamics m_dynamics;
 		Collisions::Airplane m_collisionModel{};
-		std::optional<Timestep> m_lastShotTimestep = std::nullopt;
+		std::optional<SimulationStep> m_lastShotSimulationStep = std::nullopt;
 		int m_hp{};
 	};
 }

@@ -1,60 +1,58 @@
 #include "physics/timestamp.hpp"
 
-#include "physics/timestep.hpp"
-
 namespace Physics
 {
 	Timestamp::Timestamp(unsigned int second, unsigned int millisecond) :
-		second{second},
-		millisecond{millisecond}
+		Timestamp{static_cast<int>(second), static_cast<int>(millisecond)}
 	{ }
 
-	Timestamp::Timestamp(std::chrono::duration<float> timestamp)
+	Timestamp::Timestamp(int second, int millisecond)
 	{
-		std::chrono::minutes minutes =
-			std::chrono::duration_cast<std::chrono::minutes>(timestamp);
-		std::chrono::seconds seconds =
-			std::chrono::duration_cast<std::chrono::seconds>(timestamp - minutes);
-		std::chrono::milliseconds milliseconds =
-			std::chrono::duration_cast<std::chrono::milliseconds>(timestamp - minutes -
-				seconds);
+		normalize(second, millisecond);
 
-		second = static_cast<unsigned int>(seconds.count());
-		millisecond = static_cast<unsigned int>(milliseconds.count());
+		m_second = static_cast<unsigned int>(second);
+		m_millisecond = static_cast<unsigned int>(millisecond);
+	}
+
+	Timestamp::Timestamp(std::chrono::duration<float> duration)
+	{
+		std::chrono::minutes minutes = std::chrono::duration_cast<std::chrono::minutes>(duration);
+		std::chrono::seconds seconds =
+			std::chrono::duration_cast<std::chrono::seconds>(duration - minutes);
+		std::chrono::milliseconds milliseconds =
+			std::chrono::duration_cast<std::chrono::milliseconds>(duration - minutes - seconds);
+
+		int second = static_cast<int>(seconds.count());
+		int millisecond = static_cast<int>(milliseconds.count());
+		normalize(second, millisecond);
+
+		m_second = static_cast<unsigned int>(second);
+		m_millisecond = static_cast<unsigned int>(millisecond);
+	}
+
+	unsigned int Timestamp::getSecond() const
+	{
+		return m_second;
+	}
+
+	unsigned int Timestamp::getMillisecond() const
+	{
+		return m_millisecond;
 	}
 
 	Timestamp operator+(const Timestamp& timestamp1, const Timestamp& timestamp2)
 	{
-		int second = static_cast<int>(timestamp1.second) + static_cast<int>(timestamp2.second);
-		int millisecond = static_cast<int>(timestamp1.millisecond) +
-			static_cast<int>(timestamp2.millisecond);
-		Timestamp::normalize(second, millisecond);
-		return Timestamp{static_cast<unsigned int>(second), static_cast<unsigned int>(millisecond)};
+		return Timestamp{timestamp1.getDuration() + timestamp2.getDuration()};
 	}
 
 	Timestamp operator-(const Timestamp& timestamp1, const Timestamp& timestamp2)
 	{
-		int second = static_cast<int>(timestamp1.second) - static_cast<int>(timestamp2.second);
-		int millisecond = static_cast<int>(timestamp1.millisecond) -
-			static_cast<int>(timestamp2.millisecond);
-		Timestamp::normalize(second, millisecond);
-		return Timestamp{static_cast<unsigned int>(second), static_cast<unsigned int>(millisecond)};
-	}
-
-	Timestamp operator*(float number, const Timestamp& timestamp)
-	{
-		int second = static_cast<int>(static_cast<int>(timestamp.second) * number + 0.5f);
-		int millisecond = static_cast<int>(static_cast<int>(timestamp.millisecond) * number + 0.5f);
-		Timestamp::normalize(second, millisecond);
-		return Timestamp{static_cast<unsigned int>(second), static_cast<unsigned int>(millisecond)};
+		return Timestamp{timestamp1.getDuration() - timestamp2.getDuration()};
 	}
 
 	Timestamp operator/(const Timestamp& timestamp, float number)
 	{
-		int second = static_cast<int>(static_cast<int>(timestamp.second) / number + 0.5f);
-		int millisecond = static_cast<int>(static_cast<int>(timestamp.millisecond) / number + 0.5f);
-		Timestamp::normalize(second, millisecond);
-		return Timestamp{static_cast<unsigned int>(second), static_cast<unsigned int>(millisecond)};
+		return Timestamp{timestamp.getDuration() / number};
 	}
 
 	Timestamp Timestamp::systemNow()
@@ -62,8 +60,16 @@ namespace Physics
 		return Timestamp{std::chrono::steady_clock::now().time_since_epoch()};
 	}
 
+	std::chrono::duration<float> Timestamp::getDuration() const
+	{
+		return std::chrono::seconds{m_second} + std::chrono::milliseconds{m_millisecond};
+	}
+
 	void Timestamp::normalize(int& second, int& millisecond)
 	{
+		static constexpr unsigned int millisecondsPerSecond = 1000;
+		static constexpr unsigned int secondsPerMinute = 60;
+
 		while (millisecond < 0)
 		{
 			millisecond += millisecondsPerSecond;

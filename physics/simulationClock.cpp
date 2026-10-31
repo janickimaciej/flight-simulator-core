@@ -4,34 +4,24 @@
 
 namespace Physics
 {
-	Timestep SimulationClock::getTime() const
+	inline constexpr unsigned int millisecondsPerSecond = 1000;
+
+	SimulationStep SimulationClock::getTime() const
 	{
-		Timestamp offset = m_offset.load();
-		std::chrono::duration<float> simulationTime =
-			std::chrono::steady_clock::now().time_since_epoch() -
-			std::chrono::seconds(offset.second) - std::chrono::milliseconds(offset.millisecond);
-
-		std::chrono::minutes minutes =
-			std::chrono::duration_cast<std::chrono::minutes>(simulationTime);
-		std::chrono::seconds seconds =
-			std::chrono::duration_cast<std::chrono::seconds>(simulationTime - minutes);
-		std::chrono::milliseconds milliseconds =
-			std::chrono::duration_cast<std::chrono::milliseconds>(simulationTime - minutes -
-				seconds);
-
-		static constexpr float stepsPerMillisecond = static_cast<float>(Common::stepsPerSecond) /
-			millisecondsPerSecond;
-		return Timestep
+		Timestamp simulationNow = Timestamp::systemNow() - m_offset;
+		static constexpr float stepsPerMillisecond =
+			static_cast<float>(SimulationStep::stepsPerSecond) / millisecondsPerSecond;
+		return SimulationStep
 			{
-				static_cast<unsigned int>(seconds.count()),
-				static_cast<unsigned int>(milliseconds.count() * stepsPerMillisecond)
+				simulationNow.getSecond(),
+				static_cast<unsigned int>(simulationNow.getMillisecond() * stepsPerMillisecond)
 			};
 	}
 
 	void SimulationClock::initializeOffset(const Timestamp& sendTimestamp,
 		const Timestamp& receiveTimestamp, const Timestamp& serverTimestamp)
 	{
-		m_offset.store(calculateOffset(sendTimestamp, receiveTimestamp, serverTimestamp));
+		m_offset = calculateOffset(sendTimestamp, receiveTimestamp, serverTimestamp);
 	}
 
 	void SimulationClock::updateOffset(const Timestamp& sendTimestamp,
@@ -41,8 +31,10 @@ namespace Physics
 		Timestamp difference =
 			calculateOffset(sendTimestamp, receiveTimestamp, serverTimestamp) - m_offset;
 		int differenceMillisecond =
-			static_cast<int>(difference.second * millisecondsPerSecond + difference.millisecond);
-		if (difference.second >= secondsPerMinute / 2)
+			static_cast<int>(difference.getSecond() * millisecondsPerSecond +
+				difference.getMillisecond());
+		static constexpr unsigned int secondsPerMinute = 60;
+		if (difference.getSecond() >= secondsPerMinute / 2)
 		{
 			differenceMillisecond -= secondsPerMinute * millisecondsPerSecond;
 		}
@@ -50,14 +42,12 @@ namespace Physics
 		int differenceSecond = differenceMillisecond / static_cast<int>(millisecondsPerSecond);
 		differenceMillisecond -= differenceSecond * static_cast<int>(millisecondsPerSecond);
 
-		int offsetSecond = static_cast<int>(m_offset.load().second) + differenceSecond;
+		Timestamp offset = m_offset;
+		int offsetSecond = static_cast<int>(offset.getSecond()) + differenceSecond;
 		int offsetMillisecond =
-			static_cast<int>(m_offset.load().millisecond) + differenceMillisecond;
+			static_cast<int>(offset.getMillisecond()) + differenceMillisecond;
 
-		Timestamp::normalize(offsetSecond, offsetMillisecond);
-
-		m_offset = Timestamp{static_cast<unsigned int>(offsetSecond),
-			static_cast<unsigned int>(offsetMillisecond)};
+		m_offset = Timestamp{offsetSecond, offsetMillisecond};
 	}
 
 	Timestamp SimulationClock::calculateOffset(const Timestamp& sendTimestamp,

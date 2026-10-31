@@ -19,7 +19,7 @@ namespace App
 	struct StateFrame
 	{
 		unsigned char frameType = toUChar(UDPFrameType::state);
-		std::array<unsigned char, 2> timestep{};
+		std::array<unsigned char, 2> simulationStep{};
 		std::vector<StateFramePlayerInfo> playerInfos{};
 	};
 
@@ -27,7 +27,7 @@ namespace App
 	void serialize(T& t, StateFrame& frame)
 	{
 		t.value1b(frame.frameType);
-		t.container1b(frame.timestep);
+		t.container1b(frame.simulationStep);
 		t.container(frame.playerInfos, Common::maxPlayerCount);
 	}
 }

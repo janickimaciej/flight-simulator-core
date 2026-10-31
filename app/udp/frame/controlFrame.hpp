@@ -13,7 +13,7 @@ namespace App
 		unsigned char frameType = toUChar(UDPFrameType::control);
 		std::array<unsigned char, 2> clientTimestamp{};
 		std::array<unsigned char, 2> serverTimestamp{};
-		std::array<unsigned char, 2> timestep{};
+		std::array<unsigned char, 2> simulationStep{};
 		unsigned char playerId{};
 		float pitch{};
 		float yaw{};
@@ -28,7 +28,7 @@ namespace App
 		t.value1b(frame.frameType);
 		t.container1b(frame.clientTimestamp);
 		t.container1b(frame.serverTimestamp);
-		t.container1b(frame.timestep);
+		t.container1b(frame.simulationStep);
 		t.value1b(frame.playerId);
 		t.value4b(frame.pitch);
 		t.value4b(frame.yaw);

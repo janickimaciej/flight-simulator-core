@@ -2,8 +2,8 @@
 
 namespace Physics
 {
-	Bullet::Bullet(const Common::State& state, const Timestep& spawnTimestep) :
-		m_spawnTimestep{spawnTimestep}
+	Bullet::Bullet(const Common::State& state, const SimulationStep& spawnSimulationStep) :
+		m_spawnSimulationStep{spawnSimulationStep}
 	{
 		setState(state);
 	}
@@ -13,8 +13,8 @@ namespace Physics
 		setState(m_dynamics.computeNewState(prevBullet.getState()));
 	}
 
-	const Timestep& Bullet::getSpawnTimestep() const
+	const SimulationStep& Bullet::getSpawnSimulationStep() const
 	{
-		return m_spawnTimestep;
+		return m_spawnSimulationStep;
 	}
 }

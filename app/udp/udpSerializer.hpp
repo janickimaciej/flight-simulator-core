@@ -6,8 +6,8 @@
 #include "common/config.hpp"
 #include "physics/playerInfo.hpp"
 #include "physics/playerInput.hpp"
+#include "physics/simulationStep.hpp"
 #include "physics/timestamp.hpp"
-#include "physics/timestep.hpp"
 
 #include <array>
 #include <cstddef>
@@ -29,10 +29,10 @@ namespace App
 			const Physics::Timestamp& serverTimestamp, int playerId,
 			std::vector<std::uint8_t>& buffer);
 		static void serializeControlFrame(const Physics::Timestamp& clientTimestamp,
-			const Physics::Timestamp& serverTimestamp, const Physics::Timestep& timestep,
-			int playerId, const Physics::PlayerInput& playerInput,
-			std::vector<std::uint8_t>& buffer);
-		static void serializeStateFrame(const Physics::Timestep& timestep,
+			const Physics::Timestamp& serverTimestamp,
+			const Physics::SimulationStep& simulationStep, int playerId,
+			const Physics::PlayerInput& playerInput, std::vector<std::uint8_t>& buffer);
+		static void serializeStateFrame(const Physics::SimulationStep& simulationStep,
 			const std::unordered_map<int, Physics::PlayerInfo>& playerInfos,
 			std::vector<std::uint8_t>& buffer);
 
@@ -43,15 +43,19 @@ namespace App
 			int& playerId);
 		static void deserializeControlFrame(const std::vector<std::uint8_t>& buffer,
 			Physics::Timestamp& clientTimestamp, Physics::Timestamp& serverTimestamp,
-			Physics::Timestep& timestep, int& playerId, Physics::PlayerInput& playerInput);
+			Physics::SimulationStep& simulationStep, int& playerId,
+			Physics::PlayerInput& playerInput);
 		static void deserializeStateFrame(const std::vector<std::uint8_t>& buffer,
-			Physics::Timestep& timestep, std::unordered_map<int, Physics::PlayerInfo>& playerInfos);
+			Physics::SimulationStep& simulationStep,
+			std::unordered_map<int, Physics::PlayerInfo>& playerInfos);
 
 	private:
 		static std::array<unsigned char, 2> packTimestamp(const Physics::Timestamp& timestamp);
-		static std::array<unsigned char, 2> packTimestep(const Physics::Timestep& timestep);
+		static std::array<unsigned char, 2> packSimulationStep(
+			const Physics::SimulationStep& simulationStep);
 
 		static Physics::Timestamp unpackTimestamp(const std::array<unsigned char, 2>& timestamp);
-		static Physics::Timestep unpackTimestep(const std::array<unsigned char, 2>& timestep);
+		static Physics::SimulationStep unpackSimulationStep(
+			const std::array<unsigned char, 2>& simulationStep);
 	};
 }

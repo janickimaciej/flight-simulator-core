@@ -3,14 +3,14 @@
 #include "common/state.hpp"
 #include "physics/modelDynamics/bulletDynamics.hpp"
 #include "physics/models/model.hpp"
-#include "physics/timestep.hpp"
+#include "physics/simulationStep.hpp"
 
 namespace Physics
 {
 	class Bullet : public Model
 	{
 	public:
-		Bullet(const Common::State& state, const Timestep& spawnTimestep);
+		Bullet(const Common::State& state, const SimulationStep& spawnSimulationStep);
 		Bullet(const Bullet& bullet) = default;
 		Bullet(Bullet&& bullet) noexcept = default;
 		virtual ~Bullet() = default;
@@ -19,11 +19,11 @@ namespace Physics
 		Bullet& operator=(Bullet&& bullet) = default;
 
 		void update(const Bullet& prevBullet);
-		const Timestep& getSpawnTimestep() const;
+		const SimulationStep& getSpawnSimulationStep() const;
 
 	private:
 		BulletDynamics m_dynamics{};
 
-		Timestep m_spawnTimestep{};
+		SimulationStep m_spawnSimulationStep{};
 	};
 }

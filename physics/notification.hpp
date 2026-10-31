@@ -1,7 +1,7 @@
 #pragma once
 
 #include "physics/simulationClock.hpp"
-#include "physics/timestep.hpp"
+#include "physics/simulationStep.hpp"
 
 #include <mutex>
 
@@ -12,12 +12,12 @@ namespace Physics
 	public:
 		Notification(const SimulationClock& simulationClock);
 
-		void forceGetNotification(Timestep& timestep);
-		void getNotification(Timestep& timestep);
-		void setNotification(const Timestep& timestep, bool isStateFrame);
+		void forceGetNotification(SimulationStep& simulationStep);
+		void getNotification(SimulationStep& simulationStep);
+		void setNotification(const SimulationStep& simulationStep, bool isStateFrame);
 
 	private:
-		Timestep m_timestep{};
+		SimulationStep m_simulationStep{};
 		const SimulationClock& m_simulationClock;
 		bool m_unread{};
 		bool m_ignoring = false;

@@ -1,6 +1,6 @@
 #include "physics/flightCtrl.hpp"
 
-#include "common/config.hpp"
+#include "physics/simulationStep.hpp"
 
 #include <glm/glm.hpp>
 
@@ -67,7 +67,7 @@ namespace Physics
 	void FlightCtrl::updateElevator(float prevElevatorAngleRad)
 	{
 		static constexpr float angVelocityRad = glm::radians(120.0f);
-		static constexpr float maxChange = angVelocityRad / Common::stepsPerSecond;
+		static constexpr float maxChange = angVelocityRad / SimulationStep::stepsPerSecond;
 		float diff = relativeToAbs(m_playerInput.pitch,
 			m_airplaneParams.hStab.criticalAngleNegativeRad,
 			m_airplaneParams.hStab.criticalAnglePositiveRad) - prevElevatorAngleRad;
@@ -78,7 +78,7 @@ namespace Physics
 	void FlightCtrl::updateRudder(float prevRudderAngleRad)
 	{
 		static constexpr float angVelocityRad = glm::radians(120.0f);
-		static constexpr float maxChange = angVelocityRad / Common::stepsPerSecond;
+		static constexpr float maxChange = angVelocityRad / SimulationStep::stepsPerSecond;
 		float diff = relativeToAbs(m_playerInput.yaw,
 			m_airplaneParams.hStab.criticalAngleNegativeRad,
 			m_airplaneParams.hStab.criticalAnglePositiveRad) - prevRudderAngleRad;
@@ -89,7 +89,7 @@ namespace Physics
 	void FlightCtrl::updateAilerons(float prevAileronsAngleRad)
 	{
 		static constexpr float angVelocityRad = glm::radians(120.0f);
-		static constexpr float maxChange = angVelocityRad / Common::stepsPerSecond;
+		static constexpr float maxChange = angVelocityRad / SimulationStep::stepsPerSecond;
 		float diff = relativeToAbs(m_playerInput.roll,
 			m_airplaneParams.hStab.criticalAngleNegativeRad,
 			m_airplaneParams.hStab.criticalAnglePositiveRad) - prevAileronsAngleRad;
@@ -100,7 +100,7 @@ namespace Physics
 	void FlightCtrl::updateThrust(float prevThrustRelative)
 	{
 		static constexpr float velocity = 1;
-		static constexpr float maxChange = velocity / Common::stepsPerSecond;
+		static constexpr float maxChange = velocity / SimulationStep::stepsPerSecond;
 		float diff = m_playerInput.thrust - prevThrustRelative;
 		float change = std::clamp(diff, -maxChange, maxChange);
 		m_airplaneCtrl.thrustRelative = prevThrustRelative + change;

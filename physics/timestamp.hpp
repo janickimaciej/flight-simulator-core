@@ -4,21 +4,29 @@
 
 namespace Physics
 {
-	struct Timestamp
+	class Timestamp
 	{
-		unsigned int second{};
-		unsigned int millisecond{};
-
+	public:
 		Timestamp() = default;
 		Timestamp(unsigned int second, unsigned int millisecond);
-		Timestamp(std::chrono::duration<float> timestamp);
+		Timestamp(int second, int millisecond);
+		Timestamp(std::chrono::duration<float> duration);
+
+		unsigned int getSecond() const;
+		unsigned int getMillisecond() const;
 
 		friend Timestamp operator+(const Timestamp& timestamp1, const Timestamp& timestamp2);
 		friend Timestamp operator-(const Timestamp& timestamp1, const Timestamp& timestamp2);
-		friend Timestamp operator*(float number, const Timestamp& timestamp);
 		friend Timestamp operator/(const Timestamp& timestamp, float number);
 
 		static Timestamp systemNow();
+
+	private:
+		unsigned int m_second{};
+		unsigned int m_millisecond{};
+
+		std::chrono::duration<float> getDuration() const;
+
 		static void normalize(int& second, int& millisecond);
 	};
 }

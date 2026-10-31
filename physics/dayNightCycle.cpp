@@ -1,13 +1,13 @@
 #include "physics/dayNightCycle.hpp"
 
-#include "physics/simulationClock.hpp"
+#include "physics/simulationStep.hpp"
 
 namespace Physics
 {
 	void DayNightCycle::updateTime(const DayNightCycle& prevDayNightCycle)
 	{
 		static constexpr float secondsPerDay = 5 * 24;
-		m_timeOfDay = prevDayNightCycle.getTimeOfDay() + physicsTimeStep / secondsPerDay;
+		m_timeOfDay = prevDayNightCycle.getTimeOfDay() + SimulationStep::stepLength / secondsPerDay;
 		m_day = prevDayNightCycle.getDay();
 		while (m_timeOfDay >= 1)
 		{
