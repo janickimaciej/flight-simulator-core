@@ -10,14 +10,14 @@ namespace Physics
 		Timestamp() = default;
 		Timestamp(unsigned int second, unsigned int millisecond);
 		Timestamp(int second, int millisecond);
-		Timestamp(std::chrono::duration<float> duration);
+		Timestamp(const std::chrono::duration<float>& duration);
 
 		unsigned int getSecond() const;
 		unsigned int getMillisecond() const;
+		std::chrono::duration<float> getDuration() const;
 
 		friend Timestamp operator+(const Timestamp& timestamp1, const Timestamp& timestamp2);
 		friend Timestamp operator-(const Timestamp& timestamp1, const Timestamp& timestamp2);
-		friend Timestamp operator/(const Timestamp& timestamp, float number);
 
 		static Timestamp systemNow();
 
@@ -25,7 +25,6 @@ namespace Physics
 		unsigned int m_second{};
 		unsigned int m_millisecond{};
 
-		std::chrono::duration<float> getDuration() const;
 
 		static void normalize(int& second, int& millisecond);
 	};

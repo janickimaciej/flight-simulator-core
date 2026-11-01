@@ -4,6 +4,20 @@ namespace Physics
 {
 	inline constexpr unsigned int secondsPerMinute = 60;
 
+	SimulationStep::SimulationStep(unsigned int second, unsigned int step) :
+		second{second},
+		step{step}
+	{ }
+
+	SimulationStep::SimulationStep(const Timestamp& timestamp)
+	{
+		second = timestamp.getSecond();
+		static constexpr unsigned int millisecondsPerSecond = 1000;
+		static constexpr float stepsPerMillisecond =
+			static_cast<float>(stepsPerSecond) / millisecondsPerSecond;
+		step = static_cast<unsigned int>(timestamp.getMillisecond() * stepsPerMillisecond);
+	}
+
 	SimulationStep operator-(const SimulationStep& simulationStep1,
 		const SimulationStep& simulationStep2)
 	{

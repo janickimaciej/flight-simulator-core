@@ -1,5 +1,7 @@
 #pragma once
 
+#include "physics/timestamp.hpp"
+
 namespace Physics
 {
 	struct SimulationStep
@@ -9,6 +11,10 @@ namespace Physics
 
 		unsigned int second{};
 		unsigned int step{};
+
+		SimulationStep() = default;
+		SimulationStep(unsigned int second, unsigned int step);
+		SimulationStep(const Timestamp& timestamp);
 
 		friend SimulationStep operator-(const SimulationStep& simulationStep1,
 			const SimulationStep& simulationStep2);

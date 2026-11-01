@@ -14,7 +14,7 @@ namespace Physics
 		m_millisecond = static_cast<unsigned int>(millisecond);
 	}
 
-	Timestamp::Timestamp(std::chrono::duration<float> duration)
+	Timestamp::Timestamp(const std::chrono::duration<float>& duration)
 	{
 		std::chrono::minutes minutes = std::chrono::duration_cast<std::chrono::minutes>(duration);
 		std::chrono::seconds seconds =
@@ -40,6 +40,11 @@ namespace Physics
 		return m_millisecond;
 	}
 
+	std::chrono::duration<float> Timestamp::getDuration() const
+	{
+		return std::chrono::seconds{m_second} + std::chrono::milliseconds{m_millisecond};
+	}
+
 	Timestamp operator+(const Timestamp& timestamp1, const Timestamp& timestamp2)
 	{
 		return Timestamp{timestamp1.getDuration() + timestamp2.getDuration()};
@@ -50,19 +55,9 @@ namespace Physics
 		return Timestamp{timestamp1.getDuration() - timestamp2.getDuration()};
 	}
 
-	Timestamp operator/(const Timestamp& timestamp, float number)
-	{
-		return Timestamp{timestamp.getDuration() / number};
-	}
-
 	Timestamp Timestamp::systemNow()
 	{
 		return Timestamp{std::chrono::steady_clock::now().time_since_epoch()};
-	}
-
-	std::chrono::duration<float> Timestamp::getDuration() const
-	{
-		return std::chrono::seconds{m_second} + std::chrono::milliseconds{m_millisecond};
 	}
 
 	void Timestamp::normalize(int& second, int& millisecond)

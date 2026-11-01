@@ -124,7 +124,7 @@ namespace Physics
 			std::optional<SimulationStep> lastShotSimulationStep =
 				m_airplanes.at(id).getLastShotSimulationStep();
 
-			static constexpr SimulationStep bulletLifetime{5, 0};
+			static const SimulationStep bulletLifetime{5, 0};
 			if (lastShotSimulationStep.has_value() &&
 				simulationStep - *lastShotSimulationStep > bulletLifetime)
 			{
@@ -149,7 +149,7 @@ namespace Physics
 				}
 			}
 
-			static constexpr SimulationStep bulletCooldown{0, SimulationStep::stepsPerSecond / 10};
+			static const SimulationStep bulletCooldown{0, SimulationStep::stepsPerSecond / 10};
 			if (m_airplanes.at(id).getCtrl().gunfire &&
 				(!m_airplanes.at(id).getLastShotSimulationStep().has_value() ||
 				simulationStep - *m_airplanes.at(id).getLastShotSimulationStep() > bulletCooldown))

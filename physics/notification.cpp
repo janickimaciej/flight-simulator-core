@@ -16,11 +16,11 @@ namespace Physics
 
 	void Notification::getNotification(SimulationStep& simulationStep)
 	{
-		static constexpr SimulationStep beginIngoringOffset{0,
+		static const SimulationStep beginIgnoringOffset{0,
 			static_cast<unsigned int>(SimulationStep::stepsPerSecond * 0.9f)};
-		static constexpr SimulationStep endIgnoringOffset{0,
+		static const SimulationStep endIgnoringOffset{0,
 			static_cast<unsigned int>(SimulationStep::stepsPerSecond * 0.2f)};
-		if (simulationStep <= m_simulationClock.getTime() - beginIngoringOffset)
+		if (simulationStep <= m_simulationClock.getTime() - beginIgnoringOffset)
 		{
 			m_ignoring = true;
 		}
