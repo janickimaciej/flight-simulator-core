@@ -1,29 +1,47 @@
 #include "physics/simulationStep.hpp"
 
+#include <cmath>
+
 namespace Physics
 {
-	inline constexpr unsigned int secondsPerMinute = 60;
-
 	SimulationStep::SimulationStep(unsigned int second, unsigned int step) :
-		second{second},
-		step{step}
+		SimulationStep{static_cast<int>(second), static_cast<int>(step)}
 	{ }
+
+	SimulationStep::SimulationStep(int second, int step)
+	{
+		normalize(second, step);
+
+		m_second = static_cast<unsigned int>(second);
+		m_step = static_cast<unsigned int>(step);
+	}
 
 	SimulationStep::SimulationStep(const Timestamp& timestamp)
 	{
-		second = timestamp.getSecond();
-		static constexpr unsigned int millisecondsPerSecond = 1000;
-		static constexpr float stepsPerMillisecond =
-			static_cast<float>(stepsPerSecond) / millisecondsPerSecond;
-		step = static_cast<unsigned int>(timestamp.getMillisecond() * stepsPerMillisecond);
+		m_second = timestamp.getSecond();
+		static constexpr float millisecondsPerSecond = 1000.0f;
+		static constexpr float stepsPerMillisecond = stepsPerSecond / millisecondsPerSecond;
+		m_step = static_cast<unsigned int>(
+			std::floor(timestamp.getMillisecond() * stepsPerMillisecond));
+	}
+
+	unsigned int SimulationStep::getSecond() const
+	{
+		return m_second;
+	}
+
+	unsigned int SimulationStep::getStep() const
+	{
+		return m_step;
 	}
 
 	SimulationStep operator-(const SimulationStep& simulationStep1,
 		const SimulationStep& simulationStep2)
 	{
-		int second =
-			static_cast<int>(simulationStep1.second) - static_cast<int>(simulationStep2.second);
-		int step = static_cast<int>(simulationStep1.step) - static_cast<int>(simulationStep2.step);
+		int second = static_cast<int>(simulationStep1.m_second) -
+			static_cast<int>(simulationStep2.m_second);
+		int step = static_cast<int>(simulationStep1.m_step) -
+			static_cast<int>(simulationStep2.m_step);
 		SimulationStep::normalize(second, step);
 		return SimulationStep{static_cast<unsigned int>(second), static_cast<unsigned int>(step)};
 	}
@@ -31,22 +49,24 @@ namespace Physics
 	SimulationStep operator+(const SimulationStep& simulationStep1,
 		const SimulationStep& simulationStep2)
 	{
-		int second =
-			static_cast<int>(simulationStep1.second) + static_cast<int>(simulationStep2.second);
-		int step = static_cast<int>(simulationStep1.step) + static_cast<int>(simulationStep2.step);
+		int second = static_cast<int>(simulationStep1.m_second) +
+			static_cast<int>(simulationStep2.m_second);
+		int step = static_cast<int>(simulationStep1.m_step) +
+			static_cast<int>(simulationStep2.m_step);
 		SimulationStep::normalize(second, step);
 		return SimulationStep{static_cast<unsigned int>(second), static_cast<unsigned int>(step)};
 	}
 
 	bool operator==(const SimulationStep& simulationStep1, const SimulationStep& simulationStep2)
 	{
-		return simulationStep1.second == simulationStep2.second &&
-			simulationStep1.step == simulationStep2.step;
+		return simulationStep1.m_second == simulationStep2.m_second &&
+			simulationStep1.m_step == simulationStep2.m_step;
 	}
 
 	bool operator<(const SimulationStep& simulationStep1, const SimulationStep& simulationStep2)
 	{
-		return (simulationStep1 - simulationStep2).second >= 30;
+		static constexpr unsigned int secondsPerMinute = 60;
+		return (simulationStep1 - simulationStep2).m_second >= secondsPerMinute / 2;
 	}
 
 	bool operator<=(const SimulationStep& simulationStep1, const SimulationStep& simulationStep2)
@@ -61,72 +81,29 @@ namespace Physics
 
 	SimulationStep SimulationStep::prev() const
 	{
-		SimulationStep prevSimulationStep{};
-		if (step == 0)
-		{
-			prevSimulationStep.step = stepsPerSecond - 1;
-			if (second == 0)
-			{
-				prevSimulationStep.second = secondsPerMinute - 1;
-			}
-			else
-			{
-				prevSimulationStep.second = second - 1;
-			}
-		}
-		else
-		{
-			prevSimulationStep.second = second;
-			prevSimulationStep.step = step - 1;
-		}
-		return prevSimulationStep;
+		int second = static_cast<int>(m_second);
+		int step = static_cast<int>(m_step) - 1;
+		normalize(second, step);
+		return SimulationStep{second, step};
 	}
 
 	SimulationStep SimulationStep::next() const
 	{
-		SimulationStep nextSimulationStep{};
-		if (step == stepsPerSecond - 1)
-		{
-			nextSimulationStep.step = 0;
-			if (second == secondsPerMinute - 1)
-			{
-				nextSimulationStep.second = 0;
-			}
-			else
-			{
-				nextSimulationStep.second = second + 1;
-			}
-		}
-		else
-		{
-			nextSimulationStep.second = second;
-			nextSimulationStep.step = step + 1;
-		}
-		return nextSimulationStep;
+		int second = static_cast<int>(m_second);
+		int step = static_cast<int>(m_step) + 1;
+		normalize(second, step);
+		return SimulationStep{second, step};
 	}
 
 	void SimulationStep::normalize(int& second, int& step)
 	{
-		while (step < 0)
-		{
-			step += stepsPerSecond;
-			--second;
-		}
+		int fullSecondsInStep =
+			static_cast<int>(std::floor(step / static_cast<float>(stepsPerSecond)));
+		step = static_cast<int>(step - fullSecondsInStep * stepsPerSecond);
+		second += fullSecondsInStep;
 
-		while (second < 0)
-		{
-			second += secondsPerMinute;
-		}
-
-		while (step >= stepsPerSecond)
-		{
-			step -= stepsPerSecond;
-			++second;
-		}
-
-		while (second >= secondsPerMinute)
-		{
-			second -= secondsPerMinute;
-		}
+		static constexpr float secondsPerMinute = 60.0f;
+		int fullMinutesInSecond = static_cast<int>(std::floor(second / secondsPerMinute));
+		second = static_cast<int>(second - fullMinutesInSecond * secondsPerMinute);
 	}
 }

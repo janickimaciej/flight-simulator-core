@@ -1,5 +1,7 @@
 #include "physics/timestamp.hpp"
 
+#include <cmath>
+
 namespace Physics
 {
 	Timestamp::Timestamp(unsigned int second, unsigned int millisecond) :
@@ -16,13 +18,11 @@ namespace Physics
 
 	Timestamp::Timestamp(const std::chrono::duration<float>& duration)
 	{
-		std::chrono::minutes minutes = std::chrono::duration_cast<std::chrono::minutes>(duration);
-		std::chrono::seconds seconds =
-			std::chrono::duration_cast<std::chrono::seconds>(duration - minutes);
+		std::chrono::minutes minutes = std::chrono::floor<std::chrono::minutes>(duration);
 		std::chrono::milliseconds milliseconds =
-			std::chrono::duration_cast<std::chrono::milliseconds>(duration - minutes - seconds);
+			std::chrono::round<std::chrono::milliseconds>(duration - minutes);
 
-		int second = static_cast<int>(seconds.count());
+		int second = 0;
 		int millisecond = static_cast<int>(milliseconds.count());
 		normalize(second, millisecond);
 
@@ -62,29 +62,15 @@ namespace Physics
 
 	void Timestamp::normalize(int& second, int& millisecond)
 	{
-		static constexpr unsigned int millisecondsPerSecond = 1000;
-		static constexpr unsigned int secondsPerMinute = 60;
+		static constexpr float millisecondsPerSecond = 1000.0f;
+		int fullSecondsInMillisecond =
+			static_cast<int>(std::floor(millisecond / millisecondsPerSecond));
+		millisecond =
+			static_cast<int>(millisecond - fullSecondsInMillisecond * millisecondsPerSecond);
+		second += fullSecondsInMillisecond;
 
-		while (millisecond < 0)
-		{
-			millisecond += millisecondsPerSecond;
-			--second;
-		}
-
-		while (second < 0)
-		{
-			second += secondsPerMinute;
-		}
-
-		while (millisecond >= millisecondsPerSecond)
-		{
-			millisecond -= millisecondsPerSecond;
-			++second;
-		}
-
-		while (second >= secondsPerMinute)
-		{
-			second -= secondsPerMinute;
-		}
+		static constexpr float secondsPerMinute = 60.0f;
+		int fullMinutesInSecond = static_cast<int>(std::floor(second / secondsPerMinute));
+		second = static_cast<int>(second - fullMinutesInSecond * secondsPerMinute);
 	}
 }

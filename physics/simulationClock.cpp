@@ -21,7 +21,7 @@ namespace Physics
 	{
 		std::chrono::duration<float> difference = (calculateOffset(sendTimestamp, receiveTimestamp,
 			serverTimestamp) - m_offset).getDuration();
-		if (difference >= std::chrono::minutes{1} / 2)
+		if (difference >= std::chrono::seconds{30})
 		{
 			difference -= std::chrono::minutes{1};
 		}

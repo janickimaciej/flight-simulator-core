@@ -170,10 +170,10 @@ namespace App
 		const Physics::SimulationStep& simulationStep)
 	{
 		std::array<unsigned char, 2> serializedSimulationStep{};
-		serializedSimulationStep[0] = static_cast<unsigned char>(simulationStep.second);
+		serializedSimulationStep[0] = static_cast<unsigned char>(simulationStep.getSecond());
 		serializedSimulationStep[0] <<= 2;
-		serializedSimulationStep[0] |= static_cast<unsigned char>(simulationStep.step >> 8);
-		serializedSimulationStep[1] = static_cast<unsigned char>(simulationStep.step);
+		serializedSimulationStep[0] |= static_cast<unsigned char>(simulationStep.getStep() >> 8);
+		serializedSimulationStep[1] = static_cast<unsigned char>(simulationStep.getStep());
 		return serializedSimulationStep;
 	}
 
@@ -191,11 +191,11 @@ namespace App
 		const std::array<unsigned char, 2>& simulationStep)
 	{
 		Physics::SimulationStep deserializedSimulationStep{};
-		deserializedSimulationStep.second = static_cast<unsigned int>(simulationStep[0] >> 2);
-		deserializedSimulationStep.step =
+		unsigned int second = static_cast<unsigned int>(simulationStep[0] >> 2);
+		unsigned int step =
 			static_cast<unsigned int>(simulationStep[0] - ((simulationStep[0] >> 2) << 2));
-		deserializedSimulationStep.step <<= 8;
-		deserializedSimulationStep.step |= static_cast<unsigned int>(simulationStep[1]);
-		return deserializedSimulationStep;
+		step <<= 8;
+		step |= static_cast<unsigned int>(simulationStep[1]);
+		return Physics::SimulationStep{second, step};
 	}
 }

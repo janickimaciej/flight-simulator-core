@@ -149,7 +149,8 @@ namespace Physics
 				}
 			}
 
-			static const SimulationStep bulletCooldown{0, SimulationStep::stepsPerSecond / 10};
+			static const SimulationStep bulletCooldown{0u,
+				static_cast<unsigned int>(SimulationStep::stepsPerSecond * 0.1f)};
 			if (m_airplanes.at(id).getCtrl().gunfire &&
 				(!m_airplanes.at(id).getLastShotSimulationStep().has_value() ||
 				simulationStep - *m_airplanes.at(id).getLastShotSimulationStep() > bulletCooldown))
